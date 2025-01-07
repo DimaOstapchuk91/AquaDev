@@ -26,3 +26,5 @@ This project is the culmination of our team’s collaborative efforts, showcasin
 ## 🌊 About the Team
 
 The **AquaDev** team consists of 10 enthusiastic developers united by a shared goal: building innovative and impactful web applications.
+
+Development
