@@ -1,0 +1,37 @@
+.mainInfoButton {
+  border: none;
+  border-radius: 30px;
+  padding: 14px 20px;
+  width: 140px;
+  height: 46px;
+  background-color: var(--text-color);
+}
+
+.textContainer {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--background-white);
+}
+
+.spanContainer {
+  margin-right: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .mainInfoButton {
+    padding: 18px 30px;
+    width: 178px;
+    height: 60px;
+  }
+
+  .textContainer {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+}
