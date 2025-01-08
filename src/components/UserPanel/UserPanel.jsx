@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import UserBar from "../UserBar/UserBar";
 import ReactDOM from "react-dom";
@@ -29,7 +28,7 @@ const UserPanel = ({ name, avatar }) => {
                 <IoSettingsOutline />
                 Setting
               </p>
-              {/* <button onClick={() => setSettingModalOpen(false)}>Close</button> */}
+              <button onClick={() => setSettingModalOpen(false)}>Close</button>
             </div>
           </div>,
           document.body
@@ -42,12 +41,11 @@ const UserPanel = ({ name, avatar }) => {
                 <LuLogOut />
                 Logout
               </p>
-              {/* <button onClick={() => setLogoutModalOpen(false)}>Close</button> */}
+              <button onClick={() => setLogoutModalOpen(false)}>Close</button>
             </div>
           </div>,
           document.body
         )}
-
     </div>
   );
 };
