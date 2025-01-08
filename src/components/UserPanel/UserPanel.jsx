@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import UserBar from "../UserBar/UserBar";
 import ReactDOM from "react-dom";
@@ -46,6 +47,7 @@ const UserPanel = ({ name, avatar }) => {
           </div>,
           document.body
         )}
+
     </div>
   );
 };
