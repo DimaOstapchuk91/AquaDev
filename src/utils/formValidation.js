@@ -18,6 +18,10 @@ const nameValid = Yup.string()
   .max(50, "Maximum 50 characters")
   .required("Name is required");
 
+const repeatPasswordValid = Yup.string()
+  .oneOf([Yup.ref("password"), null], "Passwords must match")
+  .required("Password confirmation is required");
+
 export const orderSchemaLogin = Yup.object({
   email: emailValid,
   password: passwordValid,
@@ -30,3 +34,7 @@ export const orderSchemaReg = Yup.object({
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("Password confirmation is required"),
 });
+
+// const repeatPasswordValid = Yup.string()
+//   .oneOf([Yup.ref("password"), null], "Passwords must match")
+//   .required("Password confirmation is required");
