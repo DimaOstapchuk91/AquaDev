@@ -1,0 +1,39 @@
+.wrapper {
+  border-radius: 30px;
+  width: 100%;
+  height: 415px;
+  background-color: var(--bg-component-green);
+  background-image: url("../../assets/img/background_bottle_for_water.png");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 262px 335px;
+}
+
+.btnContainer {
+  margin-top: 42px;
+  padding-left: 187px;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    width: 704px;
+    height: 578px;
+    background-size: 374px 477px;
+  }
+  .btnContainer {
+    margin-top: 26px;
+    padding-left: 494px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    width: 672px;
+    height: 736px;
+    background-size: 472px 604px;
+  }
+  .btnContainer {
+    margin-top: 56px;
+    padding-left: 462px;
+  }
+}

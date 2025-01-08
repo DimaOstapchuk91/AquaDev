@@ -1,0 +1,40 @@
+.progressBarContainer {
+  border-radius: 15px;
+  padding: 12px;
+  width: 198px;
+  height: 70px;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+  background: var(--background-white);
+  margin-top: 49px;
+  margin-left: 73px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+  margin-bottom: 8px;
+}
+
+@media screen and (min-width: 768px) {
+  .progressBarContainer {
+    padding: 20px;
+    width: 295px;
+    height: 106px;
+    margin-top: 87px;
+    margin-left: 204px;
+  }
+
+  .title {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 6px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .progressBarContainer {
+    margin-top: 215px;
+    margin-left: 188px;
+  }
+}
