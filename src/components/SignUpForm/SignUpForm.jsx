@@ -1,8 +1,9 @@
 import { useState } from "react";
-import styles from "./signUpForm.module.css";
-import { NavLink } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { NavLink } from "react-router-dom";
+import styles from "./signUpForm.module.css";
 import * as Yup from "yup";
+// import orderSchemaReg from "../../utils/formValidation.js";
 
 export default function SignUpForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -73,7 +74,9 @@ export default function SignUpForm() {
                 name="email"
                 type="email"
                 id="email"
-                className={styles.input}
+                className={`${styles.input} ${
+                  initForm.name ? styles.error : styles.success
+                }`}
                 placeholder="Enter your email"
                 required
               />
@@ -92,7 +95,9 @@ export default function SignUpForm() {
                   name="password"
                   type={passwordVisible ? "text" : "password"}
                   id="password"
-                  className={`${styles.input} ${styles.error}`}
+                  className={`${styles.input} ${
+                    initForm.password ? styles.error : styles.success
+                  }`}
                   placeholder="Enter your password"
                   required
                 />
@@ -109,10 +114,9 @@ export default function SignUpForm() {
                 name="password"
                 component="p"
               />
-              {/* <p className={styles.errorMessage}>Some error password</p> */}
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="password" className={styles.label}>
+              <label htmlFor="RepeatPassword" className={styles.label}>
                 Repeat password
               </label>
               <div className={styles.passwordWrapper}>
@@ -120,7 +124,9 @@ export default function SignUpForm() {
                   name="confirmPassword"
                   type={repeatPasswordVisible ? "text" : "password"}
                   id="RepeatPassword"
-                  className={`${styles.input} ${styles.error}`}
+                  className={`${styles.input} ${
+                    initForm.confirmPassword ? styles.error : styles.success
+                  }`}
                   placeholder="Repeat password"
                   required
                 />
@@ -134,10 +140,9 @@ export default function SignUpForm() {
               </div>
               <ErrorMessage
                 className={styles.errorMessage}
-                name="repeatPassword"
+                name="confirmPassword"
                 component="p"
               />
-              {/* <p className={styles.errorMessage}>Some error password</p> */}
             </div>
             <button type="submit" className={styles.submitButton}>
               Sign Up

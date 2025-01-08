@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "./signInForm.module.css";
 import { NavLink } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import styles from "./signInForm.module.css";
 import * as Yup from "yup";
 // import orderSchemaLogin from "../../utils/formValidation.js";
 
@@ -58,7 +58,9 @@ const SignInForm = () => {
                 name="email"
                 type="email"
                 id="email"
-                className={styles.input}
+                className={`${styles.input} ${
+                  initForm.email ? styles.error : styles.success
+                }`}
                 placeholder="Enter your email"
                 required
               />
@@ -66,9 +68,7 @@ const SignInForm = () => {
                 className={styles.errorMessage}
                 name="email"
                 component="p"
-              >
-                Some error email
-              </ErrorMessage>
+              />
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="password" className={styles.label}>
@@ -79,7 +79,9 @@ const SignInForm = () => {
                   name="password"
                   type={passwordVisible ? "text" : "password"}
                   id="password"
-                  className={`${styles.input} ${styles.error}`}
+                  className={`${styles.input} ${
+                    initForm.password ? styles.error : styles.success
+                  }`}
                   placeholder="Enter your password"
                   required
                 />
@@ -95,9 +97,7 @@ const SignInForm = () => {
                 className={styles.errorMessage}
                 name="password"
                 component="p"
-              >
-                Some error password
-              </ErrorMessage>
+              />
             </div>
             <button type="submit" className={styles.submitButton}>
               Sign In
