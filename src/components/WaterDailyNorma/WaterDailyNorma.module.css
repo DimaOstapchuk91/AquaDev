@@ -5,7 +5,7 @@
   height: 54px;
   box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
   background: var(--background-white);
-  margin-top: 78px;
+  margin-top: 122px;
   margin-left: 16px;
 }
 
@@ -28,7 +28,7 @@
     padding: 14px 18px;
     width: 129px;
     height: 78px;
-    margin-top: 101px;
+    margin-top: 157px;
     margin-left: 32px;
   }
 
@@ -41,5 +41,11 @@
   .subtitle {
     font-size: 12px;
     line-height: 22px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .dailyNormaContainer {
+    margin-left: 64px;
   }
 }

@@ -2,15 +2,11 @@ import React from "react";
 import clsx from "clsx";
 import s from "./AddWaterBtn.module.css";
 
-const AddWaterBtn = ({ customClassName }) => {
-  const handleAddWaterBtnClick = () => {
-    //   tbd openning Modal...some state?
-  };
-
+const AddWaterBtn = ({ customClassName, onClick }) => {
   return (
     <button
       type="button"
-      onClick={handleAddWaterBtnClick}
+      onClick={onClick}
       className={clsx(s[customClassName])}
     >
       <div className={s.textContainer}>

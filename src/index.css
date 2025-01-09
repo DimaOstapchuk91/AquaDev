@@ -8,10 +8,16 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: var(--text-color);
   font-weight: 700;
   background-color: var(--background-white);
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1,
@@ -48,19 +54,28 @@ address {
 
 .container {
   max-width: 375px;
-  padding: 0 16px;
   margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-@media screen and (min-width: 768px) {
+@media (min-width: 768px) {
   .container {
-    max-width: 768px;
-    padding: 0 32px;
+    max-width: unset;
+    width: 768px;
+    padding: 32px;
   }
 }
 
-@media screen and (min-width: 1440px) {
+@media (min-width: 1440px) {
+  #root {
+    height: 100vh;
+  }
+
   .container {
-    max-width: 1440px;
+    width: 1440px;
+    flex-direction: row;
   }
 }
