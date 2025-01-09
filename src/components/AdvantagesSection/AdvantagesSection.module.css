@@ -88,6 +88,31 @@
   line-height: 100%;
   letter-spacing: -0.01em;
 }
+.customersContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.firstContainer {
+  z-index: 3;
+}
+
+.secondContainer {
+  margin-left: -8px;
+  z-index: 2;
+}
+
+.thirdContainer {
+  z-index: 1;
+  margin-left: -8px;
+}
+
+.pictureImage {
+  border-radius: 50%;
+  width: 26px;
+  height: 28px;
+}
 
 @media (min-width: 768px) {
   .section {
@@ -127,7 +152,21 @@
     line-height: 100%;
     letter-spacing: -0.01em;
   }
+  .secondContainer {
+    margin-left: -18px;
+  }
+
+  .thirdContainer {
+    margin-left: -18px;
+  }
+
+  .pictureImage {
+    width: 47px;
+    height: 47px;
+  }
+
 }
+   
 
 @media (min-width: 1440px) {
   .section {
@@ -144,3 +183,4 @@
     bottom: 64px;
   }
 }
+
