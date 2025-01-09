@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import styles from "./signInForm.module.css";
 import { useDispatch } from "react-redux";
-import { logIn } from "../../redux/auth/operations.js";
+import { logIn, logOut } from "../../redux/auth/operations.js";
 
 import { orderSchemaLogin } from "../../utils/formValidation.js";
 
@@ -25,6 +25,10 @@ const SignInForm = () => {
     dispatch(logIn(values));
     console.log(values);
     options.resetForm();
+  };
+
+  const handleLogout = () => {
+    dispatch(logOut());
   };
 
   return (
@@ -118,6 +122,7 @@ const SignInForm = () => {
           <button className={styles.infoButton}>Habit drive</button>
           <button className={styles.infoButton}>View statistics</button>
           <button className={styles.infoButton}>Personal rate setting</button>
+          <button onClick={handleLogout}>LogOut</button>
         </div>
       </div>
     </div>

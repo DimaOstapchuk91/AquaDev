@@ -5,20 +5,23 @@ export const goitApi = axios.create({
   baseURL: "https://aquadev-back.onrender.com/",
 });
 
-// const setAuthHeader = (token) => {
-//   goitApi.defaults.headers.common.Authorization = `Bearer ${token}`;
-// };
-// const clearAuthHeader = () => {
-//   goitApi.defaults.headers.common.Authorization = "";
-// };
+const setAuthHeader = (token) => {
+  goitApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+const clearAuthHeader = () => {
+  goitApi.defaults.headers.common.Authorization = "";
+};
 
 export const register = createAsyncThunk(
   "auth/register",
   async (credentials, thunkAPI) => {
     try {
+      // const password = credentials.password === credentials.confirmPassword;
+      delete credentials.confirmPassword;
+      console.log(credentials);
       const { data } = await goitApi.post("/users/register", credentials);
       console.log(data);
-      // setAuthHeader(data.token);
+      setAuthHeader(data.token);
 
       return data;
     } catch (error) {
@@ -32,7 +35,8 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const { data } = await goitApi.post("/users/login", credentials);
-      // setAuthHeader(data.token);
+      setAuthHeader(data.data.accessToken);
+
       console.log(data);
 
       return data;
@@ -44,8 +48,9 @@ export const logIn = createAsyncThunk(
 
 export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
+    console.log(goitApi.defaults.headers.common.Authorization);
     await goitApi.post("/users/logout");
-    // clearAuthHeader();
+    clearAuthHeader();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }

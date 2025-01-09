@@ -34,7 +34,3 @@ export const orderSchemaReg = Yup.object({
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("Password confirmation is required"),
 });
-
-// const repeatPasswordValid = Yup.string()
-//   .oneOf([Yup.ref("password"), null], "Passwords must match")
-//   .required("Password confirmation is required");

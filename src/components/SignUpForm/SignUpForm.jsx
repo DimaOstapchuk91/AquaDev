@@ -153,6 +153,8 @@ export default function SignUpForm() {
           <button className={styles.infoButton}>Habit drive</button>
           <button className={styles.infoButton}>View statistics</button>
           <button className={styles.infoButton}>Personal rate setting</button>
+
+          <button></button>
         </div>
       </div>
     </div>

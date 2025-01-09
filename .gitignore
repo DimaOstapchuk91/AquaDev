@@ -9,9 +9,10 @@ lerna-debug.log*
 linkgit.text
 node_modules
 
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-
+.DS_Store
 # Runtime data
 pids
 *.pid
