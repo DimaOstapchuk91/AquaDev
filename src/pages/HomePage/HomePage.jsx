@@ -1,13 +1,12 @@
 import AdvantagesSection from "../../components/AdvantagesSection/AdvantagesSection";
-import Container from "../../components/Container/Container";
 import WelcomeSection from "../../components/WelcomeSection/WelcomeSection";
 
 const HomePage = () => {
   return (
-    <Container>
+    <main>
       <WelcomeSection />
       <AdvantagesSection />
-    </Container>
+    </main>
   );
 };
 
