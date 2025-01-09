@@ -10,8 +10,10 @@
 }
 
 .btnContainer {
+  display: flex;
   margin-top: 42px;
-  padding-left: 187px;
+  margin-right: 16px;
+  justify-content: flex-end;
 }
 
 @media screen and (min-width: 768px) {
@@ -22,7 +24,7 @@
   }
   .btnContainer {
     margin-top: 26px;
-    padding-left: 494px;
+    margin-right: 32px;
   }
 }
 
@@ -34,6 +36,5 @@
   }
   .btnContainer {
     margin-top: 56px;
-    padding-left: 462px;
   }
 }

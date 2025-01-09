@@ -5,6 +5,13 @@
   width: 140px;
   height: 46px;
   background-color: var(--text-color);
+  color: var(--background-white);
+  transition: color 250ms ease-in;
+}
+
+.mainInfoButton:hover {
+  cursor: pointer;
+  color: var(--bg-component-green);
 }
 
 .textContainer {
@@ -13,7 +20,6 @@
   line-height: 18px;
   letter-spacing: -0.01em;
   text-align: center;
-  color: var(--background-white);
 }
 
 .spanContainer {
@@ -31,7 +37,4 @@
     font-size: 16px;
     line-height: 24px;
   }
-}
-
-@media screen and (min-width: 1440px) {
 }

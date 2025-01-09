@@ -1,5 +1,6 @@
 import React from "react";
-import "./AddWaterBtn.css";
+import clsx from "clsx";
+import s from "./AddWaterBtn.module.css";
 
 const AddWaterBtn = ({ customClassName }) => {
   const handleAddWaterBtnClick = () => {
@@ -10,10 +11,10 @@ const AddWaterBtn = ({ customClassName }) => {
     <button
       type="button"
       onClick={handleAddWaterBtnClick}
-      className={customClassName}
+      className={clsx(s[customClassName])}
     >
-      <div className="textContainer">
-        <span className="spanContainer">+</span> Add water
+      <div className={s.textContainer}>
+        <span className={s.spanContainer}>+</span> Add water
       </div>
     </button>
   );

@@ -1,11 +1,11 @@
 import UserPanel from "../UserPanel/UserPanel.jsx";
 import DailyInfo from "../DailyInfo/DailyInfo.jsx";
 import MonthInfo from "../MonthInfo/MonthInfo.jsx";
+import s from "./WaterDetailedInfo.module.css";
 
 const WaterDetailedInfo = () => {
   return (
-    <div>
-      <h2>Detailed Water Information</h2>
+    <div className={s.wrapper}>
       <UserPanel />
       <DailyInfo />
       <MonthInfo />
