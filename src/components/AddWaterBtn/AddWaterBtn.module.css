@@ -1,0 +1,40 @@
+.mainInfoButton {
+  border: none;
+  border-radius: 30px;
+  padding: 14px 20px;
+  width: 140px;
+  height: 46px;
+  background-color: var(--text-color);
+  color: var(--background-white);
+  transition: color 250ms ease-in;
+}
+
+.mainInfoButton:hover {
+  cursor: pointer;
+  color: var(--bg-component-green);
+}
+
+.textContainer {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.spanContainer {
+  margin-right: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .mainInfoButton {
+    padding: 18px 30px;
+    width: 178px;
+    height: 60px;
+  }
+
+  .textContainer {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
