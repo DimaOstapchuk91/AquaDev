@@ -1,0 +1,19 @@
+.containerWapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 16px;
+}
+
+.rightSection {
+  display: none;
+  position: relative;
+}
+
+/* media 1158px */
+@media (min-width: 1440px) {
+  .rightSection {
+    display: block;
+  }
+}

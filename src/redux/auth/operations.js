@@ -1,12 +1,12 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
+import Cookies from "js-cookie";
 export const goitApi = axios.create({
   baseURL: "https://aquadev-back.onrender.com/",
 });
 
 const setAuthHeader = (token) => {
-  goitApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+  return (goitApi.defaults.headers.common.Authorization = `Bearer ${token}`);
 };
 const clearAuthHeader = () => {
   goitApi.defaults.headers.common.Authorization = "";
@@ -18,10 +18,10 @@ export const register = createAsyncThunk(
     try {
       // const password = credentials.password === credentials.confirmPassword;
       delete credentials.confirmPassword;
-      console.log(credentials);
+
       const { data } = await goitApi.post("/users/register", credentials);
       console.log(data);
-      setAuthHeader(data.token);
+      console.log(setAuthHeader(data.token));
 
       return data;
     } catch (error) {
@@ -35,7 +35,7 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const { data } = await goitApi.post("/users/login", credentials);
-      setAuthHeader(data.data.accessToken);
+      console.log(setAuthHeader(data.data.accessToken));
 
       console.log(data);
 
@@ -48,10 +48,19 @@ export const logIn = createAsyncThunk(
 
 export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
-    console.log(goitApi.defaults.headers.common.Authorization);
-    await goitApi.post("/users/logout");
-    clearAuthHeader();
+    const userToken = localStorage.getItem("persist:userToken");
+    const parsedToken = JSON.parse(userToken);
+    const cleanToken = parsedToken?.token?.replace(/"/g, "");
+    console.log(cleanToken);
+
+    await goitApi.post("/users/logout", null, {
+      headers: {
+        Authorization: `Bearer ${cleanToken}`, // Замініть <your-token-here> на актуальний токен
+      },
+    });
+    // clearAuthHeader();
   } catch (error) {
+    console.log(error.message);
     return thunkAPI.rejectWithValue(error.message);
   }
 });

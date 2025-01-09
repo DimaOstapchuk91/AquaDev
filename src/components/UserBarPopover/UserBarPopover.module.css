@@ -1,0 +1,22 @@
+.popoverContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 15px;
+  padding: 14px 57px 14px 20px;
+  width: 137px;
+  height: 72px;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.popoverBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 18px;
+  border: none;
+  background-color: transparent;
+}
