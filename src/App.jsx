@@ -45,7 +45,7 @@ function App() {
             }
           />
           <Route path='*' element={
-              <RestrictedRoute component={<HomePage />} redirectTo='/' />
+              <RestrictedRoute component={<HomePage />} redirectTo='/tracker' />
             } />
         </Routes>
         <Toaster />
