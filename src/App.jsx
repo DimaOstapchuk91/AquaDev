@@ -6,7 +6,6 @@ import SignUpPage from './pages/SignUpPage/SignUpPage.jsx';
 import SignInPage from './pages/SignInPage/SignInPage.jsx';
 import TrackerPage from './pages/TrackerPage/TrackerPage.jsx';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute.jsx';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
