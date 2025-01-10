@@ -1,7 +1,9 @@
 import s from "./WaterItem.module.css";
+
+
 const WaterItem = ({ volume, time }) => {
   return (
-    <div style={s.item}>
+    <div className={s.item}>
       <p>{volume}ml</p>
       <p>{time}</p>
     </div>
