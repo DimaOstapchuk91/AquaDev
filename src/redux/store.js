@@ -12,6 +12,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import { waterReducer } from "./water/slice.js";
 
 const persistUserConfig = {
   key: "accesToken",
@@ -24,6 +25,7 @@ const persistedUserReducer = persistReducer(persistUserConfig, userReducer);
 export const store = configureStore({
   reducer: {
     user: persistedUserReducer,
+    water: waterReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
