@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllUsersCount, logaut, logIn, register } from "./operations";
+import { getAllUsersCount, logout, logIn, register } from "./operations";
 
 const initialState = {
   user: {
@@ -30,7 +30,7 @@ const slice = createSlice({
         state.token = action.payload;
         state.isLoggedIn = true;
       })
-      .addCase(logaut.fulfilled, () => initialState)
+      .addCase(logout.fulfilled, () => initialState)
       .addCase(getAllUsersCount.pending, (state) => {
         state.isRefreshing = true;
         state.error = null;
