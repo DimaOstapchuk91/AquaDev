@@ -44,7 +44,9 @@ function App() {
               <PrivateRoute component={<TrackerPage />} redirectTo='/signin' />
             }
           />
-          <Route path='*' element={<NotFoundPage />} />
+          <Route path='*' element={
+              <RestrictedRoute component={<HomePage />} redirectTo='/' />
+            } />
         </Routes>
         <Toaster />
       </SharedLayout>
