@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import styles from './signInForm.module.css';
-
+import { logIn } from '../../redux/auth/operations.js';
+import { useDispatch } from 'react-redux';
 import { orderSchemaLogin } from '../../utils/formValidation.js';
 
 const SignInForm = () => {
@@ -17,11 +18,11 @@ const SignInForm = () => {
     password: '',
   };
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleSubmit = (values, options) => {
-    // dispatch(logIn(values));
-    console.log(values);
+    dispatch(logIn(values));
+    
     options.resetForm();
   };
 
