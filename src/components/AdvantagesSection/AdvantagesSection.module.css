@@ -1,5 +1,5 @@
 .section {
-  background-image: url(../../img/HomePageImg/womanWater-phone-2x.jpg);
+  background-image: url(../../assets/img/HomePageImg/womanWater-phone-2x.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -116,7 +116,7 @@
 
 @media (min-width: 768px) {
   .section {
-    background-image: url(../../img/HomePageImg/womanWater-tab-2x.jpg);
+    background-image: url(../../assets/img/HomePageImg/womanWater-tab-2x.jpg);
     height: 446px;
   }
 
@@ -170,7 +170,7 @@
 
 @media (min-width: 1440px) {
   .section {
-    background-image: url(../../img/HomePageImg/womanWater-desctop-2x.jpg);
+    background-image: url(../../assets/img/HomePageImg/womanWater-desctop-2x.jpg);
     height: 736px;
     width: 672px;
   }
