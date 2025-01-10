@@ -1,20 +1,20 @@
 import css from '../AdvantagesSection/AdvantagesSection.module.css';
 
-import firstCostomerMob from '../../img/HomePageImg/customer1-phone.png';
-import secondCustomerMob from '../../img/HomePageImg/customer2-phone.png';
-import thirdCustomerMob from '../../img/HomePageImg/customer3-phone.png';
+import firstCostomerMob from '../../assets/img/HomePageImg/customer1-phone.png';
+import secondCustomerMob from '../../assets/img/HomePageImg/customer2-phone.png';
+import thirdCustomerMob from '../../assets/img/HomePageImg/customer3-phone.png';
 
-import firstCostomerMob2x from '../../img/HomePageImg/customer1-phone-2x.png';
-import secondCustomerMob2x from '../../img/HomePageImg/customer2-phone-2x.png';
-import thirdCustomerMob2x from '../../img/HomePageImg/customer3-phone-2x.png';
+import firstCostomerMob2x from '../../assets/img/HomePageImg/customer1-phone-2x.png';
+import secondCustomerMob2x from '../../assets/img/HomePageImg/customer2-phone-2x.png';
+import thirdCustomerMob2x from '../../assets/img/HomePageImg/customer3-phone-2x.png';
 
-import firstCostomer from '../../img/HomePageImg/customer1-tab-desc.png';
-import secondCustomer from '../../img/HomePageImg/customer2-tab-desc.png';
-import thirdCustomer from '../../img/HomePageImg/customer3-tab-desc.png';
+import firstCostomer from '../../assets/img/HomePageImg/customer1-tab-desc.png';
+import secondCustomer from '../../assets/img/HomePageImg/customer2-tab-desc.png';
+import thirdCustomer from '../../assets/img/HomePageImg/customer3-tab-desc.png';
 
-import firstCostomer2x from '../../img/HomePageImg/customer1-tab-desc-2x.png';
-import secondCustomer2x from '../../img/HomePageImg/customer2-tab-desc-2x.png';
-import thirdCustomer2x from '../../img/HomePageImg/customer3-tab-desc-2x.png';
+import firstCostomer2x from '../../assets/img/HomePageImg//customer1-tab-desc-2x.png';
+import secondCustomer2x from '../../assets/img/HomePageImg/customer2-tab-desc-2x.png';
+import thirdCustomer2x from '../../assets/img/HomePageImg/customer3-tab-desc-2x.png';
 const AdvantagesSection = () => {
 
   return (
