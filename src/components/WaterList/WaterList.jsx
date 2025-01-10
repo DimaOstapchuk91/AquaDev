@@ -3,8 +3,8 @@ import s from "./WaterList.module.css";
 const WaterList = ({ waterData }) => {
   return (
     <div style={s.container}>
-      {waterData.map((item, index) => {
-        <WaterItem key={index} volume={item.volume} time={item.time} />;
+      {waterData.map((item) => {
+        <WaterItem key={item.id} volume={item.volume} time={item.time} />;
       })}
     </div>
   );

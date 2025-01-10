@@ -10,11 +10,20 @@ const ChooseDate = ({ selectedDate, onDateChange }) => {
     }
   }, [currentDate, selectedDate, onDateChange]);
 
-  const handleDateChange=(e)=>{
-    setCurrentDate(e.target.value)
-    onDateChange(e.target.value)
-  }
-  return <div><label htmlFor="choose-date">обрати дату:</label>
-  <input type="date" id="choose-date" value={currentDate} onChange={handleDateChange}/></div>;
+  const handleDateChange = (e) => {
+    setCurrentDate(e.target.value);
+    onDateChange(e.target.value);
+  };
+  return (
+    <div>
+      <label htmlFor="choose-date">обрати дату:</label>
+      <input
+        type="date"
+        id="choose-date"
+        value={currentDate}
+        onChange={handleDateChange}
+      />
+    </div>
+  );
 };
 export default ChooseDate;
