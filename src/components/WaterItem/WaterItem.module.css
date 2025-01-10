@@ -1,0 +1,20 @@
+.item {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  text-align: center;
+}
+
+.container{
+display: flex;
+overflow: auto;
+padding: 8px;
+gap: 10px;
+border: 1px solid #989898;
+border-radius: 6px;
+background-color: #1f2093;
+max-width: 100%;
+}
