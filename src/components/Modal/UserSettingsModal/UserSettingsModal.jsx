@@ -1,14 +1,25 @@
 import UserSettingsForm from "../UserSettingsForm/UserSettingsForm";
+import Modal from "../Modal.jsx";
 import s from "./UserSettingsModal.module.css";
 
-const UserSettingsModal = () => {
+const UserSettingsModal = ({ isOpen, onClose, user }) => {
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={s.modal}>
-      <div className={s.modalContent}>
-        <h2 className={s.modalTitle}>User Settings</h2>
-        <UserSettingsForm />
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <div className={s.backdrop} onClick={handleBackdropClick}>
+        <div className={s.modal}>
+          <div className={s.modalContent}>
+            <h2 className={s.modalTitle}>UserSettingsForm</h2>
+            <UserSettingsForm user={user} onClose={onClose} />
+          </div>
+        </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 

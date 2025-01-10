@@ -1,0 +1,151 @@
+.containerWapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 16px;
+}
+
+.leftSection {
+  background-color: var(--bg-component-gray);
+  padding: 16px 24px;
+  border-radius: 30px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 672px;
+  height: 736px;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.card {
+  margin: 0 auto;
+  margin-top: 113px;
+  max-width: 436px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--text-color);
+  margin-bottom: 32px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  position: relative;
+}
+
+.label {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--black);
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--modal-backdrop);
+  border-radius: 15px;
+  padding: 12px 16px;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--modal-backdrop);
+  transition: border-color 0.3s ease;
+}
+
+.input.error {
+  border-color: var(--input-red);
+  color: var(--input-red);
+}
+.input.success {
+  border-color: var(--bg-component-green);
+}
+
+.input:focus {
+  border-color: var(--bg-component-green);
+  outline: none;
+}
+
+.errorMessage {
+  color: var(--input-red);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.togglePassword {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: -40px;
+  font-size: 16px;
+}
+
+.submitButton {
+  background-color: var(--bg-component-green);
+  color: var(--text-color);
+  border: none;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  border-radius: 30px;
+  padding: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #45a049;
+}
+
+.footerText {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--modal-backdrop);
+}
+
+.signupLink {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--black);
+  margin-left: 5px;
+}
+
+.signupLink:hover {
+  text-decoration: none;
+}
+
+/* media 768px  */
+@media (min-width: 768px) {
+  .leftSection {
+    padding: 32px;
+  }
+}
