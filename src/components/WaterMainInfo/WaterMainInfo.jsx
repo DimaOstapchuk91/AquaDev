@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import AddWaterBtn from "../AddWaterBtn/AddWaterBtn.jsx";
 import Logo from "../Logo/Logo.jsx";
 import WaterDailyNorma from "../WaterDailyNorma/WaterDailyNorma.jsx";
@@ -6,8 +7,14 @@ import WaterProgressBar from "../WaterProgressBar/WaterProgressBar.jsx";
 import s from "./WaterMainInfo.module.css";
 import Modal from "../Modal/Modal.jsx";
 import WaterModal from "../Modal/WaterModal/WaterModal.jsx";
+import { selectTotalWater } from "../../redux/water/selectors.js";
 
 const WaterMainInfo = () => {
+  const totalWater = useSelector(selectTotalWater);
+  // dailyNorma doesnt exist rn need to develop
+  const dailyNorma = useSelector(selectDailyNorma);
+  const dailyNormaInL = dailyNorma / 1000;
+  const waterConsumptionPercent = Math.round((totalWater / dailyNorma) * 100);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddWaterBtnClick = () => {
@@ -21,8 +28,8 @@ const WaterMainInfo = () => {
   return (
     <div className={s.wrapper}>
       <Logo />
-      <WaterDailyNorma />
-      <WaterProgressBar />
+      <WaterDailyNorma dailyNorma={dailyNormaInL} />
+      <WaterProgressBar value={waterConsumptionPercent} />
       <div className={s.btnContainer}>
         <AddWaterBtn
           customClassName={"mainInfoButton"}
