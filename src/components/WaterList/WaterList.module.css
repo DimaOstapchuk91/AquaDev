@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  gap: 10px;
+  border-radius: 8px;
+  color: var(--background-white); 
+  max-width: 100%;
+}
