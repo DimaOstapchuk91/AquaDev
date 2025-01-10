@@ -1,11 +1,12 @@
 import { useState } from 'react';
-
+import { register } from '../../redux/auth/operations.js';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { NavLink } from 'react-router-dom';
 import styles from './signUpForm.module.css';
 import { orderSchemaReg } from '../../utils/formValidation.js';
 
-// import { register } from '../../redux/auth/operations.js';
 
 export default function SignUpForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -26,11 +27,14 @@ export default function SignUpForm() {
     confirmPassword: '',
   };
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (values, options) => {
-    // dispatch(register(values));
+    const userData = {email: values.email, password: values.password}
+    dispatch(register({ credentials: userData, navigate }));
     options.resetForm();
+    
   };
 
   return (
@@ -133,7 +137,6 @@ export default function SignUpForm() {
           <NavLink to="/signin" className={styles.signupLink}>
             Sign In
           </NavLink>
-          
         </p>
       </div>
     </div>
