@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './signUpForm.module.css';
 import { orderSchemaReg } from '../../utils/formValidation.js';
 
-import { register } from '../../redux/auth/operations.js';
+// import { register } from '../../redux/auth/operations.js';
 
 export default function SignUpForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -26,10 +26,10 @@ export default function SignUpForm() {
     confirmPassword: '',
   };
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleSubmit = (values, options) => {
-    dispatch(register(values));
+    // dispatch(register(values));
     options.resetForm();
   };
 
