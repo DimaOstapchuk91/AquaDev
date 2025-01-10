@@ -1,4 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+
+import { LuSettings } from "react-icons/lu";
+import { LuLogOut } from "react-icons/lu";
+
+import s from "./UserBarPopover.module.css";
 
 const UserBarPopover = ({ onClose, onSetting, onLogout }) => {
   const popoverRef = useRef(null);
@@ -16,9 +21,13 @@ const UserBarPopover = ({ onClose, onSetting, onLogout }) => {
   }, [onClose]);
 
   return (
-    <div ref={popoverRef}>
-      <button onClick={onSetting}>Setting</button>
-      <button onClick={onLogout}>Logout</button>
+    <div ref={popoverRef} className={s.popoverContainer}>
+      <button onClick={onSetting} className={s.popoverBtn}>
+        <LuSettings className={s.popoverIcons} /> Setting
+      </button>
+      <button onClick={onLogout} className={s.popoverBtn}>
+        <LuLogOut className={s.popoverIcons} /> Logout
+      </button>
     </div>
   );
 };
