@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import styles from './signInForm.module.css';
-import { logIn } from '../../redux/auth/operations.js';
-import { useDispatch } from 'react-redux';
-import { orderSchemaLogin } from '../../utils/formValidation.js';
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import styles from "./signInForm.module.css";
+import { logIn } from "../../redux/user/operations.js";
+import { useDispatch } from "react-redux";
+import { orderSchemaLogin } from "../../utils/formValidation.js";
 
 const SignInForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -14,15 +14,15 @@ const SignInForm = () => {
   };
 
   const initForm = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
 
   const dispatch = useDispatch();
 
   const handleSubmit = (values, options) => {
     dispatch(logIn(values));
-    
+
     options.resetForm();
   };
 
@@ -64,7 +64,7 @@ const SignInForm = () => {
               <div className={styles.passwordWrapper}>
                 <Field
                   name="password"
-                  type={passwordVisible ? 'text' : 'password'}
+                  type={passwordVisible ? "text" : "password"}
                   id="password"
                   className={`${styles.input} ${
                     initForm.password ? styles.error : styles.success
@@ -77,7 +77,7 @@ const SignInForm = () => {
                   className={styles.togglePassword}
                   onClick={togglePasswordVisibility}
                 >
-                  {passwordVisible ? '🙈' : '👁️'}
+                  {passwordVisible ? "🙈" : "👁️"}
                 </button>
               </div>
               <ErrorMessage
@@ -93,7 +93,7 @@ const SignInForm = () => {
         </Formik>
 
         <p className={styles.footerText}>
-          Don't have an account?{' '}
+          Don't have an account?{" "}
           <NavLink to="/signup" className={styles.signupLink}>
             Sign Up
           </NavLink>
