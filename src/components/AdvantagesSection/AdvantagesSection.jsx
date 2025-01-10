@@ -8,17 +8,17 @@ import firstCostomerMob2x from "../../assets/img/HomePageImg/customer1-phone-2x.
 import secondCustomerMob2x from "../../assets/img/HomePageImg/customer2-phone-2x.png";
 import thirdCustomerMob2x from "../../assets/img/HomePageImg/customer3-phone-2x.png";
 
-import firstCostomer from '../../assets/img/HomePageImg/customer1-tab-desc.png';
-import secondCustomer from '../../assets/img/HomePageImg/customer2-tab-desc.png';
-import thirdCustomer from '../../assets/img/HomePageImg/customer3-tab-desc.png';
+import firstCostomer from "../../assets/img/HomePageImg/customer1-tab-desc.png";
+import secondCustomer from "../../assets/img/HomePageImg/customer2-tab-desc.png";
+import thirdCustomer from "../../assets/img/HomePageImg/customer3-tab-desc.png";
 
-import firstCostomer2x from '../../assets/img/HomePageImg//customer1-tab-desc-2x.png';
-import secondCustomer2x from '../../assets/img/HomePageImg/customer2-tab-desc-2x.png';
-import thirdCustomer2x from '../../assets/img/HomePageImg/customer3-tab-desc-2x.png';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { selectAllUsersCount } from '../../redux/user/selector';
-import { getAllUsersCount } from '../../redux/user/operations';
+import firstCostomer2x from "../../assets/img/HomePageImg//customer1-tab-desc-2x.png";
+import secondCustomer2x from "../../assets/img/HomePageImg/customer2-tab-desc-2x.png";
+import thirdCustomer2x from "../../assets/img/HomePageImg/customer3-tab-desc-2x.png";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { selectAllUsersCount } from "../../redux/user/selectors";
+import { getAllUsersCount } from "../../redux/user/operations";
 
 const AdvantagesSection = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const AdvantagesSection = () => {
   useEffect(() => {
     dispatch(getAllUsersCount());
   }, [dispatch]);
-  console.log('All Users Count:', allUsersCount);
+  console.log("All Users Count:", allUsersCount);
 
   return (
     <div className={css.section}>
@@ -83,7 +83,7 @@ const AdvantagesSection = () => {
           </picture>
         </div>
         <p className={css.sectionsTextLeters}>
-          Our <span className={css.span}>{allUsersCount} happy</span> <br />{' '}
+          Our <span className={css.span}>{allUsersCount} happy</span> <br />{" "}
           customers
         </p>
       </div>
