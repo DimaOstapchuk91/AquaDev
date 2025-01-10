@@ -1,5 +1,5 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { fetchDailyWaterInfo } from "./operations.js";
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { fetchDailyWaterInfo } from './operations.js';
 
 const initialState = {
   waterInfo: {
@@ -11,9 +11,9 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: "waterInfo",
+  name: 'waterInfo',
   initialState,
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(fetchDailyWaterInfo.fulfilled, (state, action) => {
         state.waterInfo.waterPortions = action.payload.waterPortions;

@@ -1,7 +1,7 @@
-import React from "react";
-import s from "./WaterDailyNorma.module.css";
+// import React from "react";
+import s from './WaterDailyNorma.module.css';
 
-const WaterDailyNorma = (dailyNorma) => {
+const WaterDailyNorma = ({ dailyNorma }) => {
   return (
     <div className={s.dailyNormaContainer}>
       <p className={s.dailyNormaAmount}>{dailyNorma} L</p>
