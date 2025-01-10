@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { NavLink } from 'react-router-dom';
 import styles from './signUpForm.module.css';
@@ -133,6 +133,7 @@ export default function SignUpForm() {
           <NavLink to="/signin" className={styles.signupLink}>
             Sign In
           </NavLink>
+          
         </p>
       </div>
     </div>
