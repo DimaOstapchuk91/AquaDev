@@ -1,12 +1,11 @@
-import { useState } from 'react';
-import { register } from '../../redux/auth/operations.js';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { NavLink } from 'react-router-dom';
-import styles from './signUpForm.module.css';
-import { orderSchemaReg } from '../../utils/formValidation.js';
-
+import { useState } from "react";
+import { register } from "../../redux/user/operations.js";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { NavLink } from "react-router-dom";
+import styles from "./signUpForm.module.css";
+import { orderSchemaReg } from "../../utils/formValidation.js";
 
 export default function SignUpForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -22,19 +21,18 @@ export default function SignUpForm() {
   };
 
   const initForm = {
-    email: '',
-    password: '',
-    confirmPassword: '',
+    email: "",
+    password: "",
+    confirmPassword: "",
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (values, options) => {
-    const userData = {email: values.email, password: values.password}
+    const userData = { email: values.email, password: values.password };
     dispatch(register({ credentials: userData, navigate }));
     options.resetForm();
-    
   };
 
   return (
@@ -75,7 +73,7 @@ export default function SignUpForm() {
               <div className={styles.passwordWrapper}>
                 <Field
                   name="password"
-                  type={passwordVisible ? 'text' : 'password'}
+                  type={passwordVisible ? "text" : "password"}
                   id="RegisterPassword"
                   className={`${styles.input} ${
                     initForm.password ? styles.error : styles.success
@@ -88,7 +86,7 @@ export default function SignUpForm() {
                   className={styles.togglePassword}
                   onClick={togglePasswordVisibility}
                 >
-                  {passwordVisible ? '🙈' : '👁️'}
+                  {passwordVisible ? "🙈" : "👁️"}
                 </button>
               </div>
               <ErrorMessage
@@ -104,7 +102,7 @@ export default function SignUpForm() {
               <div className={styles.passwordWrapper}>
                 <Field
                   name="confirmPassword"
-                  type={repeatPasswordVisible ? 'text' : 'password'}
+                  type={repeatPasswordVisible ? "text" : "password"}
                   id="repeatPassword"
                   className={`${styles.input} ${
                     initForm.confirmPassword ? styles.error : styles.success
@@ -117,7 +115,7 @@ export default function SignUpForm() {
                   className={styles.togglePassword}
                   onClick={toggleRepeatPasswordVisibility}
                 >
-                  {repeatPasswordVisible ? '🙈' : '👁️'}
+                  {repeatPasswordVisible ? "🙈" : "👁️"}
                 </button>
               </div>
               <ErrorMessage
@@ -133,7 +131,7 @@ export default function SignUpForm() {
         </Formik>
 
         <p className={styles.footerText}>
-          Don't have an account?{' '}
+          Don't have an account?{" "}
           <NavLink to="/signin" className={styles.signupLink}>
             Sign In
           </NavLink>
