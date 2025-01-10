@@ -3,8 +3,7 @@ import WaterDetailedInfo from "../../components/WaterDetailedInfo/WaterDetailedI
 
 const TrackerPage = () => {
   return (
-    <div>
-      <h1>TrackerPage</h1>
+    <div className={"container"}>
       <WaterMainInfo />
       <WaterDetailedInfo />
     </div>
