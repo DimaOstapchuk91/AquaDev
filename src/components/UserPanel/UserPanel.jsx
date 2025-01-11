@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import UserBar from "../UserBar/UserBar";
 
 const UserPanel = ({ name, avatar }) => {

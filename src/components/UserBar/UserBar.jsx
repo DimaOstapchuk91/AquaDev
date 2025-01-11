@@ -2,9 +2,6 @@ import { useState, useRef } from "react";
 
 import UserBarPopover from "../UserBarPopover/UserBarPopover";
 
-// import { FaChevronDown } from "react-icons/fa";
-// import { FaChevronUp } from "react-icons/fa";
-
 import s from "./UserBar.module.css";
 
 import sprite from "../../assets/sprite.svg";
@@ -28,7 +25,6 @@ const UserBar = ({ name, avatar }) => {
         <svg className={s.userBarIcon} width={16} height={16}>
           <use href={`${sprite}#icon-down`}></use>
         </svg>
-        {/* {popoverOpen ? <FaChevronUp /> : <FaChevronDown />} */}
       </button>
       {popoverOpen && (
         <UserBarPopover
