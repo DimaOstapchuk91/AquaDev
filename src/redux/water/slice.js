@@ -1,9 +1,8 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { fetchDailyWaterInfo } from './operations.js';
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { fetchDailyWaterInfo } from "./operations.js";
 
 const initialState = {
   waterInfo: {
-    // dailyNorma: 1500,
     waterPortions: [],
     totalWater: 0,
     error: null,
@@ -11,13 +10,14 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'waterInfo',
+  name: "water",
   initialState,
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(fetchDailyWaterInfo.fulfilled, (state, action) => {
         state.waterInfo.waterPortions = action.payload.waterPortions;
         state.waterInfo.totalWater = action.payload.totalWater;
+        console.log("water in state:", state.waterInfo.totalWater);
       })
       .addCase(fetchDailyWaterInfo.rejected, (state, action) => {
         state.error = action.payload;
