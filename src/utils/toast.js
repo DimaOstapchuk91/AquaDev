@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 export const errToast = message => {
   toast.error(`${message}`, {
     duration: 4000,
-    position: 'top-center',
+    position: 'top-right',
 
     style: {
       borderRadius: '10px',
@@ -17,7 +17,7 @@ export const errToast = message => {
 export const successfullyToast = message => {
   toast.success(`${message}`, {
     duration: 4000,
-    position: 'top-center',
+    position: 'top-right',
 
     style: {
       borderRadius: '10px',

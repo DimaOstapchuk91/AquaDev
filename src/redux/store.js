@@ -15,7 +15,7 @@ import {
 import { waterReducer } from './water/slice.js';
 
 const persistUserConfig = {
-  key: 'accesToken',
+  key: 'accessToken',
   storage,
   whitelist: ['token'],
 };

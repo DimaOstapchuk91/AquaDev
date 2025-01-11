@@ -7,8 +7,17 @@ import SignInPage from './pages/SignInPage/SignInPage.jsx';
 import TrackerPage from './pages/TrackerPage/TrackerPage.jsx';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute.jsx';
 import { Toaster } from 'react-hot-toast';
+import { useEffect } from 'react';
+import { refreshUser } from './redux/user/operations.js';
+import { useDispatch } from 'react-redux';
+// import { setAuthHeader } from './redux/service/configApi.js';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
   return (
     <>
       <SharedLayout>
@@ -43,9 +52,12 @@ function App() {
               <PrivateRoute component={<TrackerPage />} redirectTo='/signin' />
             }
           />
-          <Route path='*' element={
+          <Route
+            path='*'
+            element={
               <RestrictedRoute component={<HomePage />} redirectTo='/tracker' />
-            } />
+            }
+          />
         </Routes>
         <Toaster />
       </SharedLayout>

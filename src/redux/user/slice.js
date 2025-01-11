@@ -1,5 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getAllUsersCount, logout, logIn, register } from "./operations";
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import {
+  getAllUsersCount,
+  logout,
+  logIn,
+  register,
+  refreshUser,
+  getUserData,
+} from './operations';
 
 const initialState = {
   user: {
@@ -19,19 +26,28 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+      .addCase(register.fulfilled, state => {
+        state.isLoggedIn = false;
       })
       .addCase(logIn.fulfilled, (state, action) => {
         state.token = action.payload;
         state.isLoggedIn = true;
       })
+      .addCase(getUserData.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.token = action.payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
       .addCase(logout.fulfilled, () => initialState)
-      .addCase(getAllUsersCount.pending, (state) => {
+      .addCase(getAllUsersCount.pending, state => {
         state.isRefreshing = true;
         state.error = null;
       })
@@ -42,7 +58,49 @@ const slice = createSlice({
       .addCase(getAllUsersCount.rejected, (state, action) => {
         state.isRefreshing = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(refreshUser.pending, state => {
+        state.isRefreshing = true;
+      })
+      .addCase(refreshUser.rejected, () => initialState)
+      .addMatcher(
+        isAnyOf(
+          register.pending,
+          logIn.pending,
+          logout.pending,
+          refreshUser.pending,
+          getUserData.pending
+        ),
+        state => {
+          state.isRefreshing = true;
+          state.error = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          register.rejected,
+          logIn.rejected,
+          logout.rejected,
+          getUserData.rejected
+        ),
+        state => {
+          state.isRefreshing = false;
+          state.error = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          register.fulfilled,
+          logIn.fulfilled,
+          logout.fulfilled,
+          refreshUser.fulfilled,
+          getUserData.fulfilled
+        ),
+        state => {
+          state.isRefreshing = false;
+          state.error = false;
+        }
+      );
   },
 });
 

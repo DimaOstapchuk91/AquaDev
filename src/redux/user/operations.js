@@ -1,62 +1,80 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
-import { aquaDevApi, setAuthHeader } from "../service/configApi.js";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { aquaDevApi, setAuthHeader } from '../service/configApi.js';
+import { errToast, successfullyToast } from '../../utils/toast.js';
 
 export const getAllUsersCount = createAsyncThunk(
-  "user/getAllUsersCount",
+  'user/getAllUsersCount',
   async (_, thunkAPI) => {
     try {
-      const response = await aquaDevApi.get("/users/count");
+      const response = await aquaDevApi.get('/users/count');
       return response.data.usersAmount.usersAmount;
     } catch (error) {
       return thunkAPI.rejectWithValue(
-        error.response?.data?.message || "Failed to fetch users count"
+        error.response?.data?.message || 'Failed to fetch users count'
       );
     }
   }
 );
 
 export const register = createAsyncThunk(
-  "user/register",
+  'user/register',
   async ({ credentials, navigate }, thunkApi) => {
     try {
       const { data } = await aquaDevApi.post(`users/register`, credentials);
       console.log(data);
       //===========================
       if (data.status === 201) {
-        navigate("/signin");
+        successfullyToast('Successfully Register');
+        navigate('/signin');
       }
       return data;
     } catch (error) {
-      toast.error(error.message);
+      if (error.status === 409) {
+        errToast('Email in use');
+        return;
+      }
       return thunkApi.rejectWithValue(error.message);
     }
   }
 );
 
 export const logIn = createAsyncThunk(
-  "user/login",
+  'user/login',
   async (credentials, thunkApi) => {
     try {
       const { data } = await aquaDevApi.post(`users/login`, credentials);
-      console.log(data.data.accessToken);
 
-      setAuthHeader(data.data.accessToken);
+      console.log(data.data);
+
+      if (data.status === 200) {
+        setAuthHeader(data.data.accessToken);
+        console.log(aquaDevApi.defaults.headers.common.Authorization);
+        successfullyToast('Successfully logged');
+      }
 
       return data.data.accessToken;
     } catch (error) {
-      toast.error(error.message);
+      if (error.status === 404) {
+        errToast('No such user exists');
+        return;
+      }
+
+      if (error.status === 401) {
+        errToast('Invalid password');
+        return;
+      }
       return thunkApi.rejectWithValue(error.message);
     }
   }
 );
 
-export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
+export const logout = createAsyncThunk('user/logout', async (_, thunkApi) => {
   try {
-    const { data } = await aquaDevApi.post("/users/logout");
-
-    setAuthHeader();
-
+    const { data } = await aquaDevApi.post('/users/logout');
+    if (data.status === 204) {
+      successfullyToast('Goodby');
+      setAuthHeader();
+    }
     return data;
   } catch (error) {
     thunkApi.rejectWithValue(error.message);
@@ -64,16 +82,38 @@ export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
 });
 
 export const refreshUser = createAsyncThunk(
-  "user/refresh",
+  'user/refreshUser',
   async (_, thunkApi) => {
     try {
-      const { data } = await aquaDevApi.post("/users/refresh");
-      setAuthHeader();
-      return data;
+      const { data } = await aquaDevApi.post('/users/refresh');
+      setAuthHeader(data.data.accessToken);
+      console.log(data);
+      return data.data.accessToken;
     } catch (error) {
       return thunkApi.rejectWithValue(
         error.response ? error.response.data : error.message
       );
+    }
+  }
+);
+
+export const getUserData = createAsyncThunk(
+  'user/getDataUser',
+  async (_, thunkApi) => {
+    const token = thunkApi.getState().user.token;
+    console.log(token);
+    if (!token) {
+      return thunkApi.rejectWithValue('token not found');
+    }
+
+    setAuthHeader(token);
+    try {
+      console.log(aquaDevApi.defaults.headers.common.Authorization);
+      const { data } = await aquaDevApi.get('/users/data');
+      console.log(data);
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );
