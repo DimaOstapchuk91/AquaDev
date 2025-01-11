@@ -1,5 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getAllUsersCount, logout, logIn, register } from "./operations";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import {
+  getAllUsersCount,
+  logout,
+  logIn,
+  register,
+  updateUser,
+  getUserInformation,
+} from "./operations";
 
 const initialState = {
   user: {
@@ -24,25 +31,49 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+        state.user = action.payload.data;
+        state.isLoggedIn = true;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        state.token = action.payload;
+        state.token = action.payload.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(logout.fulfilled, () => initialState)
-      .addCase(getAllUsersCount.pending, (state) => {
-        state.isRefreshing = true;
-        state.error = null;
-      })
       .addCase(getAllUsersCount.fulfilled, (state, action) => {
         state.isRefreshing = false;
         state.usersCount = action.payload;
       })
-      .addCase(getAllUsersCount.rejected, (state, action) => {
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload.user };
+      })
+      .addCase(getUserInformation.fulfilled, (state, action) => {
         state.isRefreshing = false;
-        state.error = action.payload;
-      });
+        state.user = action.payload;
+      })
+      .addMatcher(
+        isAnyOf(
+          register.pending,
+          logIn.pending,
+          getAllUsersCount.pending,
+          updateUser.pending,
+          getUserInformation.pending
+        ),
+        (state) => {
+          state.isRefreshing = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          register.rejected,
+          logIn.rejected,
+          getAllUsersCount.rejected,
+          updateUser.rejected,
+          getUserInformation.rejected,
+          (state) => {
+            state.isRefreshing = false;
+          }
+        )
+      );
   },
 });
 

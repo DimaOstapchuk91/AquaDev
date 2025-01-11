@@ -20,11 +20,10 @@ export const register = createAsyncThunk(
   "user/register",
   async ({ credentials, navigate }, thunkApi) => {
     try {
-      const { data } = await aquaDevApi.post(`users/register`, credentials);
-      console.log(data);
-      //===========================
+      const { data } = await aquaDevApi.post("/users/register", credentials);
       if (data.status === 201) {
-        navigate("/signin");
+        await thunkApi.dispatch(logIn(credentials));
+        navigate("/tracker");
       }
       return data;
     } catch (error) {
@@ -38,12 +37,12 @@ export const logIn = createAsyncThunk(
   "user/login",
   async (credentials, thunkApi) => {
     try {
-      const { data } = await aquaDevApi.post(`users/login`, credentials);
+      const { data } = await aquaDevApi.post("/users/login", credentials);
       console.log(data.data.accessToken);
 
       setAuthHeader(data.data.accessToken);
 
-      return data.data.accessToken;
+      return data.data;
     } catch (error) {
       toast.error(error.message);
       return thunkApi.rejectWithValue(error.message);
@@ -53,13 +52,10 @@ export const logIn = createAsyncThunk(
 
 export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
   try {
-    const { data } = await aquaDevApi.post("/users/logout");
-
+    await aquaDevApi.post("/users/logout");
     setAuthHeader();
-
-    return data;
   } catch (error) {
-    thunkApi.rejectWithValue(error.message);
+    return thunkApi.rejectWithValue(error.message);
   }
 });
 
@@ -74,6 +70,32 @@ export const refreshUser = createAsyncThunk(
       return thunkApi.rejectWithValue(
         error.response ? error.response.data : error.message
       );
+    }
+  }
+);
+
+//=========================
+export const updateUser = createAsyncThunk(
+  "user/update",
+  async (credentials, thunkApi) => {
+    try {
+      const { data } = await aquaDevApi.patch("/users/update", credentials);
+      return data;
+    } catch (error) {
+      toast.error(error.message);
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getUserInformation = createAsyncThunk(
+  "user/data",
+  async (_, thunkApi) => {
+    try {
+      const { data } = await aquaDevApi.get("/users/data");
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );
