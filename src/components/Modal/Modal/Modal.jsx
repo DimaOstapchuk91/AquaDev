@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-
+import styles from "./Modal.module.css"
 const Modal = ({ isOpen, onClose, children }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -22,8 +22,11 @@ const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div  onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <div className={styles.modalBackdrop} onClick={onClose}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.closeModal} onClick={() =>  onClose()} >
+          &times;
+        </button>
         {children}
       </div>
     </div>,

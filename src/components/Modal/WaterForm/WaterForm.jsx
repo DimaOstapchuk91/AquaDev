@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
-
+import styles from "./WaterForm.module.css";
 const WaterForm = ({ type, initialData = {}, onClose }) => {
   const [amount, setAmount] = useState(initialData.amount || 50);
   const [time, setTime] = useState(
@@ -21,39 +21,45 @@ const WaterForm = ({ type, initialData = {}, onClose }) => {
   };
 
   return (
-    <form className="water-form" onSubmit={handleSubmit}>
-      <div className="water-counter">
-        <button type="button" onClick={handleDecrement}>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.amountContainer}>
+        <h3 className={styles.waterTitle}>Amount of water:</h3>
+        <div className={styles.waterCounter}>
+           <button  className={styles.amountButton} type="button" onClick={handleDecrement}>
           -
         </button>
-        <span>{amount} ml</span>
-        <button type="button" onClick={handleIncrement}>
+        <span className={styles.amount}>{amount} ml</span>
+        <button className={styles.amountButton} type="button" onClick={handleIncrement}>
           +
         </button>
+        </div>
       </div>
 
       <div className="water-time">
-        <label htmlFor="water-time">Recording time:</label>
+        <label className={styles.label} htmlFor="water-time">Recording time:</label>
         <input
           type="time"
           id="water-time"
           value={time}
           onChange={(e) => setTime(e.target.value)}
+          className={styles.input}
         />
       </div>
 
       <div className="water-amount-input">
-        <label htmlFor="water-amount">Enter the value of the water used:</label>
+        <label  className={styles.labelWater} htmlFor="water-amount">Enter the value of the water used:</label>
         <input
           type="number"
           id="water-amount"
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
           min="0"
+          className={styles.input}
         />
       </div>
-
-      <button type="submit">Save</button>
+      <button type="submit"  className={styles.saveButton}>
+            Save
+      </button>
     </form>
   );
 };

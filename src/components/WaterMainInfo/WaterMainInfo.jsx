@@ -5,7 +5,7 @@ import Logo from '../Logo/Logo.jsx';
 import WaterDailyNorma from '../WaterDailyNorma/WaterDailyNorma.jsx';
 import WaterProgressBar from '../WaterProgressBar/WaterProgressBar.jsx';
 import s from './WaterMainInfo.module.css';
-import Modal from '../Modal/Modal.jsx';
+import Modal from '../Modal/Modal/Modal.jsx';
 import WaterModal from '../Modal/WaterModal/WaterModal.jsx';
 // import { selectTotalWater } from '../../redux/water/selectors.js';
 
