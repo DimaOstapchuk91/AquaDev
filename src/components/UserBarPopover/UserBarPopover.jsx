@@ -1,32 +1,37 @@
 import { useEffect, useRef } from "react";
-
-import { LuSettings } from "react-icons/lu";
-import { LuLogOut } from "react-icons/lu";
-
+import sprite from "../../assets/sprite.svg";
 import s from "./UserBarPopover.module.css";
 
-const UserBarPopover = ({ onClose, onSetting, onLogout }) => {
+const UserBarPopover = ({ buttonRef, onClose, openModal }) => {
   const popoverRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target)
+      ) {
         onClose();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onClose, buttonRef]);
 
   return (
     <div ref={popoverRef} className={s.popoverContainer}>
-      <button onClick={onSetting} className={s.popoverBtn}>
-        <LuSettings className={s.popoverIcons} /> Setting
+      <button onClick={() => openModal("Setting")} className={s.popoverBtn}>
+        <svg className={s.popoverIcons} width={16} height={16}>
+          <use href={`${sprite}#icon-settings`}></use>
+        </svg>
+        Setting
       </button>
-      <button onClick={onLogout} className={s.popoverBtn}>
-        <LuLogOut className={s.popoverIcons} /> Logout
+      <button onClick={() => openModal("Logout")} className={s.popoverBtn}>
+        <svg className={s.popoverIcons} width={16} height={16}>
+          <use href={`${sprite}#icon-log-out`}></use>
+        </svg>
+        Logout
       </button>
     </div>
   );

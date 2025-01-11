@@ -1,0 +1,9 @@
+.dailyWrapper {
+  margin-bottom: 24px;
+}
+
+.chooseWrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}

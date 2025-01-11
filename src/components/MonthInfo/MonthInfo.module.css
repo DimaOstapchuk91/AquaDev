@@ -1,0 +1,54 @@
+.monthInfoHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.monthTitle {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  margin-right: 30px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  margin-left: 16px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+}
+
+.chartContainer {
+  width: 303px;
+  height: 213px;
+}
+
+@media screen and (min-width: 768px) {
+  .icon {
+    margin-left: 20px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .monthTitle {
+    font-size: 28px;
+
+    line-height: 32px; /* 114.286% */
+    letter-spacing: -0.28px;
+  }
+}
+@media screen and (min-width: 1440px) {
+}

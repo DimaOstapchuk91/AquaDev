@@ -19,4 +19,10 @@
   height: 18px;
   border: none;
   background-color: transparent;
+  cursor: pointer;
+}
+
+.popoverIcons {
+  fill: transparent;
+  stroke: black;
 }

@@ -1,40 +1,42 @@
 import { useEffect } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
+
+import s from "./Modal.module.css";
 
 const Modal = ({ isOpen, onClose, children }) => {
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
         onClose();
       }
     };
 
     if (isOpen) {
-      window.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
-  return ReactDOM.createPortal(
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+  return (
+    <div className={s.backdrop} onClick={onClose}>
+      <div className={s.window} onClick={(e) => e.stopPropagation()}>
+        <button className={s.button} onClick={onClose}>
+          <svg className={s.icon} aria-hidden="true">
+            <use xlinkHref="/src/assets/sprite.svg#icon-x-1" />
+          </svg>
+        </button>
         {children}
       </div>
-    </div>,
-    document.body
+    </div>
   );
-};
-
-Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
 };
 
 export default Modal;
