@@ -1,6 +1,10 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import s from "./CalendarPagination.module.css";
-const CalendarPagination = ({ currentDate, setCurrentDate }) => {
+const CalendarPagination = ({
+  currentDate,
+  setCurrentDate,
+  isPaginationDisabled,
+}) => {
   const months = [
     "January",
     "February",
@@ -32,13 +36,17 @@ const CalendarPagination = ({ currentDate, setCurrentDate }) => {
       <button
         onClick={() => changeMonth(-1)}
         className={s.calendarPaginationButton}
+        disabled={isPaginationDisabled}
       >
         <FaChevronLeft />
       </button>
-      <p className={s.dataInfo}>{`${currentMonth}, ${currentYear}`}</p>
+      <p className={s.dataInfo}>{`${
+        isPaginationDisabled ? months[new Date().getMonth()] : currentMonth
+      }, ${isPaginationDisabled ? new Date().getFullYear() : currentYear}`}</p>
       <button
         onClick={() => changeMonth(1)}
         className={s.calendarPaginationButton}
+        disabled={isPaginationDisabled}
       >
         <FaChevronRight />
       </button>

@@ -3,6 +3,7 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 20px 18px;
   flex-direction: column;
+  justify-content: center;
 }
 
 @media screen and (min-width: 768px) {
