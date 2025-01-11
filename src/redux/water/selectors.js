@@ -1,3 +1,3 @@
-export const selectTotalWater = (state) => state.waterInfo.totalWater;
-
-export const selectWaterPortions = (state) => state.waterInfo.waterPortions;
+export const selectTotalWater = (state) => state.water.waterInfo.totalWater;
+export const selectWaterPortions = (state) =>
+  state.water.waterInfo.waterPortions;

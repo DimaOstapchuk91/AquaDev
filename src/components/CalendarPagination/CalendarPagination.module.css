@@ -18,8 +18,11 @@
   border: none;
   width: 16px;
   height: 16px;
+  cursor: pointer;
 }
-
+.calendarPaginationButton:disabled {
+  cursor: not-allowed;
+}
 @media screen and (min-width: 768px) {
   .dataInfo {
     font-size: 16px;

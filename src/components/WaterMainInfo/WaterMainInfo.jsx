@@ -11,8 +11,8 @@ import { selectTotalWater } from "../../redux/water/selectors.js";
 
 const WaterMainInfo = () => {
   const totalWater = useSelector(selectTotalWater);
-  // dailyNorma doesnt exist rn need to develop
-  const dailyNorma = useSelector(selectDailyNorma);
+  // const dailyNorma = useSelector(selectDailyNorma);
+  const dailyNorma = 2000;
   const dailyNormaInL = dailyNorma / 1000;
   const waterConsumptionPercent = Math.round((totalWater / dailyNorma) * 100);
   const [isModalOpen, setIsModalOpen] = useState(false);

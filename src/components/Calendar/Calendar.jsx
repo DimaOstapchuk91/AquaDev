@@ -22,7 +22,7 @@ const Calendar = ({ currentDate, selectedDate, setSelectedDate }) => {
   const today = new Date();
 
   return (
-    <div className={s.calendar}>
+    <ul className={s.calendar}>
       {days.map((day) => {
         const isCurrentDay =
           today.getDate() === day &&
@@ -33,6 +33,7 @@ const Calendar = ({ currentDate, selectedDate, setSelectedDate }) => {
             key={day}
             day={day}
             isToday={isCurrentDay}
+            percentage={100}
             isSelected={
               selectedDate &&
               selectedDate.getDate() === day &&
@@ -42,7 +43,7 @@ const Calendar = ({ currentDate, selectedDate, setSelectedDate }) => {
           />
         );
       })}
-    </div>
+    </ul>
   );
 };
 
