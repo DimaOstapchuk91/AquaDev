@@ -1,0 +1,116 @@
+.subtitle {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 125%;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+
+.label {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 129%;
+    letter-spacing: -0.01em;
+    color: var(--black);
+    
+    
+}
+
+.counter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.iconButton {
+    background-color: transparent;
+    border-radius: 30px;
+    padding: 0;
+    height: 40px;
+}
+
+
+.icon {
+    width: 40px;
+    height: 40px;
+    stroke: var(--bg-btn-dark-gray);
+    fill: none;
+}
+
+.amountValue {
+    padding: 11px 20px;
+    height: 40px;
+    background-color: var(--bg-btn-dark-gray);;
+    border-radius: 30px;
+    color: var(--background-white);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.28;
+}
+
+.timelabel {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 129%;
+    letter-spacing: -0.01em;
+    color: var(--black);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.input {
+    border-radius: 15px;
+    border: 1px solid rgba(47, 47, 47, 0.15);
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    outline: none;
+    transition: border-color var(--animation), transform var(--animation);
+    color: var(--black);
+    font-size: 14px;
+    line-height: 1.28;
+    letter-spacing: -0.14px;
+}
+
+.valuelabel {
+    display: inline-block;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.16px;
+    margin-bottom: 8px;
+}
+
+
+.submit {
+    background-color: var(--bg-component-green);
+    padding: 14px 40px;
+    border-radius: 30px;
+    border: none;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.28;
+    letter-spacing: -0.14px;
+    transition: background-color var(--animation);
+    margin-right: 12px;
+}
+
+.cancel {
+    background-color: var(--input-red);
+    padding: 14px 30px;
+    border-radius: 30px;
+    border: none;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.28;
+    letter-spacing: -0.14px;
+    transition: background-color var(--animation);
+}

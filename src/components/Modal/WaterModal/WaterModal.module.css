@@ -1,0 +1,13 @@
+.wrapper {
+    max-width: 343px;
+    padding: 40px 20px;
+}
+
+.title {
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+}
