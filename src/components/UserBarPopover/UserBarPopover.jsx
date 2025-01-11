@@ -24,13 +24,13 @@ const UserBarPopover = ({ buttonRef, onClose, openModal }) => {
       <button onClick={() => openModal("Setting")} className={s.popoverBtn}>
         <svg className={s.popoverIcons} width={16} height={16}>
           <use href={`${sprite}#icon-settings`}></use>
-        </svg>{" "}
+        </svg>
         Setting
       </button>
       <button onClick={() => openModal("Logout")} className={s.popoverBtn}>
         <svg className={s.popoverIcons} width={16} height={16}>
           <use href={`${sprite}#icon-log-out`}></use>
-        </svg>{" "}
+        </svg>
         Logout
       </button>
     </div>
