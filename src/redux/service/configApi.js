@@ -3,6 +3,9 @@ import axios from "axios";
 export const aquaDevApi = axios.create({
   baseURL: "https://aquadev-back.onrender.com",
   // baseURL: 'http://localhost:3000',
+  headers: {
+    "Content-Type": "application/json",
+  },
   withCredentials: true,
 });
 

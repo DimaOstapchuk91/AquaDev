@@ -4,8 +4,8 @@ import {
   logout,
   logIn,
   register,
-  updateUser,
-  getUserInformation,
+  refreshUser,
+  getUserData,
 } from "./operations";
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
     gender: null,
     weight: null,
     timeActive: null,
-    deilyNorma: null,
+    dailyNorma: null,
     avatar: null,
   },
   usersCount: 0,
@@ -30,49 +30,76 @@ const slice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.data;
-        state.isLoggedIn = true;
+      .addCase(register.fulfilled, (state) => {
+        state.isLoggedIn = false;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        state.token = action.payload.accessToken;
+        state.token = action.payload;
         state.isLoggedIn = true;
       })
+      .addCase(getUserData.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.token = action.payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
       .addCase(logout.fulfilled, () => initialState)
+      .addCase(getAllUsersCount.pending, (state) => {
+        state.isRefreshing = true;
+        state.error = null;
+      })
       .addCase(getAllUsersCount.fulfilled, (state, action) => {
         state.isRefreshing = false;
         state.usersCount = action.payload;
       })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = { ...state.user, ...action.payload.user };
-      })
-      .addCase(getUserInformation.fulfilled, (state, action) => {
+      .addCase(getAllUsersCount.rejected, (state, action) => {
         state.isRefreshing = false;
-        state.user = action.payload;
+        state.error = action.payload;
       })
+      .addCase(refreshUser.pending, (state) => {
+        state.isRefreshing = true;
+      })
+      .addCase(refreshUser.rejected, () => initialState)
       .addMatcher(
         isAnyOf(
           register.pending,
           logIn.pending,
-          getAllUsersCount.pending,
-          updateUser.pending,
-          getUserInformation.pending
+          logout.pending,
+          refreshUser.pending,
+          getUserData.pending
         ),
         (state) => {
           state.isRefreshing = true;
+          state.error = false;
         }
       )
       .addMatcher(
         isAnyOf(
           register.rejected,
           logIn.rejected,
-          getAllUsersCount.rejected,
-          updateUser.rejected,
-          getUserInformation.rejected,
-          (state) => {
-            state.isRefreshing = false;
-          }
-        )
+          logout.rejected,
+          getUserData.rejected
+        ),
+        (state) => {
+          state.isRefreshing = false;
+          state.error = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          register.fulfilled,
+          logIn.fulfilled,
+          logout.fulfilled,
+          refreshUser.fulfilled,
+          getUserData.fulfilled
+        ),
+        (state) => {
+          state.isRefreshing = false;
+          state.error = false;
+        }
       );
   },
 });

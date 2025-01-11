@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { userReducer } from "./user/slice.js";
+// import { waterReducer } from "./water/slice.js";
 
 import {
   persistStore,
@@ -14,7 +15,7 @@ import {
 } from "redux-persist";
 
 const persistUserConfig = {
-  key: "accesToken",
+  key: "accessToken",
   storage,
   whitelist: ["token"],
 };
