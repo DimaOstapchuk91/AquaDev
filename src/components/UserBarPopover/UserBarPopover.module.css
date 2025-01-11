@@ -21,3 +21,8 @@
   background-color: transparent;
   cursor: pointer;
 }
+
+.popoverIcons {
+  fill: transparent;
+  stroke: black;
+}

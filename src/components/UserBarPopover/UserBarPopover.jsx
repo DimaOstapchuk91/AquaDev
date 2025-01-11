@@ -1,8 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-
-import { LuSettings } from "react-icons/lu";
-import { LuLogOut } from "react-icons/lu";
-
+import { useEffect, useRef } from "react";
+import sprite from "../../assets/sprite.svg";
 import s from "./UserBarPopover.module.css";
 
 const UserBarPopover = ({ buttonRef, onClose, openModal }) => {
@@ -25,10 +22,16 @@ const UserBarPopover = ({ buttonRef, onClose, openModal }) => {
   return (
     <div ref={popoverRef} className={s.popoverContainer}>
       <button onClick={() => openModal("Setting")} className={s.popoverBtn}>
-        <LuSettings className={s.popoverIcons} /> Setting
+        <svg className={s.popoverIcons} width={16} height={16}>
+          <use href={`${sprite}#icon-settings`}></use>
+        </svg>{" "}
+        Setting
       </button>
       <button onClick={() => openModal("Logout")} className={s.popoverBtn}>
-        <LuLogOut className={s.popoverIcons} /> Logout
+        <svg className={s.popoverIcons} width={16} height={16}>
+          <use href={`${sprite}#icon-log-out`}></use>
+        </svg>{" "}
+        Logout
       </button>
     </div>
   );

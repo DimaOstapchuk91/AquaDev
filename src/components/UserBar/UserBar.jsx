@@ -25,7 +25,7 @@ const UserBar = ({ name, avatar }) => {
       >
         {name}Nadia
         <img src={avatar} alt="avatar" className={s.userBarImg} />
-        <svg className={s.userBarIcon}>
+        <svg className={s.userBarIcon} width={16} height={16}>
           <use href={`${sprite}#icon-down`}></use>
         </svg>
         {/* {popoverOpen ? <FaChevronUp /> : <FaChevronDown />} */}
