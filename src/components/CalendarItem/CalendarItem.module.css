@@ -12,6 +12,12 @@
   font-weight: 700;
   line-height: 18px;
   letter-spacing: -0.14px;
+
+  cursor: pointer;
+}
+
+.notAchievedYet {
+  background: rgba(50, 63, 71, 0.2);
 }
 
 .percentage {
