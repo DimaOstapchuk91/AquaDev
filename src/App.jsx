@@ -9,15 +9,18 @@ import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute.jsx";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { refreshUser } from "./redux/user/operations.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoggedIn } from "./redux/user/selectors.js";
 // import { setAuthHeader } from './redux/service/configApi.js';
 
 function App() {
   const dispatch = useDispatch();
+  const isLogged = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+    if (isLogged) dispatch(refreshUser());
+  }, [dispatch, isLogged]);
+
   return (
     <>
       <SharedLayout>

@@ -10,6 +10,7 @@ import {
 } from "./operations";
 
 const initialState = {
+  isLoggedIn: false,
   user: {
     name: null,
     email: null,
@@ -21,7 +22,6 @@ const initialState = {
   },
   usersCount: 0,
   token: null,
-  isLoggedIn: false,
   isRefreshing: false,
   error: false,
 };
@@ -31,53 +31,32 @@ const slice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(register.fulfilled, (state) => {
-        state.isLoggedIn = false;
-      })
       .addCase(logIn.fulfilled, (state, action) => {
-        state.token = action.payload;
         state.isLoggedIn = true;
+        state.token = action.payload;
       })
       .addCase(getUserData.fulfilled, (state, action) => {
         state.user = action.payload;
-        state.isLoggedIn = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
         state.isLoggedIn = true;
-        state.isRefreshing = false;
+        state.token = action.payload;
       })
       .addCase(logout.fulfilled, () => initialState)
-      .addCase(getAllUsersCount.pending, (state) => {
-        state.isRefreshing = true;
-        state.error = null;
-      })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = { ...state.user, ...action.payload };
-        state.error = null;
-      })
-      .addCase(updateUser.rejected, (state, action) => {
-        state.error = action.payload || "Failed to update user data.";
-      })
       .addCase(getAllUsersCount.fulfilled, (state, action) => {
-        state.isRefreshing = false;
         state.usersCount = action.payload;
       })
-      .addCase(getAllUsersCount.rejected, (state, action) => {
-        state.isRefreshing = false;
-        state.error = action.payload;
-      })
-      .addCase(refreshUser.pending, (state) => {
-        state.isRefreshing = true;
-      })
       .addCase(refreshUser.rejected, () => initialState)
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
+      })
       .addMatcher(
         isAnyOf(
           register.pending,
-          logIn.pending,
           logout.pending,
           refreshUser.pending,
           getUserData.pending,
+          getAllUsersCount.pending,
           updateUser.pending
         ),
         (state) => {
@@ -91,6 +70,7 @@ const slice = createSlice({
           logIn.rejected,
           logout.rejected,
           getUserData.rejected,
+          getAllUsersCount.rejected,
           updateUser.rejected
         ),
         (state) => {
@@ -104,7 +84,9 @@ const slice = createSlice({
           logIn.fulfilled,
           logout.fulfilled,
           refreshUser.fulfilled,
-          getUserData.fulfilled
+          getUserData.fulfilled,
+          getAllUsersCount.fulfilled,
+          updateUser.fulfilled
         ),
         (state) => {
           state.isRefreshing = false;
