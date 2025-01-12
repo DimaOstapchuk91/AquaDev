@@ -3,6 +3,7 @@ import sprite from "../../assets/sprite.svg";
 import Modal from "../Modal/Modal.jsx";
 import WaterModal from "../Modal/WaterModal/WaterModal.jsx";
 import { useState } from "react";
+import DeleteWaterModal from "../Modal/DeleteWaterModal/DeleteWaterModal.jsx";
 
 const WaterItem = ({ volume, time }) => {
   const [isModalEdit, setIsModalEdit] = useState(false);
@@ -35,12 +36,12 @@ const WaterItem = ({ volume, time }) => {
         <p className={s.textTime}>{time}</p>
       </div>
       <div className={s.dataWrapper}>
-        <button type="button">
+        <button type="button" onClick={handleEdit}>
           <svg className={s.iconChange} width="14" height="14">
             <use href={`${sprite}#icon-edit-2`}></use>
           </svg>
         </button>
-        <button type="button">
+        <button type="button" onClick={handleDelete}>
           <svg className={s.iconDell} width="14" height="14">
             <use href={`${sprite}#icon-trash-04`}></use>
           </svg>
@@ -54,10 +55,9 @@ const WaterItem = ({ volume, time }) => {
             />
           </Modal>
           <Modal isOpen={isModalDelete} onClose={handleDeleteClose}>
-            <WaterModal
+            <DeleteWaterModal
               isOpen={isModalDelete}
               onClose={handleDeleteClose}
-              type={"delete"}
             />
           </Modal>
         </div>
