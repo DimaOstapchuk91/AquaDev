@@ -3,10 +3,12 @@ import AdvantagesSection from '../../components/AdvantagesSection/AdvantagesSect
 import styles from './SignUpPage.module.css';
 const SignUpPage = () => {
   return (
-    <div className={styles.containerWapper}>
-      <SignUpForm />
-      <div className={styles.rightSection}>
-        <AdvantagesSection />
+    <div className={"container"}>
+      <div className={styles.containerWapper}>
+          <SignUpForm />
+        <div className={styles.rightSection}>
+          <AdvantagesSection />
+        </div>
       </div>
     </div>
   );
