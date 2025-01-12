@@ -1,7 +1,6 @@
-
-import { configureStore } from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage';
-import { userReducer } from './user/slice.js';
+import { configureStore } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import { userReducer } from "./user/slice.js";
 import {
   persistStore,
   persistReducer,
@@ -11,15 +10,14 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import { waterReducer } from './water/slice.js';
+} from "redux-persist";
+import { waterReducer } from "./water/slice.js";
 
 const persistUserConfig = {
-
   key: "accessToken",
 
   storage,
-  whitelist: ['token'],
+  whitelist: ["token", "isLoggedIn"],
 };
 
 const persistedUserReducer = persistReducer(persistUserConfig, userReducer);
@@ -29,7 +27,7 @@ export const store = configureStore({
     user: persistedUserReducer,
     water: waterReducer,
   },
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

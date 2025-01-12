@@ -29,7 +29,7 @@ export const register = createAsyncThunk(
     } catch (error) {
       if (error.status === 409) {
         errToast("Email in use");
-        return;
+        return thunkApi.rejectWithValue(error.message);
       }
       return thunkApi.rejectWithValue(error.message);
     }
@@ -42,11 +42,8 @@ export const logIn = createAsyncThunk(
     try {
       const { data } = await aquaDevApi.post("/users/login", credentials);
 
-      console.log("Login data:", data.data);
-
       if (data.status === 200) {
         setAuthHeader(data.data.accessToken);
-        console.log(aquaDevApi.defaults.headers.common.Authorization);
         successfullyToast("Successfully logged");
       }
 
@@ -54,12 +51,12 @@ export const logIn = createAsyncThunk(
     } catch (error) {
       if (error.status === 404) {
         errToast("No such user exists");
-        return;
+        return thunkApi.rejectWithValue("No such user exists");
       }
 
       if (error.status === 401) {
         errToast("Invalid password");
-        return;
+        return thunkApi.rejectWithValue("Invalid password");
       }
       return thunkApi.rejectWithValue(error.message);
     }
@@ -79,27 +76,10 @@ export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
   }
 });
 
-// export const refreshUser = createAsyncThunk(
-//   "user/refreshUser",
-//   async (_, thunkApi) => {
-//     try {
-//       const { data } = await aquaDevApi.post("/users/refresh");
-//       setAuthHeader(data.data.accessToken);
-//       console.log(data);
-//       return data.data.accessToken;
-//     } catch (error) {
-//       return thunkApi.rejectWithValue(
-//         error.response ? error.response.data : error.message
-//       );
-//     }
-//   }
-// );
-
 export const updateUser = createAsyncThunk(
   "user/update",
   async (credentials, thunkApi) => {
     const token = thunkApi.getState().user.token;
-    console.log(token);
     if (!token) {
       return thunkApi.rejectWithValue("Token not found");
     }
@@ -130,17 +110,14 @@ export const updateUser = createAsyncThunk(
 export const getUserData = createAsyncThunk(
   "user/getDataUser",
   async (_, thunkApi) => {
-    // const token = thunkApi.getState().user.token;
-    // console.log(token);
-    // if (!token) {
-    //   return thunkApi.rejectWithValue("Token not found");
-    // }
+    const token = thunkApi.getState().user.token;
+    if (!token) {
+      return thunkApi.rejectWithValue("Token not found");
+    }
 
-    // setAuthHeader(token);
+    setAuthHeader(token);
     try {
-      console.log(aquaDevApi.defaults.headers.common.Authorization);
       const { data } = await aquaDevApi.get("/users/data");
-      console.log(data);
       return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -150,26 +127,19 @@ export const getUserData = createAsyncThunk(
 
 export const refreshUser = createAsyncThunk(
   "user/refreshUser",
-  async (_, thunkAPI) => {
+  async (_, thunkApi) => {
     try {
-      // Отримуємо збережений токен з локал стореджа
-      const state = thunkAPI.getState();
-      const savedToken = state.user.token;
-
-      // якщо там нічого нема, не виконуємо запит
-      if (!savedToken) {
-        return thunkAPI.rejectWithValue("Token does not exist!");
-      }
-      // якщо є - встановлюємо по замовчуванню хедер авторизації для запитів
-
-      setAuthHeader(savedToken);
-      // робимо запит за обліковими даними
-      const { data } = await aquaDevApi.get("/users/data");
-      console.log("GET refreshed user data:", data);
-      // повертаємо дані в слайс для опрацювання
-      return data.data;
+      const { data } = await aquaDevApi.post("/users/refresh");
+      setAuthHeader(data.data.accessToken);
+      return data.data.accessToken;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (error.status === 401) {
+        errToast("token not found");
+        return thunkApi.rejectWithValue("token not found");
+      }
+      return thunkApi.rejectWithValue(
+        error.response ? error.response.data : error.message
+      );
     }
   }
 );
