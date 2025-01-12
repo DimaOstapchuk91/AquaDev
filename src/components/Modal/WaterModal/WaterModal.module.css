@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .wrapper {
     max-width: 343px;
     padding: 40px 20px;
@@ -11,3 +12,22 @@
     letter-spacing: -0.01em;
     margin-bottom: 24px;
 }
+=======
+.waterModal{   
+}
+
+.waterTitle{
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.143;
+  color: var(--text-color);
+}
+
+.waterText{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.33;
+  color: var(--text-color);
+  margin-top: 24px;
+}
+>>>>>>> b8246ad15530f40818f2d348eb1f574b8273b469

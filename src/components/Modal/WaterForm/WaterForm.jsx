@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as Yup from "yup";
@@ -22,6 +23,16 @@ const validationSchema = Yup.object().shape({
 const WaterForm = ({ subtitle, onClose, water, type }) => {
   const [currentWaterAmount, setCurrentWaterAmount] = useState(
     water ? water.amount : 50
+=======
+import { useState } from "react";
+import PropTypes from "prop-types";
+import styles from "./WaterForm.module.css";
+const WaterForm = ({ type, initialData = {}, onClose }) => {
+  const [amount, setAmount] = useState(initialData.amount || 50);
+  const [time, setTime] = useState(
+    initialData.time ||
+      new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+>>>>>>> b8246ad15530f40818f2d348eb1f574b8273b469
   );
 
   const {
@@ -104,6 +115,7 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
   };
 
   return (
+<<<<<<< HEAD
     <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
       <p className={s.subtitle}>{subtitle}</p>
 
@@ -145,10 +157,35 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
           render={({ field }) => (
             <input {...field} type="time" className={s.input} />
           )}
+=======
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <div className={styles.amountContainer}>
+        <h3 className={styles.waterTitle}>Amount of water:</h3>
+        <div className={styles.waterCounter}>
+           <button  className={styles.amountButton} type="button" onClick={handleDecrement}>
+          -
+        </button>
+        <span className={styles.amount}>{amount} ml</span>
+        <button className={styles.amountButton} type="button" onClick={handleIncrement}>
+          +
+        </button>
+        </div>
+      </div>
+
+      <div className="water-time">
+        <label className={styles.label} htmlFor="water-time">Recording time:</label>
+        <input
+          type="time"
+          id="water-time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+          className={styles.input}
+>>>>>>> b8246ad15530f40818f2d348eb1f574b8273b469
         />
         {errors.time && <p className={s.error}>{errors.time.message}</p>}
       </div>
 
+<<<<<<< HEAD
       <div className={s.inputGroup}>
         <label className={s.valuelabel}>
           Enter the value of the water used:
@@ -158,9 +195,21 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
           className={s.input}
           value={currentWaterAmount}
           onChange={handleAmountInputChange}
+=======
+      <div className="water-amount-input">
+        <label  className={styles.labelWater} htmlFor="water-amount">Enter the value of the water used:</label>
+        <input
+          type="number"
+          id="water-amount"
+          value={amount}
+          onChange={(e) => setAmount(Number(e.target.value))}
+          min="0"
+          className={styles.input}
+>>>>>>> b8246ad15530f40818f2d348eb1f574b8273b469
         />
         {errors.amount && <p className={s.error}>{errors.amount.message}</p>}
       </div>
+<<<<<<< HEAD
 
       {/* Кнопки Save и Cancel */}
       <div className={s.buttons}>
@@ -171,6 +220,11 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
           Cancel
         </button>
       </div>
+=======
+      <button type="submit"  className={styles.saveButton}>
+            Save
+      </button>
+>>>>>>> b8246ad15530f40818f2d348eb1f574b8273b469
     </form>
   );
 };

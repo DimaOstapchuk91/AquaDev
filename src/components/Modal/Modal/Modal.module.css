@@ -1,0 +1,46 @@
+.modalBackdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(47, 47, 47, 0.6);
+    width: 100%;
+    padding: 80px 16px;
+}
+
+.modalContent{
+    position: relative;
+    box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    
+}
+
+.closeModal{
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 38px;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .modalBackdrop{
+    padding: 64px 60px;
+  }
+  .modalContent{
+    padding: 40px;
+  }
+}
+
+@media (min-width: 1440px) {
+ 
+}

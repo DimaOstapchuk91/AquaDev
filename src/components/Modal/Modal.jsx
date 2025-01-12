@@ -25,6 +25,7 @@ const Modal = ({ isOpen, onClose, children }) => {
     return null;
   }
 
+<<<<<<< HEAD
   return (
     <div className={s.backdrop} onClick={onClose}>
       <div className={s.window} onClick={(e) => e.stopPropagation()}>
@@ -33,6 +34,11 @@ const Modal = ({ isOpen, onClose, children }) => {
             <use xlinkHref="/src/assets/sprite.svg#icon-x-1" />
           </svg>
         </button>
+=======
+  return ReactDOM.createPortal(
+    <div  onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+>>>>>>> b8246ad15530f40818f2d348eb1f574b8273b469
         {children}
       </div>
     </div>

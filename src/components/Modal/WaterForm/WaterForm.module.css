@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .subtitle {
     font-weight: 700;
     font-size: 16px;
@@ -114,3 +115,106 @@
     letter-spacing: -0.14px;
     transition: background-color var(--animation);
 }
+=======
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.amountContainer{
+    margin-top: 20px;
+}
+.waterTitle{
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+.waterCounter{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.amount {
+  background: var(--bg-btn-dark-gray);  
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.49;
+  border-radius: 30px;
+  color: #fff;
+  padding: 11px 20px;
+  
+}
+
+.amountButton {
+  width: 40px;
+  height: 40px;
+  font-size: 28px;
+  border-radius: 50%;
+  border: 1.50px solid var(--bg-btn-dark-gray);
+  cursor: pointer;
+}
+
+.label {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--black);
+}
+
+.labelWater{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.33333;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.openButton {
+  padding: 10px 20px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  border-radius: 15px;
+  margin-top: 8px;
+  padding: 16px  16px 16px;
+  transition: border-color .5s linear;
+}
+
+.input:hover {
+  border-color: var(--bg-component-green);
+} 
+
+
+.saveButton {
+  padding: 10px;
+  width: 141px;
+  height: 60px;
+  background-color: var(--bg-component-green);
+  color: var(--text-color);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  transition:  background-color .5s linear;
+}
+
+.saveButton:hover {
+  background-color:  #45a049;
+} 
+>>>>>>> b8246ad15530f40818f2d348eb1f574b8273b469
