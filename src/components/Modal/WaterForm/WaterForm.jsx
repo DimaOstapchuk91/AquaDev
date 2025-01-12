@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./WaterForm.module.css";
+import sprite from "../../../assets/sprite.svg";
 
 const validationSchema = Yup.object().shape({
   amount: Yup.number()
@@ -116,7 +117,7 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
             className={s.iconButton}
           >
             <svg className={s.icon}>
-              <use xlinkHref="/src/assets/sprite.svg#icon-minus1" />
+              <use href={`${sprite}#icon-minus1`} />
             </svg>
           </button>
 
@@ -128,7 +129,7 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
             className={s.iconButton}
           >
             <svg className={s.icon}>
-              <use xlinkHref="/src/assets/sprite.svg#icon-plus2" />
+              <use href={`${sprite}#icon-plus2`} />
             </svg>
           </button>
         </div>
@@ -162,7 +163,6 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
         {errors.amount && <p className={s.error}>{errors.amount.message}</p>}
       </div>
 
-      {/* Кнопки Save и Cancel */}
       <div className={s.buttons}>
         <button type="submit" className={s.submit}>
           Save

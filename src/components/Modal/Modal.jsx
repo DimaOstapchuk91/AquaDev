@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-
 import s from "./Modal.module.css";
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -12,8 +11,6 @@ const Modal = ({ isOpen, onClose, children }) => {
 
     if (isOpen) {
       document.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
@@ -28,8 +25,8 @@ const Modal = ({ isOpen, onClose, children }) => {
   return (
     <div className={s.backdrop} onClick={onClose}>
       <div className={s.window} onClick={(e) => e.stopPropagation()}>
-        <button className={s.button} onClick={onClose}>
-          <svg className={s.icon} aria-hidden="true">
+        <button className={s.closeButton} onClick={onClose}>
+          <svg className={s.icon}>
             <use xlinkHref="/src/assets/sprite.svg#icon-x-1" />
           </svg>
         </button>
