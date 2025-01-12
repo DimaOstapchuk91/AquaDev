@@ -34,7 +34,10 @@ const DailyInfo = () => {
             selectedDate={selectedDate}
             onDateChange={handleDateChange}
           />
-          <AddWaterBtn onClick={handleAddWaterBtnClick} />
+          <AddWaterBtn
+            customClassName={"dailyInfo"}
+            onClick={handleAddWaterBtnClick}
+          />
         </div>
         <WaterList waterData={waterData} />
       </div>
@@ -44,6 +47,7 @@ const DailyInfo = () => {
           onClose={handleCloseModal}
           type={"add"}
         />
+        
       </Modal>
     </div>
   );

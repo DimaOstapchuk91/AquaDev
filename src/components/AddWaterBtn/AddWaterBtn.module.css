@@ -2,7 +2,7 @@
   border: none;
   border-radius: 30px;
   padding: 14px 20px;
-  width: 140px;
+  width: 143px;
   height: 46px;
   background-color: var(--text-color);
   color: var(--background-white);
@@ -14,16 +14,59 @@
   color: var(--bg-component-green);
 }
 
-.textContainer {
+.mainInfoButton .textContainer {
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 18px;
   letter-spacing: -0.01em;
   text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.spanContainer {
-  margin-right: 10px;
+.mainInfoButton .spanContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainInfoButton .plus {
+  fill: transparent;
+  stroke: var(--background-white);
+}
+
+.dailyInfo {
+  width: 124px;
+  height: 30px;
+  padding: 0;
+}
+
+.dailyInfo .plus {
+  fill: transparent;
+  stroke: black;
+}
+
+.dailyInfo .spanContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-component-green);
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+.dailyInfo .textContainer {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  align-items: center;
+  gap: 10px;
 }
 
 @media screen and (min-width: 768px) {
@@ -33,8 +76,23 @@
     height: 60px;
   }
 
-  .textContainer {
+  .mainInfoButton .textContainer {
     font-size: 16px;
     line-height: 24px;
+  }
+
+  .dailyInfo .textContainer {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .dailyInfo .plus {
+    width: 18px;
+    height: 18px;
+  }
+
+  .mainInfoButton .plus{
+    width: 18px;
+    height: 18px;
   }
 }

@@ -1,7 +1,30 @@
 import s from "./WaterItem.module.css";
 import sprite from "../../assets/sprite.svg";
+import Modal from "../Modal/Modal.jsx";
+import WaterModal from "../Modal/WaterModal/WaterModal.jsx";
+import { useState } from "react";
 
 const WaterItem = ({ volume, time }) => {
+  const [isModalEdit, setIsModalEdit] = useState(false);
+  const [isModalDelete, setIsModalDelete] = useState(false);
+
+  const handleDelete = () => {
+    setIsModalDelete(true);
+  };
+
+  const handleEdit = () => {
+    setIsModalEdit(true);
+  };
+
+  const handleDeleteClose = () => {
+    setIsModalDelete(false);
+  };
+
+  const handleEditClose = () => {
+    setIsModalEdit(false);
+  };
+
+  
   return (
     <li className={s.item}>
       <svg className={s.iconGlass} width="38" height="38">
@@ -22,6 +45,22 @@ const WaterItem = ({ volume, time }) => {
             <use href={`${sprite}#icon-trash-04`}></use>
           </svg>
         </button>
+        <div>
+          <Modal isOpen={isModalEdit} onClose={handleEditClose}>
+            <WaterModal
+              isOpen={isModalEdit}
+              onClose={handleEditClose}
+              type={"edit"}
+            />
+          </Modal>
+          <Modal isOpen={isModalDelete} onClose={handleDeleteClose}>
+            <WaterModal
+              isOpen={isModalDelete}
+              onClose={handleDeleteClose}
+              type={"delete"}
+            />
+          </Modal>
+        </div>
       </div>
     </li>
   );

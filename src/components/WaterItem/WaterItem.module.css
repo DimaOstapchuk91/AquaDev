@@ -20,22 +20,30 @@ button {
   stroke: black;
 }
 
+.plus {
+  fill: transparent;
+  stroke: black;
+  background-color: var(--bg-component-green);
+  border-radius: 100%;
+  width: 30px;
+height: 30px;
+}
+
 .dataWrapper {
   display: flex;
   flex-direction: column;
   gap: 6px;
-
 }
 
 .textTime {
-    font-size: 12px;
-    line-height: 12px;
+  font-size: 12px;
+  line-height: 12px;
   color: rgba(47, 47, 47, 0.6);
 }
 
 .textVolume {
-    font-size: 14px;
-    line-height: 14px;
+  font-size: 14px;
+  line-height: 14px;
   color: #323f47;
 }
 
