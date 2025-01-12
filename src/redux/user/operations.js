@@ -95,17 +95,37 @@ export const refreshUser = createAsyncThunk(
   }
 );
 
-// export const updateUser = createAsyncThunk(
-//   "user/update",
-//   async (credentials, thunkApi) => {
-//     try {
-//       const { data } = await aquaDevApi.patch("/users/update", credentials);
-//       return data;
-//     } catch (error) {
-//       return thunkApi.rejectWithValue(error.message);
-//     }
-//   }
-// );
+export const updateUser = createAsyncThunk(
+  "user/update",
+  async (credentials, thunkApi) => {
+    const token = thunkApi.getState().user.token;
+    console.log(token);
+    if (!token) {
+      return thunkApi.rejectWithValue("Token not found");
+    }
+    setAuthHeader(token);
+
+    const formData = new FormData();
+    Object.entries(credentials).forEach(([key, value]) => {
+      if (value) {
+        formData.append(key, value);
+      }
+    });
+
+    try {
+      const { data } = await aquaDevApi.patch("/users/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
+    }
+  }
+);
 
 export const getUserData = createAsyncThunk(
   "user/getDataUser",
@@ -113,7 +133,7 @@ export const getUserData = createAsyncThunk(
     const token = thunkApi.getState().user.token;
     console.log(token);
     if (!token) {
-      return thunkApi.rejectWithValue("token not found");
+      return thunkApi.rejectWithValue("Token not found");
     }
 
     setAuthHeader(token);

@@ -6,6 +6,7 @@ import {
   register,
   refreshUser,
   getUserData,
+  updateUser,
 } from "./operations";
 
 const initialState = {
@@ -51,6 +52,13 @@ const slice = createSlice({
         state.isRefreshing = true;
         state.error = null;
       })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
+        state.error = null;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.error = action.payload || "Failed to update user data.";
+      })
       .addCase(getAllUsersCount.fulfilled, (state, action) => {
         state.isRefreshing = false;
         state.usersCount = action.payload;
@@ -69,7 +77,8 @@ const slice = createSlice({
           logIn.pending,
           logout.pending,
           refreshUser.pending,
-          getUserData.pending
+          getUserData.pending,
+          updateUser.pending
         ),
         (state) => {
           state.isRefreshing = true;
@@ -81,7 +90,8 @@ const slice = createSlice({
           register.rejected,
           logIn.rejected,
           logout.rejected,
-          getUserData.rejected
+          getUserData.rejected,
+          updateUser.rejected
         ),
         (state) => {
           state.isRefreshing = false;
