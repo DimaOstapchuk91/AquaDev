@@ -1,47 +1,47 @@
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
-export const errToast = message => {
+export const errToast = (message) => {
   toast.error(`${message}`, {
     duration: 4000,
-    position: 'top-center',
+    position: "top-right",
 
     style: {
-      borderRadius: '10px',
-      background: 'var(--background)',
-      color: 'red',
+      borderRadius: "10px",
+      background: "var(--background)",
+      color: "red",
     },
-    icon: '🚩 ',
+    icon: "🚩 ",
   });
 };
 
-export const successfullyToast = message => {
+export const successfullyToast = (message) => {
   toast.success(`${message}`, {
     duration: 4000,
-    position: 'top-center',
+    position: "top-right",
 
     style: {
-      borderRadius: '10px',
-      background: 'var(--background)',
-      color: 'var(--text-light)',
+      borderRadius: "10px",
+      background: "var(--background)",
+      color: "var(--text-light)",
     },
 
-    className: '',
-    icon: '✅ ',
+    className: "",
+    icon: "✅ ",
   });
 };
 
-export const velcomeToast = message => {
+export const velcomeToast = (message) => {
   toast.success(`${message}`, {
     duration: 4000,
-    position: 'top-right',
+    position: "top-right",
 
     style: {
-      borderRadius: '10px',
-      background: 'var(--background)',
-      color: 'var(--text-light)',
+      borderRadius: "10px",
+      background: "var(--background)",
+      color: "var(--text-light)",
     },
 
-    className: '',
-    icon: '👋',
+    className: "",
+    icon: "👋",
   });
 };
