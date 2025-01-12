@@ -3,21 +3,6 @@
     padding: 40px 14px;
 }
 
-.btnClose {
-    position: absolute;
-    top: 20px;
-    right: 16px;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    background-color: transparent;
-}
-
 .titleDelete {
     font: 700 20px / 1.2 "Poppins", sans-serif;
     letter-spacing: -0.01em;
