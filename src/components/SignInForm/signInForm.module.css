@@ -1,18 +1,10 @@
-.containerWapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  gap: 16px;
-}
-
 .leftSection {
   background-color: var(--bg-component-gray);
   padding: 16px 24px;
   border-radius: 30px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  width: 672px;
-  height: 736px;
+  width: 100%;
+  height: auto;
 }
 
 .brand {
@@ -74,6 +66,7 @@
   border-color: var(--input-red);
   color: var(--input-red);
 }
+
 .input.success {
   border-color: var(--bg-component-green);
 }
@@ -147,5 +140,8 @@
 @media (min-width: 768px) {
   .leftSection {
     padding: 32px;
+    /* width: 672px; */
+    width: 100%;
+    height: 736px;
   }
 }
