@@ -5,6 +5,7 @@ const initialState = {
   waterInfo: {
     waterPortions: [],
     totalWater: 0,
+    loading: false,
     error: null,
   },
 };
@@ -14,13 +15,18 @@ const slice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
+      .addCase(fetchDailyWaterInfo.pending, (state, action) => {
+        state.waterInfo.loading = true;
+      })
       .addCase(fetchDailyWaterInfo.fulfilled, (state, action) => {
+        state.waterInfo.loading = false;
+        state.waterInfo.error = null;
         state.waterInfo.waterPortions = action.payload.waterPortions;
         state.waterInfo.totalWater = action.payload.totalWater;
-        console.log("water in state:", state.waterInfo.totalWater);
       })
       .addCase(fetchDailyWaterInfo.rejected, (state, action) => {
-        state.error = action.payload;
+        state.waterInfo.loading = false;
+        state.waterInfo.error = action.payload;
       });
   },
 });

@@ -8,13 +8,15 @@ import s from "./WaterMainInfo.module.css";
 import Modal from "../Modal/Modal.jsx";
 import WaterModal from "../Modal/WaterModal/WaterModal.jsx";
 import { selectTotalWater } from "../../redux/water/selectors.js";
+import { selectUser } from "../../redux/user/selectors.js";
 
 const WaterMainInfo = () => {
   const totalWater = useSelector(selectTotalWater);
-  // const dailyNorma = useSelector(selectDailyNorma);
-  const dailyNorma = 2000;
-  const dailyNormaInL = dailyNorma / 1000;
-  const waterConsumptionPercent = Math.round((totalWater / dailyNorma) * 100);
+  const user = useSelector(selectUser);
+  const dailyNormaInL = user.dailyNorma / 1000;
+  const waterConsumptionPercent = Math.round(
+    (totalWater / user.dailyNorma) * 100
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddWaterBtnClick = () => {
