@@ -6,12 +6,13 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { NavLink } from "react-router-dom";
 import styles from "./signUpForm.module.css";
 import { orderSchemaReg } from "../../utils/formValidation.js";
-
+import Loader from "../Loader/Loader.jsx";
+import { errToast } from "../../utils/toast.js";
 export default function SignUpForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [repeatPasswordVisible, setRepeatPasswordVisible] = useState(false);
-
+ const [isLoading, setIsLoading]  = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -29,10 +30,18 @@ export default function SignUpForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (values, options) => {
-    const userData = { email: values.email, password: values.password };
-    dispatch(register({ credentials: userData, navigate }));
-    options.resetForm();
+  const handleSubmit = async (values, options) => {
+    try {
+      setIsLoading(true)
+      const userData = { email: values.email, password: values.password };
+      const result = await dispatch(register({ credentials: userData, navigate })).unwrap();
+      if (result) {
+        options.resetForm();  
+      }
+    }finally{
+      setIsLoading(false)
+    }
+  
   };
 
   return (
@@ -124,18 +133,27 @@ export default function SignUpForm() {
                 component="p"
               />
             </div>
-            <button type="submit" className={styles.submitButton}>
-              Sign Up
-            </button>
+            {isLoading ? (
+              <Loader /> 
+            ) : (
+              <button
+                type="submit"
+                className={styles.submitButton}
+                >
+                Sign In
+              </button>
+            )}             
           </Form>
         </Formik>
 
-        <p className={styles.footerText}>
-          Don't have an account?{" "}
-          <NavLink to="/signin" className={styles.signupLink}>
-            Sign In
-          </NavLink>
-        </p>
+        {!isLoading && (
+          <p className={styles.footerText}>
+            Don't have an account?
+            <NavLink to="/signup" className={styles.signupLink}>
+                Sign Up
+            </NavLink>
+          </p>
+        )}
       </div>
     </div>
   );
