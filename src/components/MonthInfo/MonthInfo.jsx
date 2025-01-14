@@ -107,14 +107,29 @@ const MonthInfo = () => {
               />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 12, fill: "#909090" }}
+                tick={{
+                  fontSize: 15,
+                  fontWeight: "normal",
+                  fill: "#323F47",
+                  dy: 21,
+                }}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
                 domain={[0, 3000]}
-                tickFormatter={(value) => `${(value / 1000).toFixed(1)}L`}
-                tick={{ fontSize: 12, fill: "#909090" }}
+                tickFormatter={(value) => {
+                  if (value === 0) {
+                    return `${(value / 1000).toFixed(0)}%`;
+                  }
+                  return `${(value / 1000).toFixed(1)}L`;
+                }}
+                tick={{
+                  fontSize: 15,
+                  fontWeight: "normal",
+                  fill: "#323F47",
+                  dx: -20,
+                }}
                 axisLine={false}
                 tickLine={false}
               />
