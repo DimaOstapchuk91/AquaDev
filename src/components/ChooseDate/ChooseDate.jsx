@@ -1,23 +1,18 @@
-// import { useState, useEffect } from "react";
+// import { useSelector } from 'react-redux';
+// import { selectDateDay } from '../../redux/water/selectors.js';
+// import { getFormattedDate } from '../../utils/formatDate.js';
 
-const ChooseDate = ({ selectedDate, onDateChange }) => {
-//   const [currentDate, setCurrentDate] = useState(
-//     selectedDate || new Date().toISOString().trim("T")[0]
+// const ChooseDate = () => {
+//   const getDate = useSelector(selectDateDay);
+
+//   const comparison = getFormattedDate(new Date());
+
+//   const ChosenDay = comparison === getDate ? 'Today' : getDate;
+
+//   return (
+//     <div>
+//       <p>{ChosenDay}</p>
+//     </div>
 //   );
-//   useEffect(() => {
-//     if (!selectedDate) {
-//       onDateChange(currentDate);
-//     }
-//   }, [currentDate, selectedDate, onDateChange]);
-
-//   const handleDateChange = (e) => {
-//     setCurrentDate(e.target.value);
-//     onDateChange(e.target.value);
-//   };
-  return (
-    <div>
-     <p>Today</p>
-    </div>
-  );
-};
-export default ChooseDate;
+// };
+// export default ChooseDate;
