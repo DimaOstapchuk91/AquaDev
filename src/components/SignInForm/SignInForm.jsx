@@ -5,6 +5,7 @@ import styles from "./signInForm.module.css";
 import { logIn } from "../../redux/user/operations.js";
 import { useDispatch } from "react-redux";
 import { orderSchemaLogin } from "../../utils/formValidation.js";
+import sprit from "../../assets/sprite.svg";
 
 const SignInForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -24,6 +25,24 @@ const SignInForm = () => {
     dispatch(logIn(values));
 
     options.resetForm();
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/users/auth/google/url"
+      );
+      const data = await response.json();
+      console.log("Google Login URL:", data?.data?.url);
+      if (data?.data?.url) {
+        const googleAuthUrl = `${data.data.url}&hl=uk`;
+        window.location.href = googleAuthUrl;
+      } else {
+        console.error("Google OAuth URL не отримано");
+      }
+    } catch (err) {
+      console.log("Error fetching Google OAuth URL:", err);
+    }
   };
 
   return (
@@ -93,11 +112,24 @@ const SignInForm = () => {
         </Formik>
 
         <p className={styles.footerText}>
-          Don't have an account?{" "}
+          Don`t have an account?{" "}
           <NavLink to="/signup" className={styles.signupLink}>
             Sign Up
           </NavLink>
         </p>
+        <div className={styles.buttonWrapperGoogle}>
+          <button onClick={handleGoogleLogin} className={styles.googleButton}>
+            <svg
+              className={styles.googleIcon}
+              width="30"
+              height="30"
+              aria-label="Google icon"
+            >
+              <use href={`${sprit}#icon-google-icon`}></use>
+            </svg>
+            Sing In with Google
+          </button>
+        </div>
       </div>
     </div>
   );
