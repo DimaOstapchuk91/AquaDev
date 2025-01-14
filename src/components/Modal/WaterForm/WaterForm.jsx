@@ -1,30 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./WaterForm.module.css";
 import sprite from "../../../assets/sprite.svg";
+import { useDispatch } from "react-redux";
+import {
+  addWaterPortion,
+  updateWaterPortion,
+} from "../../../redux/water/operations.js";
+import { validationSchemaWaterChange } from "../../../utils/formValidation.js";
 
-const validationSchema = Yup.object().shape({
-  amount: Yup.number()
-    .required("Amount is required")
-    .positive("Amount must be greater than 0")
-    .integer("Amount must be an integer")
-    .min(1, "Amount must be at least 1 ml")
-    .max(10000, "Amount cannot exceed 10,000 ml"),
-  time: Yup.string()
-    .required("Time is required")
-    .matches(
-      /^([01]?[0-9]|2[0-3]):([0-5]?[0-9])$/,
-      "Invalid time format (hh:mm)"
-    ),
-});
-
-const WaterForm = ({ subtitle, onClose, water, type }) => {
-  const [currentWaterAmount, setCurrentWaterAmount] = useState(
-    water ? water.amount : 50
-  );
-
+const WaterForm = ({ subtitle, onClose, portionData, type }) => {
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -32,9 +19,9 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
     reset,
     getValues,
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchemaWaterChange),
     defaultValues: {
-      amount: currentWaterAmount,
+      amount: portionData ? portionData.amount : 50,
       time: new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
@@ -43,65 +30,31 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
   });
 
   useEffect(() => {
-    if (type === "edit" && water) {
-      setCurrentWaterAmount(water.amount);
+    if (type === "edit" && portionData) {
       reset({
-        amount: water.amount,
+        amount: portionData.amount,
         time:
-          water.time ||
+          portionData.time ||
           new Date().toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
           }),
       });
     }
-  }, [water, type, reset]);
+  }, [portionData, type, reset]);
 
-  const onSubmit = async (data) => {
-    try {
-      const dataToSend = {
-        amount: data.amount,
-        time: data.time,
-      };
-
-      let response;
-
-      if (type === "add") {
-        response = await addWater(dataToSend);
-      } else if (type === "edit") {
-        response = await putWater(water.id, dataToSend);
-      }
-
-      if (response.success) {
-        onClose();
-      } else {
-        alert("Error: Failed to submit the data!");
-      }
-    } catch (error) {
-      alert("Error while submitting: " + error.message);
-    }
+  const handleWaterChange = (value) => {
+    const newValue = Math.min(Math.max(value, 50), 10000);
+    reset({ amount: newValue, time: getValues("time") });
   };
 
-  const incrementWater = () =>
-    setCurrentWaterAmount((prev) => {
-      const newValue = Math.min(prev + 50, 10000);
-      reset({ amount: newValue, time: getValues("time") });
-      return newValue;
-    });
-
-  const decrementWater = () =>
-    setCurrentWaterAmount((prev) => {
-      const newValue = Math.max(prev - 50, 1);
-      reset({ amount: newValue, time: getValues("time") });
-      return newValue;
-    });
-
-  const handleAmountInputChange = (e) => {
-    const value = Number(e.target.value);
-    if (value >= 0 && value <= 10000) {
-      setCurrentWaterAmount(value);
-      reset({ amount: value, time: getValues("time") });
+  const onSubmit = async (data) => {
+    if (type === "add") {
+      dispatch(addWaterPortion(data));
+    } else if (type === "edit") {
+      dispatch(updateWaterPortion(portionData.id, data));
     }
+    onClose();
   };
 
   return (
@@ -113,19 +66,17 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
         <div className={s.counter}>
           <button
             type="button"
-            onClick={decrementWater}
+            onClick={() => handleWaterChange(getValues("amount") - 50)}
             className={s.iconButton}
           >
             <svg className={s.icon}>
               <use href={`${sprite}#icon-minus1`} />
             </svg>
           </button>
-
-          <span className={s.amountValue}>{`${currentWaterAmount} ml`}</span>
-
+          <span className={s.amountValue}>{`${getValues("amount")} ml`}</span>
           <button
             type="button"
-            onClick={incrementWater}
+            onClick={() => handleWaterChange(getValues("amount") + 50)}
             className={s.iconButton}
           >
             <svg className={s.icon}>
@@ -133,9 +84,7 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
             </svg>
           </button>
         </div>
-        {errors.waterInput && (
-          <p className={s.error}>{errors.waterInput.message}</p>
-        )}
+        {errors.amount && <p className={s.error}>{errors.amount.message}</p>}
       </div>
 
       <div className={s.inputGroup}>
@@ -157,8 +106,8 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
         <input
           type="number"
           className={s.input}
-          value={currentWaterAmount}
-          onChange={handleAmountInputChange}
+          value={getValues("amount")}
+          onChange={(e) => handleWaterChange(Number(e.target.value))}
         />
         {errors.amount && <p className={s.error}>{errors.amount.message}</p>}
       </div>
@@ -173,16 +122,6 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
       </div>
     </form>
   );
-};
-
-const addWater = async (data) => {
-  console.log("Adding water:", data);
-  return { success: true };
-};
-
-const putWater = async (id, data) => {
-  console.log(`Updating water with ID ${id}:`, data);
-  return { success: true };
 };
 
 export default WaterForm;
