@@ -8,7 +8,7 @@ import {
   addWaterPortion,
   updateWaterPortion,
 } from "../../../redux/water/operations.js";
-import { validationSchemaWaterChange } from "../../../../utils/formValidation.js";
+import { validationSchemaWaterChange } from "../../../utils/formValidation.js";
 
 const WaterForm = ({ subtitle, onClose, portionData, type }) => {
   const dispatch = useDispatch();

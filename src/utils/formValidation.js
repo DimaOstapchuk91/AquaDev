@@ -53,3 +53,18 @@ export const userSettingsSchema = Yup.object().shape({
   activityTime: activityTimeValid.default(0),
   waterIntake: waterIntakeValid.default(0),
 });
+
+export const validationSchemaWaterChange = Yup.object().shape({
+  amount: Yup.number()
+    .required("Amount is required")
+    .positive("Amount must be greater than 0")
+    .integer("Amount must be an integer")
+    .min(1, "Amount must be at least 1 ml")
+    .max(10000, "Amount cannot exceed 10,000 ml"),
+  time: Yup.string()
+    .required("Time is required")
+    .matches(
+      /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/,
+      "Invalid time format (hh:mm)"
+    ),
+});
