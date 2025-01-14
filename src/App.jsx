@@ -18,7 +18,12 @@ function App() {
   const isLogged = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
-    if (isLogged) dispatch(refreshUser());
+    const loadUser = async () => {
+      if (isLogged) {
+        await dispatch(refreshUser());
+      }
+    };
+    loadUser();
   }, [dispatch, isLogged]);
 
   return (
