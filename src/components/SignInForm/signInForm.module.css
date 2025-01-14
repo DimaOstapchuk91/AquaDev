@@ -239,6 +239,47 @@
   width: 24px;
   height: 24px;
   display: block;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.googleButton:hover .googleIcon {
+  animation: googleDoor 1s forwards;
+}
+
+@keyframes googleDoor {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(30px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+}
+
+.googleIcon::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  background: #fff;
+  border: 2px solid #53b8ef;
+  border-radius: 5px;
+  bottom: -10px;
+  left: calc(50% - 20px);
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.googleButton:hover .googleIcon::after {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* media 768px  */
