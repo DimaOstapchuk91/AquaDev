@@ -1,6 +1,6 @@
+import { logout } from "../../../redux/user/operations";
 import s from "./LogOutModal.module.css";
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/user/operations";
 
 const LogOutModal = ({ onClose }) => {
   const dispatch = useDispatch();
