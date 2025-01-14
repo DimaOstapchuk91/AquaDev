@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { register } from "../../redux/user/operations.js";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +7,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { NavLink } from "react-router-dom";
 import styles from "./signUpForm.module.css";
 import { orderSchemaReg } from "../../utils/formValidation.js";
+import { selectIsRefreshing } from "../../redux/user/selectors.js"; 
 
 export default function SignUpForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -28,6 +30,7 @@ export default function SignUpForm() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(selectIsRefreshing)
 
   const handleSubmit = (values, options) => {
     const userData = { email: values.email, password: values.password };
@@ -124,18 +127,21 @@ export default function SignUpForm() {
                 component="p"
               />
             </div>
-            <button type="submit" className={styles.submitButton}>
-              Sign Up
-            </button>
+            {isLoading ? "loading" :
+              <button type="submit" className={styles.submitButton}>
+                Sign Up
+              </button>
+            }
           </Form>
         </Formik>
-
-        <p className={styles.footerText}>
-          Don't have an account?{" "}
-          <NavLink to="/signin" className={styles.signupLink}>
-            Sign In
-          </NavLink>
-        </p>
+        {!isLoading &&
+          <p className={styles.footerText}>
+              Don't have an account?{" "}
+              <NavLink to="/signin" className={styles.signupLink}>
+                Sign In
+             </NavLink>
+          </p>
+        } 
       </div>
     </div>
   );
