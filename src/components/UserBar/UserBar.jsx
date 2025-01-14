@@ -1,10 +1,7 @@
 import { useState, useRef } from "react";
-
 import UserBarPopover from "../UserBarPopover/UserBarPopover";
-
-import s from "./UserBar.module.css";
-
 import sprite from "../../assets/sprite.svg";
+import s from "./UserBar.module.css";
 
 const UserBar = ({ name, avatar }) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
@@ -14,16 +11,24 @@ const UserBar = ({ name, avatar }) => {
   const handlePopoverOpen = () => setPopoverOpen((prev) => !prev);
   const handleClosePopover = () => setPopoverOpen(false);
 
+  const truncateName = (name) => {
+    return name.length > 6 ? `${name.slice(0, 6)} ...` : name;
+  };
+
   return (
-    <div>
+    <div className={s.userBarContainer}>
       <button
         ref={buttonRef}
         onClick={handlePopoverOpen}
         className={s.userBarBtn}
       >
-        {name}
-        <img src={avatar} alt=" User avatar" className={s.userBarImg} />
-        <svg className={s.userBarIcon} width={16} height={16}>
+        {truncateName(name)}
+        <img src={avatar} alt=" Avatar" className={s.userBarImg} />
+        <svg
+          className={`${s.userBarIcon} ${popoverOpen ? s.rotated : ""}`}
+          width={16}
+          height={16}
+        >
           <use href={`${sprite}#icon-down`}></use>
         </svg>
       </button>
