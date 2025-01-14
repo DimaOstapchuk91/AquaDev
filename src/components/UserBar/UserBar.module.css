@@ -1,3 +1,7 @@
+/* .userBarContainer {
+  position: relative;
+} */
+
 .userBarBtn {
   display: flex;
   flex-direction: row;
@@ -5,12 +9,10 @@
   align-items: center;
   border-radius: 30px;
   padding: 6px 12px;
-  width: 137px;
-  height: 50px;
   background-color: #323f47;
   color: #fff;
   border: none;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   cursor: pointer;
 }
 
@@ -18,9 +20,16 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .userBarIcon {
   fill: transparent;
   stroke: #fff;
+  transition: transform 0.3s ease;
+}
+
+.rotated {
+  transform: rotate(180deg);
 }

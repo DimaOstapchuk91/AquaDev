@@ -1,17 +1,30 @@
-import { useRef, useState } from "react";
-
+import { useEffect, useRef, useState } from "react";
+import UserSettingsModal from "../Modal/UserSettingsModal/UserSettingsModal.jsx";
+import LogOutModal from "../Modal/LogOutModal/LogOutModal.jsx";
+import Modal from "../Modal/Modal.jsx";
 import sprite from "../../assets/sprite.svg";
 import s from "./UserBarPopover.module.css";
 
-import UserSettingsModal from "../Modal/UserSettingsModal/UserSettingsModal.jsx";
-import LogOutModal from "../Modal/LogOutModal/LogOutModal.jsx";
-
-import Modal from "../Modal/Modal.jsx";
-
-const UserBarPopover = () => {
+const UserBarPopover = ({ buttonRef, onClose }) => {
   const [settingModalOpen, setSettingModalOpen] = useState(false);
   const [logoutOpen, setlogoutOpen] = useState(false);
   const popoverRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        onClose();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose, buttonRef]);
 
   const handleSettingOpen = () => {
     setSettingModalOpen(true);
@@ -28,8 +41,8 @@ const UserBarPopover = () => {
   };
 
   return (
-    <div ref={popoverRef} className={s.popoverContainer}>
-      <div>
+    <div ref={popoverRef}>
+      <div className={s.popoverContainer}>
         <button onClick={handleSettingOpen} className={s.popoverBtn}>
           <svg className={s.popoverIcons} width={16} height={16}>
             <use href={`${sprite}#icon-settings`}></use>
