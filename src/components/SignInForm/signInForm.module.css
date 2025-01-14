@@ -136,6 +136,111 @@
   text-decoration: none;
 }
 
+.buttonWrapperGoogle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.googleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  border: 2px solid var(--bg-component-green);
+  border-radius: 30px;
+  padding: 18px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease,
+    background-color 0.3s ease;
+  transform: scale(1);
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.googleButton:hover {
+  transform: scale(1.1);
+  border: 2px solid #53b8ef;
+  background-color: rgba(83, 184, 239, 0.4);
+  box-shadow: 0 4px 30px rgba(83, 184, 239, 0.2);
+}
+
+@keyframes cloudAnimation {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-10px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40px) scale(1);
+    opacity: 0;
+  }
+}
+
+.googleButton::before,
+.googleButton::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  animation-timing-function: ease-in-out;
+}
+
+.googleButton:hover::before,
+.googleButton:hover::after {
+  opacity: 1;
+  animation: cloudAnimation 2s infinite;
+}
+
+.googleButton::before {
+  width: 80px;
+  height: 40px;
+  left: 10%;
+  bottom: 10%;
+  border-radius: 50% 40% 60% 30%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  animation-delay: 0s;
+}
+
+.googleButton::after {
+  width: 90px;
+  height: 50px;
+  right: 10%;
+  bottom: 10%;
+  border-radius: 40% 50% 30% 60%;
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  animation-delay: 0.5s;
+}
+
+.googleIcon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
 /* media 768px  */
 @media (min-width: 768px) {
   .leftSection {
