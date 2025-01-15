@@ -6,7 +6,7 @@ import styles from "./signInForm.module.css";
 import { logIn } from "../../redux/user/operations.js";
 import { useDispatch } from "react-redux";
 import { orderSchemaLogin } from "../../utils/formValidation.js";
-import { selectIsRefreshing } from "../../redux/user/selectors.js"; 
+import { selectIsRefreshing } from "../../redux/user/selectors.js";
 
 const SignInForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -22,7 +22,7 @@ const SignInForm = () => {
 
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsRefreshing);
-  
+
   const handleSubmit = (values, options) => {
     dispatch(logIn(values));
 
@@ -89,19 +89,23 @@ const SignInForm = () => {
                 component="p"
               />
             </div>
-            {isLoading ? "loadig" : <button type="submit" className={styles.submitButton}>
-              Sign In
-            </button> }
+            {isLoading ? (
+              "loadig"
+            ) : (
+              <button type="submit" className={styles.submitButton}>
+                Sign In
+              </button>
+            )}
           </Form>
         </Formik>
-       {!isLoading &&
-         <p className={styles.footerText}>
-           Don't have an account?{" "}
-           <NavLink to="/signup" className={styles.signupLink}>
-             Sign Up
-           </NavLink>
-         </p>
-        }
+        {!isLoading && (
+          <p className={styles.footerText}>
+            Don&apos;t have an account?{" "}
+            <NavLink to="/signup" className={styles.signupLink}>
+              Sign Up
+            </NavLink>
+          </p>
+        )}
       </div>
     </div>
   );

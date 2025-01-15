@@ -1,14 +1,52 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userSettingsSchema } from "../../../utils/formValidation.js";
 import s from "./UserSettingsForm.module.css";
 
-const UserSettingsForm = ({ userName = "User", onClose }) => {
+const UserSettingsForm = ({ userName = "", onClose, updateUserData }) => {
   const [avatar, setAvatar] = useState(null);
-  const [M, setM] = useState(localStorage.getItem("userWeight") || "");
-  const [T, setT] = useState(localStorage.getItem("activeTime") || "");
   const [waterIntake, setWaterIntake] = useState(0);
-  const [customWaterIntake, setCustomWaterIntake] = useState(
-    localStorage.getItem("customWaterIntake") || ""
-  );
+  const [error, setError] = useState(null);
+
+  const userEmail = useSelector((state) => state.user.email);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(userSettingsSchema),
+    defaultValues: {
+      gender: "woman",
+      name: userName,
+      email: userEmail || "",
+      weight: localStorage.getItem("userWeight") || "",
+      activeTime: localStorage.getItem("activeTime") || "",
+      customWaterIntake: localStorage.getItem("customWaterIntake") || "",
+    },
+  });
+
+  const weight = watch("weight");
+  const activeTime = watch("activeTime");
+
+  const calculateWaterIntake = (M, T, gender = "woman") => {
+    if (gender === "woman") {
+      return M * 0.03 + T * 0.4;
+    } else {
+      return M * 0.04 + T * 0.6;
+    }
+  };
+
+  useEffect(() => {
+    if (weight && activeTime) {
+      setWaterIntake(calculateWaterIntake(Number(weight), Number(activeTime)));
+    } else {
+      setWaterIntake(0);
+    }
+  }, [weight, activeTime]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -17,44 +55,45 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
     }
   };
 
-  const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
+  const onSubmit = async (data) => {
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
 
-  useEffect(() => {
-    setWaterIntake(M && T ? calculateWaterIntake(Number(M), Number(T)) : 0);
-  }, [M, T]);
+    const formData = new FormData();
+    formData.append("avatar", avatar);
+    Object.keys(data).forEach((key) => {
+      formData.append(key, data[key]);
+    });
 
-  const calculateWaterIntake = (M, T, gender = "female") => {
-    if (gender === "female") {
-      return M * 0.03 + T * 0.4;
-    } else {
-      return M * 0.04 + T * 0.6;
+    localStorage.setItem("userWeight", data.weight);
+    localStorage.setItem("activeTime", data.activeTime);
+    localStorage.setItem("customWaterIntake", data.customWaterIntake);
+
+    try {
+      const response = await fetch("/api/user/settings", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.message || "An error occurred");
+      } else {
+        onClose();
+        updateUserData();
+      }
+    } catch {
+      setError("Network error occurred");
     }
   };
 
-  const handleMChange = (e) => {
-    const value = e.target.value;
-    setM(value === "" ? "" : Number(value));
-    setWaterIntake(
-      value === "" ? 0 : calculateWaterIntake(Number(value), Number(T))
-    );
-  };
-
-  const handleTChange = (e) => {
-    const value = e.target.value;
-    setT(value === "" ? "" : Number(value));
-    setWaterIntake(
-      value === "" ? 0 : calculateWaterIntake(Number(M), Number(value))
-    );
-  };
-
-  const handleCustomWaterChange = (e) => {
-    setCustomWaterIntake(e.target.value);
-  };
+  const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
 
   return (
-    <form className={s.form}>
+    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={s.btnContainer}>
-        <button className={s.closeBtn} onClick={onClose}>
+        <button className={s.closeBtn} onClick={onClose} type="button">
           <svg className={s.close}>
             <use href="/src/assets/sprite.svg#icon-x-1"></use>
           </svg>
@@ -88,6 +127,7 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
           <div className={s.gender}>
             <label className={s.radioLabel}>
               <input
+                {...register("gender")}
                 type="radio"
                 name="gender"
                 value="woman"
@@ -98,6 +138,7 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
             </label>
             <label className={s.radioLabel}>
               <input
+                {...register("gender")}
                 type="radio"
                 name="gender"
                 value="man"
@@ -109,11 +150,27 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
           <div className={s.user}>
             <label className={s.labelInform}>
               Your name
-              <input type="text" className={s.userInput} placeholder="Name" />
+              <input
+                {...register("name")}
+                type="text"
+                className={s.userInput}
+                placeholder="Name"
+              />
+              {errors.name && (
+                <span className={s.error}>{errors.name.message}</span>
+              )}
             </label>
             <label className={s.labelInform}>
               Email
-              <input type="text" className={s.userInput} />
+              <input
+                {...register("email")}
+                type="text"
+                className={s.userInput}
+                placeholder="Email"
+              />
+              {errors.email && (
+                <span className={s.error}>{errors.email.message}</span>
+              )}
             </label>
           </div>
           <h3 className={s.labelNorma}>My daily norma</h3>
@@ -121,16 +178,20 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
             <div className={s.normContainer}>
               <p className={s.subTitle}>For woman:</p>
               <span className={s.formula}>
-                {M && T
-                  ? `${waterIntake.toFixed(2)}  = (${M} * 0.03) + (${T} * 0.4)`
+                {weight && activeTime
+                  ? `${waterIntake.toFixed(
+                      2
+                    )} = (${weight} * 0.03) + (${activeTime} * 0.4)`
                   : "V =  (M * 0.03) + (T * 0.4)"}
               </span>
             </div>
             <div className={s.normContainer}>
               <p className={s.subTitle}>For man:</p>
               <span className={s.formula}>
-                {M && T
-                  ? `${waterIntake.toFixed(2)} = (${M} * 0.04) + (${T} * 0.6)`
+                {weight && activeTime
+                  ? `${waterIntake.toFixed(
+                      2
+                    )} = (${weight} * 0.04) + (${activeTime} * 0.6)`
                   : "V = (M * 0.04) + (T * 0.6)"}
               </span>
             </div>
@@ -153,22 +214,26 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
             <label className={s.waterInfo}>
               Your weight in kilograms:
               <input
-                className={s.waterInput}
+                {...register("weight")}
                 type="number"
-                value={M}
-                onChange={handleMChange}
+                className={s.waterInput}
                 placeholder="0"
               />
+              {errors.weight && (
+                <span className={s.error}>{errors.weight.message}</span>
+              )}
             </label>
             <label className={s.waterInfo}>
               The time of active participation in sports:
               <input
-                className={s.waterInput}
+                {...register("activeTime")}
                 type="number"
-                value={T}
-                onChange={handleTChange}
+                className={s.waterInput}
                 placeholder="0"
               />
+              {errors.activeTime && (
+                <span className={s.error}>{errors.activeTime.message}</span>
+              )}
             </label>
           </div>
           <div className={s.required}>
@@ -176,9 +241,9 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
               The required amount of water in liters per day:
             </h3>
             <div className={s.waterIntake}>
-              {customWaterIntake
-                ? `${customWaterIntake} L`
-                : M && T
+              {watch("customWaterIntake")
+                ? `${watch("customWaterIntake")} L`
+                : weight && activeTime
                 ? `${waterIntake.toFixed(2)} L`
                 : "1.8 L"}
             </div>
@@ -186,19 +251,18 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
           <label className={s.userIntake}>
             Write down how much water you will drink:
             <input
+              {...register("customWaterIntake")}
               type="number"
               className={s.intake}
-              value={customWaterIntake}
-              onChange={handleCustomWaterChange}
-              placeholder="1,8"
+              placeholder="1.8"
             />
           </label>
         </div>
       </div>
-
       <button className={s.save} type="submit">
         Save
       </button>
+      {error && <div className={s.errorNotification}>{error}</div>}
     </form>
   );
 };
