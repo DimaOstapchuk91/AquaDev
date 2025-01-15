@@ -8,7 +8,7 @@ const UserPanel = () => {
   const userName = name ? name : email;
   const userPhoto = avatar
     ? avatar
-    : "https://cdn.pixabay.com/photo/2017/06/09/23/22/avatar-2388584_1280.png";
+    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIC9LzASG2L2qWXB6-vVFpvbpomrR0rUe-KA&s";
 
   const truncateName = (userName) => {
     return userName.length > 9 ? `${userName.slice(0, 9)} ...` : userName;

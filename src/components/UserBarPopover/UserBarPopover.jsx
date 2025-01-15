@@ -44,13 +44,21 @@ const UserBarPopover = ({ buttonRef, onClose }) => {
     <div ref={popoverRef}>
       <div className={s.popoverContainer}>
         <button onClick={handleSettingOpen} className={s.popoverBtn}>
-          <svg className={s.popoverIcons} width={16} height={16}>
+          <svg
+            className={`${s.userBarIcon} ${settingModalOpen ? s.rotated : ""}`}
+            width={16}
+            height={16}
+          >
             <use href={`${sprite}#icon-settings`}></use>
           </svg>
           Setting
         </button>
         <button onClick={handleLogoutOpen} className={s.popoverBtn}>
-          <svg className={s.popoverIcons} width={16} height={16}>
+          <svg
+            className={`${s.popoverIcons} ${logoutOpen ? s.rotated : ""}`}
+            width={16}
+            height={16}
+          >
             <use href={`${sprite}#icon-log-out`}></use>
           </svg>
           Log out
