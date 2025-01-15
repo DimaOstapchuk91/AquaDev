@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userSettingsSchema } from "../../../utils/formValidation.js";
+import { updateUser } from "../../../redux/user/operations.js";
+import { fetchUserData } from "../../../redux/user/operations.js";
 import s from "./UserSettingsForm.module.css";
 
-const UserSettingsForm = ({ userName = "", onClose, updateUserData }) => {
+const UserSettingsForm = ({ userName = "", onClose }) => {
   const [avatar, setAvatar] = useState(null);
   const [waterIntake, setWaterIntake] = useState(0);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState(null);
 
-  const userEmail = useSelector((state) => state.user.email);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -20,12 +24,12 @@ const UserSettingsForm = ({ userName = "", onClose, updateUserData }) => {
   } = useForm({
     resolver: yupResolver(userSettingsSchema),
     defaultValues: {
-      gender: "woman",
-      name: userName,
-      email: userEmail || "",
-      weight: localStorage.getItem("userWeight") || "",
-      activeTime: localStorage.getItem("activeTime") || "",
-      customWaterIntake: localStorage.getItem("customWaterIntake") || "",
+      gender: user.gender || "woman",
+      name: user.name || userName,
+      email: user.email || "",
+      weight: user.weight || "",
+      activeTime: user.activeTime || "",
+      customWaterIntake: user.customWaterIntake || "",
     },
   });
 
@@ -60,31 +64,41 @@ const UserSettingsForm = ({ userName = "", onClose, updateUserData }) => {
       return;
     }
 
+    setLoading(true);
     const formData = new FormData();
     formData.append("avatar", avatar);
     Object.keys(data).forEach((key) => {
       formData.append(key, data[key]);
     });
 
-    localStorage.setItem("userWeight", data.weight);
-    localStorage.setItem("activeTime", data.activeTime);
-    localStorage.setItem("customWaterIntake", data.customWaterIntake);
-
     try {
-      const response = await fetch("/api/user/settings", {
-        method: "POST",
+      const response = await fetch("/api/user/update", {
+        method: "PATCH",
         body: formData,
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        setError(errorData.message || "An error occurred");
+        setNotification({
+          message: errorData.message || "Something went wrong",
+          type: "error",
+        });
       } else {
+        dispatch(updateUser({ avatar, ...data }));
+        dispatch(fetchUserData());
         onClose();
-        updateUserData();
+        setNotification({
+          message: "User data updated successfully!",
+          type: "success",
+        });
       }
     } catch {
-      setError("Network error occurred");
+      setNotification({
+        message: "Network error occurred",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -167,6 +181,7 @@ const UserSettingsForm = ({ userName = "", onClose, updateUserData }) => {
                 type="text"
                 className={s.userInput}
                 placeholder="Email"
+                disabled
               />
               {errors.email && (
                 <span className={s.error}>{errors.email.message}</span>
@@ -259,10 +274,14 @@ const UserSettingsForm = ({ userName = "", onClose, updateUserData }) => {
           </label>
         </div>
       </div>
-      <button className={s.save} type="submit">
-        Save
+      <button className={s.save} type="submit" disabled={loading}>
+        {loading ? "Saving..." : "Save"}
       </button>
-      {error && <div className={s.errorNotification}>{error}</div>}
+      {notification && (
+        <div className={`notification ${notification.type}`}>
+          {notification.message}
+        </div>
+      )}
     </form>
   );
 };
