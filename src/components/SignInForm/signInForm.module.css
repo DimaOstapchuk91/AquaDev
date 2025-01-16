@@ -136,6 +136,13 @@
   text-decoration: none;
 }
 
+.wrapperLoader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
 /* media 768px  */
 @media (min-width: 768px) {
   .leftSection {
