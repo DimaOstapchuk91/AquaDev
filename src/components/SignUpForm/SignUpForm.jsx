@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./signUpForm.module.css";
 import { orderSchemaReg } from "../../utils/formValidation.js";
 import { selectIsRefreshing } from "../../redux/user/selectors.js"; 
+import { BallTriangle } from "react-loader-spinner"
 
 export default function SignUpForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -127,10 +128,21 @@ export default function SignUpForm() {
                 component="p"
               />
             </div>
-            {isLoading ? "loading" :
-              <button type="submit" className={styles.submitButton}>
-                Sign Up
-              </button>
+            {isLoading 
+              ? (<div className={styles.wrapperLoader}>
+                    <BallTriangle
+                      height={80}
+                      width={80}
+                      radius={5}
+                      color="#4fa94d"
+                      ariaLabel="ball-triangle-loading"
+                      wrapperClass=""
+                      visible={true}
+                      />
+                </div>) 
+              : <button type="submit" className={styles.submitButton}>
+                    Sign In
+                </button> 
             }
           </Form>
         </Formik>

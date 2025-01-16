@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { orderSchemaLogin } from "../../utils/formValidation.js";
 import { selectIsRefreshing } from "../../redux/user/selectors.js"; 
 
+import { BallTriangle } from "react-loader-spinner"
 const SignInForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -89,9 +90,22 @@ const SignInForm = () => {
                 component="p"
               />
             </div>
-            {isLoading ? "loadig" : <button type="submit" className={styles.submitButton}>
-              Sign In
-            </button> }
+            {isLoading 
+               ? (<div className={styles.wrapperLoader}>
+                    <BallTriangle
+                      height={80}
+                      width={80}
+                      radius={5}
+                      color="#4fa94d"
+                      ariaLabel="ball-triangle-loading"
+                      wrapperClass=""
+                      visible={true}
+                    />
+                  </div>) 
+                : <button type="submit" className={styles.submitButton}>
+                    Sign In
+                  </button> 
+            }
           </Form>
         </Formik>
        {!isLoading &&
