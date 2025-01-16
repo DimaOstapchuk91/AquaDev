@@ -19,12 +19,15 @@
   width: 76px;
   height: 18px;
   border: none;
+  border-radius: 4px;
   background-color: transparent;
   cursor: pointer;
   padding: 4px;
 }
 
 .popoverBtn:hover {
+  border-bottom: 1px solid;
+  border-color: #2f2f2f;
   box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -32,4 +35,9 @@
   margin-right: 4px;
   fill: transparent;
   stroke: black;
+  transition: transform 0.6s ease;
+}
+
+.rotated {
+  transform: rotate(360deg);
 }
