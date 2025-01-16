@@ -20,11 +20,9 @@ const useAccessRefresh = () => {
         try {
           const token = await dispatch(refreshUser()).unwrap();
           setAuthHeader(token);
-          console.log('test castom hook');
-          console.log('token in castom hook', token);
-          //   console.log(originalRequest);
 
-          console.log('request');
+          originalRequest.headers.Authorization = 'Bearer ' + token;
+
           return await aquaDevApi(originalRequest);
         } catch (refreshError) {
           return Promise.reject(refreshError);
