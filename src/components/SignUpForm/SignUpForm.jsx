@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./signUpForm.module.css";
 import { orderSchemaReg } from "../../utils/formValidation.js";
 import { selectIsRefreshing } from "../../redux/user/selectors.js"; 
+import Loader from "../Loader/Loader.jsx";
 
 export default function SignUpForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -127,7 +128,7 @@ export default function SignUpForm() {
                 component="p"
               />
             </div>
-            {isLoading ? "loading" :
+            {isLoading ? <Loader/> :
               <button type="submit" className={styles.submitButton}>
                 Sign Up
               </button>
