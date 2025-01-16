@@ -7,8 +7,7 @@ import { logIn } from "../../redux/user/operations.js";
 import { useDispatch } from "react-redux";
 import { orderSchemaLogin } from "../../utils/formValidation.js";
 import { selectIsRefreshing } from "../../redux/user/selectors.js"; 
-
-import { BallTriangle } from "react-loader-spinner"
+import Loader from "../Loader/Loader.jsx";
 const SignInForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -92,15 +91,7 @@ const SignInForm = () => {
             </div>
             {isLoading 
                ? (<div className={styles.wrapperLoader}>
-                    <BallTriangle
-                      height={80}
-                      width={80}
-                      radius={5}
-                      color="#4fa94d"
-                      ariaLabel="ball-triangle-loading"
-                      wrapperClass=""
-                      visible={true}
-                    />
+                    <Loader/>
                   </div>) 
                 : <button type="submit" className={styles.submitButton}>
                     Sign In
