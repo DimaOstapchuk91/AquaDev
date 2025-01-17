@@ -36,17 +36,18 @@ const WaterProgressBar = ({ value }) => {
             },
             label: "100%",
           },
-          ...(value <= 100 && {
-            [value]: {
-              style: {
-                color: "rgba(47, 47, 47, 0.6)",
-                fontSize: "10px",
-                lineHeight: "10px",
-                fontWeight: "400",
+          ...(value <= 100 &&
+            (value <= 40 || value >= 60) && {
+              [value]: {
+                style: {
+                  color: "rgba(47, 47, 47, 0.6)",
+                  fontSize: "10px",
+                  lineHeight: "10px",
+                  fontWeight: "400",
+                },
+                label: `${value}%`,
               },
-              label: `${value}%`,
-            },
-          }),
+            }),
         }}
         railStyle={{
           backgroundColor: "#F0EFF4",
