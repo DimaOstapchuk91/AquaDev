@@ -1,9 +1,14 @@
 import s from "./DeleteWaterModal.module.css";
 import { useDispatch } from "react-redux";
-// import { deleteWater } from "../../redux/water/operations";
+import { deleteWaterPortion } from "../../../redux/water/operations";
 
 const DeleteWaterModal = ({ onClose, id }) => {
   const dispatch = useDispatch();
+
+  const handleDell = () => {
+    dispatch(deleteWaterPortion(id));
+    onClose();
+  };
 
   return (
     <div className={s.modalWrapp}>
@@ -13,11 +18,7 @@ const DeleteWaterModal = ({ onClose, id }) => {
           Are you sure you want to delete the entry?
         </p>
         <div className={s.boxForBtn}>
-          <button
-            type="button"
-            className={s.btnDelete}
-            // onClick={() => dispatch(deleteWater(id))}
-          >
+          <button type="button" className={s.btnDelete} onClick={handleDell}>
             Delete
           </button>
           <button type="button" className={s.btnCancel} onClick={onClose}>

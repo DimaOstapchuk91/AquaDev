@@ -11,10 +11,12 @@ const Modal = ({ isOpen, onClose, children }) => {
 
     if (isOpen) {
       document.addEventListener("keydown", handleKeyDown);
+      document.body.classList.add(s.noScroll);
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.body.classList.remove(s.noScroll);
     };
   }, [isOpen, onClose]);
 

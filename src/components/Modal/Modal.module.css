@@ -11,6 +11,11 @@
     z-index: 1000;
 }
 
+.noScroll {
+    overflow: hidden;
+    height: 100%;
+}
+
 .window {
     position: relative;
     background-color: var(--background-white);
