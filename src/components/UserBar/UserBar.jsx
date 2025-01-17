@@ -11,10 +11,6 @@ const UserBar = ({ name, avatar }) => {
   const handlePopoverOpen = () => setPopoverOpen((prev) => !prev);
   const handleClosePopover = () => setPopoverOpen(false);
 
-  const truncateName = (name) => {
-    return name.length > 6 ? `${name.slice(0, 6)} ...` : name;
-  };
-
   return (
     <div className={s.userBarContainer}>
       <button
@@ -22,7 +18,7 @@ const UserBar = ({ name, avatar }) => {
         onClick={handlePopoverOpen}
         className={s.userBarBtn}
       >
-        {truncateName(name)}
+        <span className={s.span}>{name}</span>
         <img src={avatar} alt=" Avatar" className={s.userBarImg} />
         <svg
           className={`${s.userBarIcon} ${popoverOpen ? s.rotated : ""}`}
