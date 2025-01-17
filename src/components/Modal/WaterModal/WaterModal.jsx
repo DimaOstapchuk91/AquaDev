@@ -1,7 +1,7 @@
 import WaterForm from "../WaterForm/WaterForm.jsx";
 import s from "./WaterModal.module.css";
 
-const WaterModal = ({ onClose, toggleHandle, portionData, type }) => {
+const WaterModal = ({ onClose, toggleHandle, portionData, id, type }) => {
   const title =
     type === "add" ? "Add water" : "Edit the entered amount of water";
   const subtitle = type === "add" ? "Choose a value:" : "Correct entered data:";
@@ -14,6 +14,7 @@ const WaterModal = ({ onClose, toggleHandle, portionData, type }) => {
         onClose={onClose}
         toggleHandle={toggleHandle}
         portionData={portionData}
+        id={id}
         type={type}
       />
     </div>

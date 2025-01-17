@@ -10,7 +10,7 @@ import {
 } from "../../../redux/water/operations.js";
 import { validationSchemaWaterChange } from "../../../utils/formValidation.js";
 
-const WaterForm = ({ subtitle, onClose, portionData, type }) => {
+const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
   const dispatch = useDispatch();
   const {
     control,
@@ -52,7 +52,7 @@ const WaterForm = ({ subtitle, onClose, portionData, type }) => {
     if (type === "add") {
       dispatch(addWaterPortion(data));
     } else if (type === "edit") {
-      dispatch(updateWaterPortion(portionData.id, data));
+      dispatch(updateWaterPortion({ id, data }));
     }
     onClose();
   };

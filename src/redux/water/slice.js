@@ -34,19 +34,19 @@ const slice = createSlice({
         state.waterPortions.push(action.payload);
       })
       .addCase(updateWaterPortion.fulfilled, (state, action) => {
-        state.waterPortions = state.waterPortions.map(item =>
-          item.id === action.payload._id
+        state.waterPortions = state.waterPortions.map((item) =>
+          item._id === action.payload._id
             ? {
-                ...item,
+                _id: action.payload._id,
                 amount: action.payload.amount,
                 time: action.payload.time,
               }
-            : item
+            : item,
         );
       })
       .addCase(deleteWaterPortion.fulfilled, (state, action) => {
         state.waterPortions = state.waterPortions.filter(
-          item => item.id !== action.payload
+          (item) => item._id !== action.payload,
         );
       })
       .addCase(logout.fulfilled, () => initialState)
