@@ -9,7 +9,7 @@ const LogOutModal = ({ onClose }) => {
     <div className={s.modalWrapp}>
       <h2 className={s.titleLogout}>Log out</h2>
       <p className={s.textLogout}>Do you really want to leave?</p>
-      <div className={s.boxForBtn}>
+      <div className={s.wrappBtn}>
         <button
           type="button"
           className={s.btnLogout}

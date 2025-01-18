@@ -14,8 +14,6 @@
     line-height: 129%;
     letter-spacing: -0.01em;
     color: var(--black);
-    
-    
 }
 
 .counter {
@@ -25,6 +23,7 @@
     gap: 8px;
     margin-top: 8px;
     margin-bottom: 16px;
+    
 }
 
 .iconButton {
@@ -32,6 +31,8 @@
     border-radius: 30px;
     padding: 0;
     height: 40px;
+    cursor: pointer;
+    transition: color 250ms ease-in;
 }
 
 
@@ -40,6 +41,10 @@
     height: 40px;
     stroke: var(--bg-btn-dark-gray);
     fill: none;
+}
+
+.iconButton:hover .icon {
+    stroke: var(--bg-component-green);
 }
 
 .amountValue {
@@ -51,6 +56,7 @@
     font-size: 14px;
     font-weight: 700;
     line-height: 1.28;
+    font-family: Poppins;
 }
 
 .timelabel {
@@ -70,11 +76,17 @@
     padding: 14px 16px;
     margin-bottom: 24px;
     outline: none;
-    transition: border-color var(--animation), transform var(--animation);
+    transition: border-color 0.3s ease;
     color: var(--black);
     font-size: 14px;
     line-height: 1.28;
     letter-spacing: -0.14px;
+}
+
+.input:hover,
+.input:focus {
+    outline: none;
+    border-color: var(--bg-component-green);
 }
 
 .valuelabel {
@@ -87,30 +99,85 @@
     margin-bottom: 8px;
 }
 
+.wrappBtn {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+} 
+
+.submit, .cancel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    width: 116px;
+    height: 46px;
+    border: none;
+    transition: color 250ms ease-in;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: var(--dark-gray-calendar);
+    cursor: pointer;
+}
 
 .submit {
     background-color: var(--bg-component-green);
-    padding: 14px 40px;
-    border-radius: 30px;
-    border: none;
     color: var(--text-color);
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.28;
-    letter-spacing: -0.14px;
-    transition: background-color var(--animation);
-    margin-right: 12px;
+
+    &:hover {
+        background-color: var(--bg-component-dark-green);
+    }
 }
 
 .cancel {
-    background-color: var(--input-red);
-    padding: 14px 30px;
-    border-radius: 30px;
-    border: none;
-    color: var(--text-color);
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.28;
-    letter-spacing: -0.14px;
-    transition: background-color var(--animation);
+    background-color: var(--bg-component-gray);
+    color: var(--dark-gray-calendar);
+
+    &:hover {
+        color: var(--text-color);
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    .subtitle, .valuelabel {
+        font-size: 18px;
+        line-height: 133%;
+    }
+
+
+    .label, .timelabel {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .icon {
+        width: 43px;
+        height: 43px;
+    }
+
+    .amountValue {
+        min-width: 92px;
+        height: 43px;
+        font-size: 15px;
+        line-height: 1.49;
+    }
+
+    .submit, .cancel {
+        width: 141px;
+        height: 60px;
+        border: none;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .input {
+        height: 56px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
 }
