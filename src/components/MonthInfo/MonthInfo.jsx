@@ -85,12 +85,12 @@ const MonthInfo = () => {
 
     dispatch(getWaterMonth({ year, month }));
     console.log({ year, month });
-  }, [currentDate, dispatch, selectedDate]);
+  }, [currentDate, dispatch]);
 
   useEffect(() => {
     console.log(monthInfo, "monthInfo");
 
-    // if (!monthInfo || monthInfo.length === 0) return;
+    if (!monthInfo || monthInfo.length === 0) return;
 
     const weekDays = getCurrentWeek(currentDate);
 
