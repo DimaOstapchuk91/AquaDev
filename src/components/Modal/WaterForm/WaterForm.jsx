@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./WaterForm.module.css";
 import sprite from "../../../assets/sprite.svg";
+import { useTranslation } from "react-i18next";
 
 const validationSchema = Yup.object().shape({
   amount: Yup.number()
@@ -24,6 +25,10 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
   const [currentWaterAmount, setCurrentWaterAmount] = useState(
     water ? water.amount : 50
   );
+
+  //================
+  const { t } = useTranslation();
+  //==============
 
   const {
     control,
@@ -109,7 +114,8 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
       <p className={s.subtitle}>{subtitle}</p>
 
       <div className={s.inputGroup}>
-        <label className={s.label}>Amount of water:</label>
+        {/* <label className={s.label}>Amount of water:</label> */}
+        <label className={s.label}>{t("waterForm.waterAmount")}</label>
         <div className={s.counter}>
           <button
             type="button"
@@ -139,7 +145,9 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
       </div>
 
       <div className={s.inputGroup}>
-        <label className={s.timelabel}>Recording time:</label>
+        {/* <label className={s.timelabel}>Recording time:</label> */}
+        <label className={s.timelabel}>{t("waterForm.recordingTime")}</label>
+
         <Controller
           name="time"
           control={control}
@@ -152,7 +160,8 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
 
       <div className={s.inputGroup}>
         <label className={s.valuelabel}>
-          Enter the value of the water used:
+          {/* Enter the value of the water used: */}
+          {t("waterForm.enterValue")}
         </label>
         <input
           type="number"
@@ -165,10 +174,12 @@ const WaterForm = ({ subtitle, onClose, water, type }) => {
 
       <div className={s.buttons}>
         <button type="submit" className={s.submit}>
-          Save
+          {/* Save */}
+          {t("waterForm.saveBtn")}
         </button>
         <button type="button" onClick={onClose} className={s.cancel}>
-          Cancel
+          {/* Cancel */}
+          {t("waterForm.cancelBtn")}
         </button>
       </div>
     </form>

@@ -6,8 +6,12 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { NavLink } from "react-router-dom";
 import styles from "./signUpForm.module.css";
 import { orderSchemaReg } from "../../utils/formValidation.js";
+//===============
+import { useTranslation } from "react-i18next";
+//================
 
 export default function SignUpForm() {
+  const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [repeatPasswordVisible, setRepeatPasswordVisible] = useState(false);
@@ -39,7 +43,8 @@ export default function SignUpForm() {
     <div className={styles.leftSection}>
       <h1 className={styles.brand}>AQUATRACK</h1>
       <div className={styles.card}>
-        <h2 className={styles.title}>Sign Up</h2>
+        {/* <h2 className={styles.title}>Sign Up</h2> */}
+        <h2 className={styles.title}>{t("signUp.signUp")}</h2>
         <Formik
           initialValues={initForm}
           validationSchema={orderSchemaReg}
@@ -48,7 +53,8 @@ export default function SignUpForm() {
           <Form action="#" className={styles.form}>
             <div className={styles.formGroup}>
               <label htmlFor="email" className={styles.label}>
-                Email
+                {/* Email */}
+                {t("signUp.email")}
               </label>
               <Field
                 name="email"
@@ -57,7 +63,8 @@ export default function SignUpForm() {
                 className={`${styles.input} ${
                   initForm.name ? styles.error : styles.success
                 }`}
-                placeholder="Enter your email"
+                // placeholder="Enter your email"
+                placeholder={t("signUp.enterEmail")}
                 required
               />
               <ErrorMessage
@@ -67,8 +74,11 @@ export default function SignUpForm() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="RegisterPassword" className={styles.label}>
+              {/* <label htmlFor="RegisterPassword" className={styles.label}>
                 Password
+              </label> */}
+              <label htmlFor="RegisterPassword" className={styles.label}>
+                {t("signUp.password")}
               </label>
               <div className={styles.passwordWrapper}>
                 <Field
@@ -78,7 +88,8 @@ export default function SignUpForm() {
                   className={`${styles.input} ${
                     initForm.password ? styles.error : styles.success
                   }`}
-                  placeholder="Enter your password"
+                  // placeholder="Enter your password"
+                  placeholder={t("signUp.enterPassword")}
                   required
                 />
                 <button
@@ -97,7 +108,8 @@ export default function SignUpForm() {
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="repeatPassword" className={styles.label}>
-                Repeat password
+                {/* Repeat password */}
+                {t("signUp.repeatPassword")}
               </label>
               <div className={styles.passwordWrapper}>
                 <Field
@@ -107,7 +119,8 @@ export default function SignUpForm() {
                   className={`${styles.input} ${
                     initForm.confirmPassword ? styles.error : styles.success
                   }`}
-                  placeholder="Repeat password"
+                  // placeholder="Repeat password"
+                  placeholder={t("signUp.repeatPassword")}
                   required
                 />
                 <button
@@ -125,15 +138,18 @@ export default function SignUpForm() {
               />
             </div>
             <button type="submit" className={styles.submitButton}>
-              Sign Up
+              {/* Sign Up */}
+              {t("signUp.signUp")}
             </button>
           </Form>
         </Formik>
 
         <p className={styles.footerText}>
-          Don't have an account?{" "}
+          {t("signUp.noAccount")}
+          {/* Don't have an account? */}{" "}
           <NavLink to="/signin" className={styles.signupLink}>
-            Sign In
+            {/* Sign In */}
+            {t("signUp.signIn")}
           </NavLink>
         </p>
       </div>

@@ -12,6 +12,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useTranslation } from "react-i18next";
 
 const getCurrentWeek = (currentDate) => {
   const startOfWeek = new Date(currentDate);
@@ -35,6 +36,8 @@ const MonthInfo = () => {
   const [weekData, setWeekData] = useState([]);
   const [isPaginationDisabled, setPaginationDisabled] = useState(false);
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     const weekDays = getCurrentWeek(currentDate);
     const data = weekDays.map((day, i) => ({
@@ -53,7 +56,8 @@ const MonthInfo = () => {
     <div className={s.monthInfo}>
       <div className={s.monthInfoHeader}>
         <h2 className={s.monthTitle}>{`${
-          isCalendarActive ? "Month" : "Statistics"
+          // isCalendarActive ? "Month" : "Statistics"
+          isCalendarActive ? t("monthInfo.month") : t("monthInfo.statistics")
         }`}</h2>
         <div className={s.container}>
           <CalendarPagination

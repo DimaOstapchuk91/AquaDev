@@ -1,11 +1,15 @@
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import s from "./WaterProgressBar.module.css";
+import { useTranslation } from "react-i18next";
 
 const WaterProgressBar = ({ value }) => {
+  const { t } = useTranslation();
   return (
     <div className={s.progressBarContainer}>
-      <h3 className={s.title}>Today</h3>
+      {/* <h3 className={s.title}>Today</h3> */}
+      <h3 className={s.title}>{t("chooseDate")}</h3>
+
       <Slider
         value={value}
         marks={{

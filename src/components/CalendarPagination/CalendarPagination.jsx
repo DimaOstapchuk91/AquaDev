@@ -1,23 +1,38 @@
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import s from "./CalendarPagination.module.css";
+import { useTranslation } from "react-i18next";
 const CalendarPagination = ({
   currentDate,
   setCurrentDate,
   isPaginationDisabled,
 }) => {
+  const { t } = useTranslation();
+
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    t("months.january"),
+    t("months.february"),
+    t("months.march"),
+    t("months.april"),
+    t("months.may"),
+    t("months.june"),
+    t("months.july"),
+    t("months.august"),
+    t("months.september"),
+    t("months.october"),
+    t("months.november"),
+    t("months.december"),
+    // "January",
+    // "February",
+    // "March",
+    // "April",
+    // "May",
+    // "June",
+    // "July",
+    // "August",
+    // "September",
+    // "October",
+    // "November",
+    // "December",
   ];
 
   const currentMonth = months[currentDate.getMonth()];

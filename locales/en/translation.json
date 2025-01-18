@@ -1,0 +1,115 @@
+{
+  "welcomePage": {
+    "header": "Record daily water intake and track",
+    "name": "Water consumption tracker",
+    "tryTracker": "Try tracker",
+    "signIn": "Sign in"
+  },
+  "advantagesSection": {
+    "happyCustomers_one": "Our <span>{{allUsersCount}} happy</span><br/> customer",
+    "happyCustomers_other": "Our <span>{{allUsersCount}} happy</span><br/> customers",
+    "habitDrive": "Habit drive",
+    "viewStatistics": "View statistics",
+    "personalRateSettings": "Personal rate setting"
+  },
+  "signUp": {
+    "signUp": "Sign Up",
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "password": "Password",
+    "enterPassword": "Enter your password",
+    "repeatPassword": "Repeat password",
+    "noAccount": "Do you have an account?",
+    "signIn": " Sign In"
+  },
+  "signUpValidation": {
+    "mustBeFilled": "Must be filled",
+    "passwordRequired": "Password is required",
+    "passwordConfirmation": "Password confirmation is required"
+  },
+  "signIn": {
+    "signIn": "Sign In",
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "password": "Password",
+    "enterPassword": "Enter your password",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up"
+  },
+  "waterDashboard": {
+    "dailyNorm": "My daily norm"
+  },
+  "userPanel": "Hello,",
+  "userBarPopover": {
+    "setting": "Setting",
+    "logout": "Logout"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+
+  "addWaterBtn": {
+    "addWater": "Add water"
+  },
+  "monthInfo": {
+    "month": "Month",
+    "statistics": "Statistics"
+  },
+  "waterModal": {
+    "addWater": "Add water",
+    "editValue": "Edit the entered amount of water",
+    "chooseValue": "Choose a value:",
+    "correctData": "Correct entered data:"
+  },
+  "waterForm": {
+    "enterValue": "Enter the value of the water used:",
+    "recordingTime": "Recording time:",
+    "waterAmount": "Amount of water:",
+    "saveBtn": "Save",
+    "cancelBtn": "Cancel"
+  },
+  "userSettingsModal": "UserSettingsForm",
+  "userSettingsForm": {
+    "setting": "Setting",
+    "uploadPhoto": "Upload a photo",
+    "gender": "Your gender identity",
+    "woman": "Woman",
+    "man": "Man",
+    "name": "Your name",
+    "email": "Email",
+    "dailyNorma": "My daily norma",
+    "forWoman": "For woman:",
+    "forMan": "For man:",
+    "explanation": "V is the volume of the water norm in liters per day, M is your body weight, T is the time of active sports, or another type of activity commensurate in terms of loads (in the absence of these, you must set 0)",
+    "activeTime": "Active time in hours",
+    "weight": "Your weight in kilograms:",
+    "sportTime": "The time of active participation in sports:",
+    "waterRequired": "The required amount of water in liters per day:",
+    "drinkWater": "Write down how much water you will drink:",
+    "saveBtn": "Save"
+  },
+  "logOutModal": {
+    "logOut": "Log out",
+    "confirmation": "Do you really want to leave?",
+    "cancelBtn": "Cancel",
+    "logOutBtn": "Log out"
+  },
+  "deleteWaterModal": {
+    "delete": "Delete entry",
+    "confirmation": "Are you sure you want to delete the entry?",
+    "deleteBtn": "Delete",
+    "cancelBtn": "Cancel"
+  },
+  "chooseDate": "Today"
+}

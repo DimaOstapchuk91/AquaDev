@@ -20,9 +20,18 @@ import { useEffect } from "react";
 import { selectAllUsersCount } from "../../redux/user/selectors";
 import { getAllUsersCount } from "../../redux/user/operations";
 
+//=============
+import LocalizationDropdown from "../LocalizationDropdown/LocalizationDropdown";
+import { Trans, useTranslation } from "react-i18next";
+//==========
+
 const AdvantagesSection = () => {
+  //================
+  const { t } = useTranslation();
+  //===============
   const dispatch = useDispatch();
   const allUsersCount = useSelector(selectAllUsersCount);
+  // const allUsersCount = 5;
 
   useEffect(() => {
     dispatch(getAllUsersCount());
@@ -31,6 +40,11 @@ const AdvantagesSection = () => {
 
   return (
     <div className={css.section}>
+      {/* //========== */}
+      <div>
+        <LocalizationDropdown />
+      </div>
+      {/* //================ */}
       <div className={css.customersBox}>
         <div className={css.customersContainer}>
           <picture className={css.firstContainer}>
@@ -83,21 +97,41 @@ const AdvantagesSection = () => {
           </picture>
         </div>
         <p className={css.sectionsTextLeters}>
-          Our <span className={css.span}>{allUsersCount} happy</span> <br />{" "}
-          customers
+          {/* Our <span className={css.span}>{allUsersCount} happy</span> <br />{" "}
+          customers */}
+          <Trans
+            i18nKey={
+              allUsersCount === 1
+                ? "advantagesSection.happyCustomers_one"
+                : allUsersCount >= 2 && allUsersCount <= 4
+                ? "advantagesSection.happyCustomers_two"
+                : "advantagesSection.happyCustomers_other"
+            }
+            values={{ allUsersCount }}
+            components={{
+              span: <span className={css.span} />,
+              br: <br />,
+            }}
+          />
         </p>
       </div>
       <div className={css.group}>
         <ul className={css.groupList}>
           <li className={css.groupListItem}>
             <div className={css.ellipse}></div>
-            <p className={css.groupListItemText}>Habit drive</p>
+            <p className={css.groupListItemText}>
+              {t("advantagesSection.habitDrive")}
+            </p>
           </li>
           <li className={css.groupListItem}>
-            <p className={css.groupListItemTextBlack}>View statistics</p>
+            <p className={css.groupListItemTextBlack}>
+              {t("advantagesSection.viewStatistics")}
+            </p>
           </li>
           <li className={css.groupListItem}>
-            <p className={css.groupListItemTextBlack}>Personal rate setting</p>
+            <p className={css.groupListItemTextBlack}>
+              {t("advantagesSection.personalRateSettings")}
+            </p>
           </li>
         </ul>
       </div>

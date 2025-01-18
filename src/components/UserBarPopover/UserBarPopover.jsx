@@ -1,8 +1,13 @@
 import { useEffect, useRef } from "react";
 import sprite from "../../assets/sprite.svg";
 import s from "./UserBarPopover.module.css";
+//========================
+import { useTranslation } from "react-i18next";
 
 const UserBarPopover = ({ buttonRef, onClose, openModal }) => {
+  //============================
+  const { t } = useTranslation();
+  //=======================
   const popoverRef = useRef(null);
 
   useEffect(() => {
@@ -25,13 +30,15 @@ const UserBarPopover = ({ buttonRef, onClose, openModal }) => {
         <svg className={s.popoverIcons} width={16} height={16}>
           <use href={`${sprite}#icon-settings`}></use>
         </svg>
-        Setting
+        {/* Setting */}
+        {t("userBarPopover.setting")}
       </button>
       <button onClick={() => openModal("Logout")} className={s.popoverBtn}>
         <svg className={s.popoverIcons} width={16} height={16}>
           <use href={`${sprite}#icon-log-out`}></use>
         </svg>
-        Logout
+        {/* Logout */}
+        {t("userBarPopover.logout")}
       </button>
     </div>
   );

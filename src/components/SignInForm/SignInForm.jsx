@@ -5,8 +5,11 @@ import styles from "./signInForm.module.css";
 import { logIn } from "../../redux/user/operations.js";
 import { useDispatch } from "react-redux";
 import { orderSchemaLogin } from "../../utils/formValidation.js";
-
+//=======================================
+import { useTranslation } from "react-i18next";
+//==============================
 const SignInForm = () => {
+  const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -30,7 +33,8 @@ const SignInForm = () => {
     <div className={styles.leftSection}>
       <h1 className={styles.brand}>AQUATRACK</h1>
       <div className={styles.card}>
-        <h2 className={styles.title}>Sign In</h2>
+        {/* <h2 className={styles.title}>Sign In</h2> */}
+        <h2 className={styles.title}>{t("signIn.signIn")}</h2>
         <Formik
           initialValues={initForm}
           validationSchema={orderSchemaLogin}
@@ -39,7 +43,8 @@ const SignInForm = () => {
           <Form className={styles.form}>
             <div className={styles.formGroup}>
               <label htmlFor="email" className={styles.label}>
-                Email
+                {/* Email */}
+                {t("signIn.email")}
               </label>
               <Field
                 name="email"
@@ -48,7 +53,8 @@ const SignInForm = () => {
                 className={`${styles.input} ${
                   initForm.email ? styles.error : styles.success
                 }`}
-                placeholder="Enter your email"
+                // placeholder="Enter your email"
+                placeholder={t("signIn.enterEmail")}
                 required
               />
               <ErrorMessage
@@ -59,7 +65,8 @@ const SignInForm = () => {
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="password" className={styles.label}>
-                Password
+                {/* Password */}
+                {t("signIn.password")}
               </label>
               <div className={styles.passwordWrapper}>
                 <Field
@@ -69,7 +76,8 @@ const SignInForm = () => {
                   className={`${styles.input} ${
                     initForm.password ? styles.error : styles.success
                   }`}
-                  placeholder="Enter your password"
+                  // placeholder="Enter your password"
+                  placeholder={t("signIn.enterPassword")}
                   required
                 />
                 <button
@@ -87,15 +95,18 @@ const SignInForm = () => {
               />
             </div>
             <button type="submit" className={styles.submitButton}>
-              Sign In
+              {/* Sign In */}
+              {t("signIn.signIn")}
             </button>
           </Form>
         </Formik>
 
         <p className={styles.footerText}>
-          Don't have an account?{" "}
+          {/* Don't have an account? */}
+          {t("signIn.noAccount")}{" "}
           <NavLink to="/signup" className={styles.signupLink}>
-            Sign Up
+            {/* Sign Up */}
+            {t("signIn.signUp")}
           </NavLink>
         </p>
       </div>
