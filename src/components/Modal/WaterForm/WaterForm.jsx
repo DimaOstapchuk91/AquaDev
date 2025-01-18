@@ -112,7 +112,7 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
         {errors.amount && <p className={s.error}>{errors.amount.message}</p>}
       </div>
 
-      <div className={s.buttons}>
+      <div className={s.wrappBtn}>
         <button type="submit" className={s.submit}>
           Save
         </button>

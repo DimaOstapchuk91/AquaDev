@@ -17,7 +17,7 @@ const DeleteWaterModal = ({ onClose, id }) => {
         <p className={s.textDelete}>
           Are you sure you want to delete the entry?
         </p>
-        <div className={s.boxForBtn}>
+        <div className={s.wrappBtn}>
           <button type="button" className={s.btnDelete} onClick={handleDell}>
             Delete
           </button>
