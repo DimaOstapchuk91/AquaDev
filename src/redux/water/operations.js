@@ -21,7 +21,7 @@ export const getWaterMonth = createAsyncThunk(
   '/water/getWaterMonth',
   async ({ year, month }, thunkAPI) => {
     try {
-      const response = await aquaDevApi.patch(`/water/${year}-${month}`);
+      const response = await aquaDevApi.get(`/water/month/${year}-${month}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
