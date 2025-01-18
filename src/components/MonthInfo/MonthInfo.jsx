@@ -12,6 +12,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useDispatch, useSelector } from "react-redux";
+import { getWaterMonth } from "../../redux/water/operations";
+import { selectWaterMonth } from "../../redux/water/selectors";
+import { selectUser } from "../../redux/user/selectors";
 
 const getCurrentWeek = (currentDate) => {
   const startOfWeek = new Date(currentDate);
@@ -26,8 +30,6 @@ const getCurrentWeek = (currentDate) => {
   });
 };
 
-const mockData = [2000, 1000, 900, 500, 3000, 1000, 2500];
-
 const MonthInfo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -35,14 +37,77 @@ const MonthInfo = () => {
   const [weekData, setWeekData] = useState([]);
   const [isPaginationDisabled, setPaginationDisabled] = useState(false);
 
+  const dispatch = useDispatch();
+  const monthInfo = useSelector(selectWaterMonth);
+  const { dailyNorma } = useSelector(selectUser);
+
+  // useEffect(() => {
+  //   const weekDays = getCurrentWeek(currentDate);
+  //   console.log(dailyNorma, "dailyNorma");
+
+  //   // misachni dani
+  //   const date = currentDate;
+
+  //   const year = date.getFullYear();
+  //   const month = String(date.getMonth() + 1).padStart(2, "0");
+
+  //   dispatch(getWaterMonth({ year, month }));
+
+  //   if (!monthInfo || monthInfo.length === 0) {
+  //     console.log("no data");
+  //     console.log(monthInfo, "inside if");
+
+  //     return;
+  //   }
+  //   console.log("have data");
+
+  //   console.log(monthInfo, "outside if");
+
+  //   // dani для граафіуу
+  //   const data = weekDays.map((day) => {
+  //     const formattedDate = day.toISOString().split("T")[0]; // data rik-misyac-den
+  //     const dayData = monthInfo.find((info) => info.date === formattedDate);
+  //     return {
+  //       name: day.getDate().toString(), // день
+  //       water: dayData ? dayData.totalWater : 0, // або дані або 0
+  //     };
+  //   });
+  //   console.log(data, "data");
+
+  //   setWeekData(data);
+  // }, [currentDate, dailyNorma, dispatch, monthInfo]);
+
+  // Запит даних місяця лише при зміні дати
   useEffect(() => {
+    const date = currentDate;
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+
+    dispatch(getWaterMonth({ year, month }));
+    console.log({ year, month });
+  }, [currentDate, dispatch, selectedDate]);
+
+  useEffect(() => {
+    console.log(monthInfo, "monthInfo");
+
+    // if (!monthInfo || monthInfo.length === 0) return;
+
     const weekDays = getCurrentWeek(currentDate);
-    const data = weekDays.map((day, i) => ({
-      name: day.getDate().toString(),
-      water: mockData[i],
-    }));
+
+    const data = weekDays.map((day) => {
+      const formattedDate = day.toISOString().split("T")[0];
+
+      const dayData = monthInfo.find((info) => info.date === formattedDate);
+
+      return {
+        name: day.getDate().toString(),
+        water: dayData ? dayData.totalWater : 0,
+      };
+    });
+    console.log(data, "data");
+
     setWeekData(data);
-  }, [currentDate]);
+  }, [monthInfo, currentDate]);
 
   const handleClick = () => {
     setCalendarActive(!isCalendarActive);
@@ -70,9 +135,11 @@ const MonthInfo = () => {
       </div>
       {isCalendarActive ? (
         <Calendar
+          monthInfo={monthInfo}
           currentDate={currentDate}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          dailyNorma={dailyNorma}
         />
       ) : (
         <div style={{ width: "100%", height: "300px", maxWidth: "600px" }}>
@@ -118,12 +185,7 @@ const MonthInfo = () => {
               />
               <YAxis
                 domain={[0, 3000]}
-                tickFormatter={(value) => {
-                  if (value === 0) {
-                    return `${(value / 1000).toFixed(0)}%`;
-                  }
-                  return `${(value / 1000).toFixed(1)}L`;
-                }}
+                tickFormatter={(value) => `${(value / 1000).toFixed(1)}L`}
                 tick={{
                   fontSize: 15,
                   fontWeight: "normal",
