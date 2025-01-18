@@ -51,7 +51,7 @@ const slice = createSlice({
       })
       .addCase(deleteWaterPortion.fulfilled, (state, action) => {
         state.waterPortions = state.waterPortions.filter(
-          (item) => item._id !== action.payload
+          (item) => item._id !== action.payload._id
         );
         state.totalWater = state.totalWater - action.payload.amount;
       })

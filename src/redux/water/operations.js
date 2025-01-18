@@ -1,15 +1,15 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { aquaDevApi } from '../service/configApi.js';
-import { getFormattedDate } from '../../utils/formatDate.js';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { aquaDevApi } from "../service/configApi.js";
+import { getFormattedDate } from "../../utils/formatDate.js";
 
 export const getWaterDay = createAsyncThunk(
-  'water/fetchDailyWaterInfo',
+  "water/fetchDailyWaterInfo",
   async (date, thunkAPI) => {
     try {
       if (!date) {
         date = getFormattedDate(new Date());
       }
-      const { data } = await aquaDevApi.get(`/water/${date}`);
+      const { data } = await aquaDevApi.get(`/water/day/${date}`);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -18,7 +18,7 @@ export const getWaterDay = createAsyncThunk(
 );
 
 export const getWaterMonth = createAsyncThunk(
-  '/water/getWaterMonth',
+  "/water/getWaterMonth",
   async ({ year, month }, thunkAPI) => {
     try {
       const response = await aquaDevApi.get(`/water/month/${year}-${month}`);
@@ -30,40 +30,40 @@ export const getWaterMonth = createAsyncThunk(
 );
 
 export const addWaterPortion = createAsyncThunk(
-  'water/aaddWaterPortion',
+  "water/aaddWaterPortion",
   async (credentials, thunkAPI) => {
     try {
-      const response = await aquaDevApi.post('/water', credentials);
+      const response = await aquaDevApi.post("/water", credentials);
       return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  },
+  }
 );
 
 export const updateWaterPortion = createAsyncThunk(
-  '/water/updateWaterPortion',
+  "/water/updateWaterPortion",
   async ({ id, data }, thunkAPI) => {
     try {
-      console.log('test');
+      console.log("test");
       const response = await aquaDevApi.patch(`/water/${id}`, data);
-      console.log('update', data);
+      console.log("update", data);
       return response.data.data.userWater;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  },
+  }
 );
 
 export const deleteWaterPortion = createAsyncThunk(
-  'water/deleteWaterPortion',
+  "water/deleteWaterPortion",
   async (id, thunkAPI) => {
     try {
       const { data } = await aquaDevApi.delete(`/water/${id}`);
-      console.log(data.data._id);
-      return data.data._id;
+      console.log(data.data);
+      return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  },
+  }
 );
