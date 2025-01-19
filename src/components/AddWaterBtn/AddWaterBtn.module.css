@@ -43,9 +43,19 @@
   padding: 0;
 }
 
+
 .dailyInfo .plus {
   fill: transparent;
   stroke: black;
+}
+
+.dailyInfo .spanContainer:hover{
+  transition: all 250ms ease-in;
+background-color: var(--bg-btn-dark-gray);
+}
+
+.dailyInfo .plus:hover{
+stroke: white;
 }
 
 .dailyInfo .spanContainer {
@@ -56,6 +66,7 @@
   border-radius: 30px;
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 
 .dailyInfo .textContainer {
