@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./WaterForm.module.css";
 import sprite from "../../../assets/sprite.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addWaterPortion,
   updateWaterPortion,
 } from "../../../redux/water/operations.js";
 import { validationSchemaWaterChange } from "../../../utils/formValidation.js";
+import { selectLoading } from "../../../redux/water/selectors.js";
 import Loader from "../../Loader/Loader.jsx";
 
 const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
   const {
     control,
@@ -49,21 +50,21 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
     }
   }, [portionData, reset]);
 
-  const onSubmit = async (data) => {
-    setIsLoading(true);
-
-    try {
-      if (type === "add") {
-        await dispatch(addWaterPortion(data));
-      } else if (type === "edit") {
-        await dispatch(updateWaterPortion({ id, data }));
-      }
-      onClose();
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setIsLoading(false);
+  const handleBlur = () => {
+    if (portionData) {
+      setValue("amount", portionData.amount);
+    } else {
+      setValue("amount", 50);
     }
+  };
+
+  const onSubmit = async (data) => {
+    if (type === "add") {
+      await dispatch(addWaterPortion(data));
+    } else if (type === "edit") {
+      await dispatch(updateWaterPortion({ id, data }));
+    }
+    onClose();
   };
 
   return (
@@ -76,7 +77,7 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
           <button
             type="button"
             onClick={() => {
-              const newValue = Math.max(getValues("amount") - 50, 1);
+              const newValue = Math.max(getValues("amount") - 50, 50);
               setValue("amount", newValue);
             }}
             className={s.iconButton}
@@ -89,7 +90,7 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
           <button
             type="button"
             onClick={() => {
-              const newValue = Math.min(getValues("amount") + 50, 10000);
+              const newValue = Math.min(getValues("amount") + 50, 2000);
               setValue("amount", newValue);
             }}
             className={s.iconButton}
@@ -125,14 +126,9 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
             <input
               {...field}
               type="number"
+              name="amount"
               className={s.input}
-              onChange={(e) => {
-                const value = Math.min(
-                  Math.max(Number(e.target.value), 1),
-                  10000
-                );
-                field.onChange(value);
-              }}
+              onBlur={handleBlur}
             />
           )}
         />
@@ -141,9 +137,14 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
 
       <div className={s.wrappBtn}>
         <button type="submit" className={s.submit} disabled={isLoading}>
-          {isLoading ? <Loader /> : "Save"}
+          {isLoading ? <Loader className={s.submitLoader} /> : "Save"}{" "}
         </button>
-        <button type="button" onClick={onClose} className={s.cancel}>
+        <button
+          type="button"
+          onClick={onClose}
+          className={s.cancel}
+          disabled={isLoading}
+        >
           Cancel
         </button>
       </div>

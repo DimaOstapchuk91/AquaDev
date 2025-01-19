@@ -107,6 +107,8 @@
     width: 100%;
 } 
 
+
+
 .submit, .cancel {
     display: flex;
     align-items: center;
@@ -125,9 +127,13 @@
     cursor: pointer;
 }
 
+
+
 .submit {
     background-color: var(--bg-component-green);
     color: var(--text-color);
+    position: relative;
+    overflow: hidden;
 
     &:hover {
         background-color: var(--bg-component-dark-green);
@@ -135,11 +141,12 @@
 }
 
 .submit:disabled {
-    background-color: transparent;
-    color: transparent;
     cursor: not-allowed;
     position: relative;
 }
+
+
+
 
 .cancel {
     background-color: var(--bg-component-gray);
