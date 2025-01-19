@@ -1,3 +1,8 @@
+.userBarContainer {
+  max-width: 157px;
+  position: relative;
+}
+
 .userBarBtn {
   display: flex;
   flex-direction: row;
@@ -10,6 +15,16 @@
   border: none;
   margin-bottom: 8px;
   cursor: pointer;
+}
+
+.span {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  max-width: 58px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .userBarImg {
