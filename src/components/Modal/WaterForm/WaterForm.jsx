@@ -17,7 +17,9 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
     getValues,
+    watch,
   } = useForm({
     resolver: yupResolver(validationSchemaWaterChange),
     defaultValues: {
@@ -29,8 +31,10 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
     },
   });
 
+  const watchedAmount = watch("amount");
+
   useEffect(() => {
-    if (type === "edit" && portionData) {
+    if (portionData) {
       reset({
         amount: portionData.amount,
         time:
@@ -41,12 +45,7 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
           }),
       });
     }
-  }, [portionData, type, reset]);
-
-  const handleWaterChange = (value) => {
-    const newValue = Math.min(Math.max(value, 50), 10000);
-    reset({ amount: newValue, time: getValues("time") });
-  };
+  }, [portionData, reset]);
 
   const onSubmit = async (data) => {
     if (type === "add") {
@@ -66,17 +65,23 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
         <div className={s.counter}>
           <button
             type="button"
-            onClick={() => handleWaterChange(getValues("amount") - 50)}
+            onClick={() => {
+              const newValue = Math.max(getValues("amount") - 50, 1);
+              setValue("amount", newValue);
+            }}
             className={s.iconButton}
           >
             <svg className={s.icon}>
               <use href={`${sprite}#icon-minus1`} />
             </svg>
           </button>
-          <span className={s.amountValue}>{`${getValues("amount")} ml`}</span>
+          <span className={s.amountValue}>{`${watchedAmount} ml`}</span>
           <button
             type="button"
-            onClick={() => handleWaterChange(getValues("amount") + 50)}
+            onClick={() => {
+              const newValue = Math.min(getValues("amount") + 50, 10000);
+              setValue("amount", newValue);
+            }}
             className={s.iconButton}
           >
             <svg className={s.icon}>
@@ -103,11 +108,23 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
         <label className={s.valuelabel}>
           Enter the value of the water used:
         </label>
-        <input
-          type="number"
-          className={s.input}
-          value={getValues("amount")}
-          onChange={(e) => handleWaterChange(Number(e.target.value))}
+        <Controller
+          name="amount"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              type="number"
+              className={s.input}
+              onChange={(e) => {
+                const value = Math.min(
+                  Math.max(Number(e.target.value), 1),
+                  10000
+                );
+                field.onChange(value);
+              }}
+            />
+          )}
         />
         {errors.amount && <p className={s.error}>{errors.amount.message}</p>}
       </div>

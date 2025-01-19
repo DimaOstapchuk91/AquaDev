@@ -25,6 +25,8 @@ const WaterItem = ({ id, amount, time }) => {
     setIsModalEdit(false);
   };
 
+  const portionData = { amount, time };
+
   return (
     <li className={s.item}>
       <svg className={s.iconGlass} width="38" height="38">
@@ -51,6 +53,7 @@ const WaterItem = ({ id, amount, time }) => {
               isOpen={isModalEdit}
               onClose={handleEditClose}
               id={id}
+              portionData={portionData}
               type={"edit"}
             />
           </Modal>
