@@ -44,7 +44,8 @@
 }
 
 .iconButton:hover .icon {
-    stroke: var(--bg-component-green);
+    opacity: 0.7;
+    transition: 250ms ease-in;
 }
 
 .amountValue {
@@ -114,7 +115,7 @@
     width: 116px;
     height: 46px;
     border: none;
-    transition: color 250ms ease-in;
+    transition: 250ms ease-in;
     font-weight: 700;
     font-size: 14px;
     line-height: 1.28;
