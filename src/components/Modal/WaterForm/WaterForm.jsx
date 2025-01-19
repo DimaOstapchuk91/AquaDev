@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./WaterForm.module.css";
@@ -9,8 +9,10 @@ import {
   updateWaterPortion,
 } from "../../../redux/water/operations.js";
 import { validationSchemaWaterChange } from "../../../utils/formValidation.js";
+import Loader from "../../Loader/Loader.jsx";
 
 const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const {
     control,
@@ -48,12 +50,20 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
   }, [portionData, reset]);
 
   const onSubmit = async (data) => {
-    if (type === "add") {
-      dispatch(addWaterPortion(data));
-    } else if (type === "edit") {
-      dispatch(updateWaterPortion({ id, data }));
+    setIsLoading(true);
+
+    try {
+      if (type === "add") {
+        await dispatch(addWaterPortion(data));
+      } else if (type === "edit") {
+        await dispatch(updateWaterPortion({ id, data }));
+      }
+      onClose();
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
-    onClose();
   };
 
   return (
@@ -130,8 +140,8 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
       </div>
 
       <div className={s.wrappBtn}>
-        <button type="submit" className={s.submit}>
-          Save
+        <button type="submit" className={s.submit} disabled={isLoading}>
+          {isLoading ? <Loader /> : "Save"}
         </button>
         <button type="button" onClick={onClose} className={s.cancel}>
           Cancel
