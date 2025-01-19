@@ -1,5 +1,5 @@
 .userBarContainer {
-  max-width: 157px;
+  max-width: 300px;
   position: relative;
 }
 
@@ -10,10 +10,10 @@
   align-items: center;
   border-radius: 30px;
   padding: 6px 12px;
-  background-color: #323f47;
-  color: #fff;
+  background-color: var(--bg-btn-dark-gray);
+  color: var(--background-white);
   border: none;
-  margin-bottom: 8px;
+  min-width: 157px;
   cursor: pointer;
 }
 
@@ -37,7 +37,7 @@
 
 .userBarIcon {
   fill: transparent;
-  stroke: #fff;
+  stroke: var(--background-white);
   transition: transform 0.3s ease;
 }
 
