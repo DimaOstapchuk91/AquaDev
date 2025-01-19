@@ -44,14 +44,11 @@ const MonthInfo = () => {
 
   useEffect(() => {
     const formattedDate = getformatDateYearMonth(currentDate);
-    console.log(formattedDate, "formattedDate");
 
     dispatch(getWaterMonth(formattedDate));
   }, [currentDate, dispatch]);
 
   useEffect(() => {
-    console.log(monthInfo, "monthInfo");
-
     if (!monthInfo || monthInfo.length === 0) return;
 
     const weekDays = getCurrentWeek(new Date());
@@ -66,7 +63,6 @@ const MonthInfo = () => {
         water: dayData ? dayData.totalWater : 0,
       };
     });
-    console.log(data, "data");
 
     setWeekData(data);
   }, [monthInfo, currentDate]);
