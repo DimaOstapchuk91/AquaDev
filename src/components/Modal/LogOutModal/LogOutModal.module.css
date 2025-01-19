@@ -70,12 +70,7 @@
     opacity: 0.6;
 }
 
-.loaderContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
+
 
 .btnCancel {
     background-color: var(--bg-component-gray);
