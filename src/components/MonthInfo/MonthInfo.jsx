@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWaterMonth } from "../../redux/water/operations";
 import { selectWaterMonth } from "../../redux/water/selectors";
 import { selectUser } from "../../redux/user/selectors";
-import { getformatDateYearMonth } from "../../utils/formatDateYearMonth";
+import { getformatDateYearMonth } from "../../utils/formatDate";
 
 const getCurrentWeek = (currentDate) => {
   const startOfWeek = new Date(currentDate);
