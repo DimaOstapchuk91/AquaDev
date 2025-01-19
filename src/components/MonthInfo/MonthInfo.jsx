@@ -91,7 +91,7 @@ const MonthInfo = () => {
 
     if (!monthInfo || monthInfo.length === 0) return;
 
-    const weekDays = getCurrentWeek(currentDate);
+    const weekDays = getCurrentWeek(new Date());
 
     const data = weekDays.map((day) => {
       const formattedDate = day.toISOString().split("T")[0];
