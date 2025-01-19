@@ -4,102 +4,142 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userSettingsSchema } from "../../../utils/formValidation.js";
 import { updateUser } from "../../../redux/user/operations.js";
-import { fetchUserData } from "../../../redux/user/operations.js";
+import {
+  selectUser,
+  selectIsRefreshing,
+} from "../../../redux/user/selectors.js";
 import s from "./UserSettingsForm.module.css";
 
-const UserSettingsForm = ({ userName = "", onClose }) => {
-  const [avatar, setAvatar] = useState(null);
+const UserSettingsForm = ({ onClose }) => {
+  const { name, email, gender, weight, timeActive, dailyNorma, avatar } =
+    useSelector(selectUser);
+  const [avatarPreview, setAvatarPreview] = useState(avatar || null);
   const [waterIntake, setWaterIntake] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const loader = useSelector(selectIsRefreshing);
   const [notification, setNotification] = useState(null);
 
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const userName = name ? name : email;
 
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(userSettingsSchema),
     defaultValues: {
-      gender: user.gender || "woman",
-      name: user.name || userName,
-      email: user.email || "",
-      weight: user.weight || "",
-      activeTime: user.activeTime || "",
-      customWaterIntake: user.customWaterIntake || "",
+      gender: gender,
+      name: name || "",
+      email: email || "",
+      weight: weight || 0,
+      timeActive: timeActive || 0,
+      dailyNorma: dailyNorma / 1000 || 2,
     },
+    shouldUnregister: true,
   });
 
-  const weight = watch("weight");
-  const activeTime = watch("activeTime");
+  const newWeight = watch("weight");
+  const newActiveTime = watch("timeActive");
+  const genderValue = watch("gender");
 
-  const calculateWaterIntake = (M, T, gender = "woman") => {
+  const calculateWaterIntake = (M, T, gender) => {
     if (gender === "woman") {
-      return M * 0.03 + T * 0.4;
+      return M * 0.03 + T * (0.4).toFixed(1);
     } else {
-      return M * 0.04 + T * 0.6;
+      return M * 0.04 + T * (0.6).toFixed(1);
     }
   };
 
   useEffect(() => {
-    if (weight && activeTime) {
-      setWaterIntake(calculateWaterIntake(Number(weight), Number(activeTime)));
+    if (newWeight && newActiveTime) {
+      setWaterIntake(
+        calculateWaterIntake(
+          Number(newWeight),
+          Number(newActiveTime),
+          genderValue
+        )
+      );
     } else {
       setWaterIntake(0);
     }
-  }, [weight, activeTime]);
+  }, [newWeight, newActiveTime, genderValue]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setAvatar(URL.createObjectURL(file));
+      setAvatarPreview(file);
+    }
+  };
+
+  const handleBlur = (e) => {
+    const fieldName = e.target.name;
+    const fieldValue = e.target.value;
+
+    if (!fieldValue && fieldName === "name") {
+      setValue("name", name);
+    }
+    if (!fieldValue && fieldName === "weight") {
+      setValue("weight", weight || 0);
+    }
+    if (!fieldValue && fieldName === "timeActive") {
+      setValue("timeActive", timeActive || 0);
+    }
+    if (!fieldValue && fieldName === "dailyNorma") {
+      setValue("dailyNorma", dailyNorma / 1000 || 2000 / 1000);
     }
   };
 
   const onSubmit = async (data) => {
-    if (Object.keys(errors).length > 0) {
+    const initialValues = {
+      gender: gender,
+      name: name,
+      email: email,
+      weight: weight,
+      timeActive: timeActive,
+      dailyNorma: dailyNorma / 1000,
+    };
+
+    const changedData = Object.keys(data).reduce((acc, key) => {
+      if (key === "dailyNorma" && data[key] !== initialValues[key]) {
+        acc[key] = data[key] * 1000;
+      } else if (data[key] !== initialValues[key]) {
+        acc[key] = data[key];
+      }
+      return acc;
+    }, {});
+
+    if (avatarPreview !== avatar) {
+      changedData.avatar = avatarPreview;
+    }
+
+    if (!changedData.customWaterIntake) {
+      delete changedData.customWaterIntake;
+    }
+
+    if (Object.keys(changedData).length === 0) {
       return;
     }
 
-    setLoading(true);
     const formData = new FormData();
-    formData.append("avatar", avatar);
-    Object.keys(data).forEach((key) => {
-      formData.append(key, data[key]);
+
+    Object.keys(changedData).forEach((key) => {
+      if (key === "avatar" && avatarPreview instanceof File) {
+        formData.append("avatar", avatarPreview);
+      } else {
+        formData.append(key, changedData[key]);
+      }
     });
 
-    try {
-      const response = await fetch("/api/user/update", {
-        method: "PATCH",
-        body: formData,
-      });
+    dispatch(updateUser(formData));
+    setNotification({
+      type: "success",
+      message: "Your settings have been successfully saved!",
+    });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        setNotification({
-          message: errorData.message || "Something went wrong",
-          type: "error",
-        });
-      } else {
-        dispatch(updateUser({ avatar, ...data }));
-        dispatch(fetchUserData());
-        onClose();
-        setNotification({
-          message: "User data updated successfully!",
-          type: "success",
-        });
-      }
-    } catch {
-      setNotification({
-        message: "Network error occurred",
-        type: "error",
-      });
-    } finally {
-      setLoading(false);
-    }
+    onClose();
   };
 
   const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
@@ -115,8 +155,22 @@ const UserSettingsForm = ({ userName = "", onClose }) => {
       </div>
       <h2 className={s.title}>Setting</h2>
       <div className={s.avatarContainer}>
-        {avatar ? (
-          <img src={avatar} alt="Avatar Preview" className={s.avatar} />
+        {avatarPreview ? (
+          avatarPreview instanceof File ? (
+            <img
+              src={URL.createObjectURL(avatarPreview)}
+              alt="Avatar Preview"
+              className={s.avatar}
+            />
+          ) : (
+            <img
+              src={avatarPreview}
+              alt="Avatar Preview"
+              className={s.avatar}
+            />
+          )
+        ) : avatar ? (
+          <img src={avatar} alt="User Avatar" className={s.avatar} />
         ) : (
           <div className={s.avatarPlaceholder}>{getInitial(userName)}</div>
         )}
@@ -145,7 +199,6 @@ const UserSettingsForm = ({ userName = "", onClose }) => {
                 type="radio"
                 name="gender"
                 value="woman"
-                defaultChecked
                 className={s.radioInput}
               />
               Woman
@@ -168,6 +221,7 @@ const UserSettingsForm = ({ userName = "", onClose }) => {
                 {...register("name")}
                 type="text"
                 className={s.userInput}
+                onBlur={handleBlur}
                 placeholder="Name"
               />
               {errors.name && (
@@ -180,6 +234,7 @@ const UserSettingsForm = ({ userName = "", onClose }) => {
                 {...register("email")}
                 type="text"
                 className={s.userInput}
+                onBlur={handleBlur}
                 placeholder="Email"
                 disabled
               />
@@ -193,20 +248,20 @@ const UserSettingsForm = ({ userName = "", onClose }) => {
             <div className={s.normContainer}>
               <p className={s.subTitle}>For woman:</p>
               <span className={s.formula}>
-                {weight && activeTime
+                {newWeight && newActiveTime
                   ? `${waterIntake.toFixed(
                       2
-                    )} = (${weight} * 0.03) + (${activeTime} * 0.4)`
+                    )} = (${newWeight} * 0.03) + (${newActiveTime} * 0.4)`
                   : "V =  (M * 0.03) + (T * 0.4)"}
               </span>
             </div>
             <div className={s.normContainer}>
               <p className={s.subTitle}>For man:</p>
               <span className={s.formula}>
-                {weight && activeTime
+                {newWeight && newActiveTime
                   ? `${waterIntake.toFixed(
                       2
-                    )} = (${weight} * 0.04) + (${activeTime} * 0.6)`
+                    )} = (${newWeight} * 0.04) + (${newActiveTime} * 0.6)`
                   : "V = (M * 0.04) + (T * 0.6)"}
               </span>
             </div>
@@ -232,6 +287,7 @@ const UserSettingsForm = ({ userName = "", onClose }) => {
                 {...register("weight")}
                 type="number"
                 className={s.waterInput}
+                onBlur={handleBlur}
                 placeholder="0"
               />
               {errors.weight && (
@@ -241,13 +297,14 @@ const UserSettingsForm = ({ userName = "", onClose }) => {
             <label className={s.waterInfo}>
               The time of active participation in sports:
               <input
-                {...register("activeTime")}
+                {...register("timeActive")}
                 type="number"
                 className={s.waterInput}
+                onBlur={handleBlur}
                 placeholder="0"
               />
-              {errors.activeTime && (
-                <span className={s.error}>{errors.activeTime.message}</span>
+              {errors.timeActive && (
+                <span className={s.error}>{errors.timeActive.message}</span>
               )}
             </label>
           </div>
@@ -258,7 +315,7 @@ const UserSettingsForm = ({ userName = "", onClose }) => {
             <div className={s.waterIntake}>
               {watch("customWaterIntake")
                 ? `${watch("customWaterIntake")} L`
-                : weight && activeTime
+                : newWeight && newActiveTime
                 ? `${waterIntake.toFixed(2)} L`
                 : "1.8 L"}
             </div>
@@ -269,13 +326,14 @@ const UserSettingsForm = ({ userName = "", onClose }) => {
               {...register("customWaterIntake")}
               type="number"
               className={s.intake}
+              onBlur={handleBlur}
               placeholder="1.8"
             />
           </label>
         </div>
       </div>
-      <button className={s.save} type="submit" disabled={loading}>
-        {loading ? "Saving..." : "Save"}
+      <button className={s.save} type="submit" disabled={loader}>
+        {loader ? "Saving..." : "Save"}
       </button>
       {notification && (
         <div className={`notification ${notification.type}`}>

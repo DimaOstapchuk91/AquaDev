@@ -1,12 +1,12 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
   addWaterPortion,
   deleteWaterPortion,
   getWaterDay,
   getWaterMonth,
   updateWaterPortion,
-} from "./operations.js";
-import { logout, refreshUser } from "../user/operations.js";
+} from './operations.js';
+import { logout, refreshUser } from '../user/operations.js';
 
 const initialState = {
   waterMonth: [],
@@ -18,9 +18,9 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: "water",
+  name: 'water',
   initialState,
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(getWaterDay.fulfilled, (state, action) => {
         state.waterPortions = action.payload.waterPortions;
@@ -34,8 +34,8 @@ const slice = createSlice({
         state.waterPortions.push(action.payload);
       })
       .addCase(updateWaterPortion.fulfilled, (state, action) => {
-        state.waterPortions = state.waterPortions.map((item) =>
-          item.id === action.payload.id
+        state.waterPortions = state.waterPortions.map(item =>
+          item.id === action.payload._id
             ? {
                 ...item,
                 amount: action.payload.amount,
@@ -46,7 +46,7 @@ const slice = createSlice({
       })
       .addCase(deleteWaterPortion.fulfilled, (state, action) => {
         state.waterPortions = state.waterPortions.filter(
-          (item) => item.id !== action.payload
+          item => item.id !== action.payload
         );
       })
       .addCase(logout.fulfilled, () => initialState)
@@ -59,7 +59,7 @@ const slice = createSlice({
           updateWaterPortion.pending,
           deleteWaterPortion.pending
         ),
-        (state) => {
+        state => {
           state.loading = true;
           state.error = false;
         }
@@ -72,7 +72,7 @@ const slice = createSlice({
           updateWaterPortion.fulfilled,
           deleteWaterPortion.fulfilled
         ),
-        (state) => {
+        state => {
           state.loading = false;
           state.error = false;
         }
@@ -85,7 +85,7 @@ const slice = createSlice({
           updateWaterPortion.rejected,
           deleteWaterPortion.rejected
         ),
-        (state) => {
+        state => {
           state.loading = false;
           state.error = true;
         }

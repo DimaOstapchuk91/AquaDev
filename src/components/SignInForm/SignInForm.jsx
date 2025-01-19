@@ -7,7 +7,7 @@ import { logIn } from "../../redux/user/operations.js";
 import { useDispatch } from "react-redux";
 import { orderSchemaLogin } from "../../utils/formValidation.js";
 import { selectIsRefreshing } from "../../redux/user/selectors.js";
-
+import Loader from "../Loader/Loader.jsx";
 const SignInForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -90,7 +90,9 @@ const SignInForm = () => {
               />
             </div>
             {isLoading ? (
-              "loadig"
+              <div className={styles.wrapperLoader}>
+                <Loader />
+              </div>
             ) : (
               <button type="submit" className={styles.submitButton}>
                 Sign In
@@ -100,7 +102,7 @@ const SignInForm = () => {
         </Formik>
         {!isLoading && (
           <p className={styles.footerText}>
-            Don&apos;t have an account?{" "}
+            Don't have an account?{" "}
             <NavLink to="/signup" className={styles.signupLink}>
               Sign Up
             </NavLink>

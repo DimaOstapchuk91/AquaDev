@@ -26,7 +26,8 @@ const weightValid = Yup.number()
   .typeError("Weight must be a number");
 
 const waterIntakeValid = Yup.number()
-  .min(0, "Water intake must be 0 or greater")
+  .min(0.5, "Water intake must be at least 0.5 liters (500 ml)")
+  .max(15, "Water intake cannot exceed 15 liters (15,000 ml)")
   .typeError("Water intake must be a number");
 
 export const orderSchemaLogin = Yup.object({
@@ -50,8 +51,8 @@ export const userSettingsSchema = Yup.object().shape({
   name: nameValid.default(""),
   email: emailValid.default(""),
   weight: weightValid.default(0),
-  activityTime: activityTimeValid.default(0),
-  waterIntake: waterIntakeValid.default(0),
+  timeActive: activityTimeValid.default(0),
+  dailyNorma: waterIntakeValid.default(2),
 });
 
 export const validationSchemaWaterChange = Yup.object().shape({
@@ -63,8 +64,5 @@ export const validationSchemaWaterChange = Yup.object().shape({
     .max(10000, "Amount cannot exceed 10,000 ml"),
   time: Yup.string()
     .required("Time is required")
-    .matches(
-      /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/,
-      "Invalid time format (hh:mm)"
-    ),
+    .matches(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, "Invalid time format (hh:mm)"),
 });

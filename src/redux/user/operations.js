@@ -79,30 +79,19 @@ export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
 export const updateUser = createAsyncThunk(
   "user/update",
   async (credentials, thunkApi) => {
-    const token = thunkApi.getState().user.token;
-    if (!token) {
-      return thunkApi.rejectWithValue("Token not found");
-    }
-    setAuthHeader(token);
-
-    const formData = new FormData();
-    Object.entries(credentials).forEach(([key, value]) => {
-      if (value) {
-        formData.append(key, value);
-      }
-    });
-
     try {
-      const { data } = await aquaDevApi.patch("/users/update", formData, {
+      credentials.forEach((value, key) => {
+        console.log(key, value);
+      });
+
+      const { data } = await aquaDevApi.patch("/users/update", credentials, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      return data;
+      return data.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(
-        error.response?.data?.message || error.message
-      );
+      return thunkApi.rejectWithValue(error.response?.message || error.message);
     }
   }
 );
