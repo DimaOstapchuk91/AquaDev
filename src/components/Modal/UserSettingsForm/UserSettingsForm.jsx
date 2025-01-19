@@ -60,7 +60,9 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
           </svg>
         </button>
       </div>
-      <h2 className={s.title}>Setting</h2>
+      {/* <h2 className={s.title}>Setting</h2> */}
+      <h2 className={s.title}>{t("userSettingsForm.settings")}</h2>
+
       <div className={s.avatarContainer}>
         {avatar ? (
           <img src={avatar} alt="Avatar Preview" className={s.avatar} />
@@ -79,12 +81,19 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
           <svg width="20" height="20" className={s.upload}>
             <use href="/src/assets/sprite.svg#icon-upload"></use>
           </svg>
-          <span className={s.uploadBtn}>Upload a photo</span>
+          {/* <span className={s.uploadBtn}>Upload a photo</span> */}
+          <span className={s.uploadBtn}>
+            {t("userSettingsForm.uploadPhoto")}
+          </span>
         </div>
       </label>
       <div className={s.mainContainer}>
         <div className={s.leftColumn}>
-          <label className={s.labelGender}>Your gender identity</label>
+          {/* <label className={s.labelGender}>Your gender identity</label> */}
+          <label className={s.labelGender}>
+            {t("userSettingsForm.gender")}
+          </label>
+
           <div className={s.gender}>
             <label className={s.radioLabel}>
               <input
@@ -94,7 +103,8 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
                 defaultChecked
                 className={s.radioInput}
               />
-              Woman
+              {/* Woman */}
+              {t("userSettingsForm.woman")}
             </label>
             <label className={s.radioLabel}>
               <input
@@ -103,23 +113,30 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
                 value="man"
                 className={s.radioInput}
               />
-              Man
+              {/* Man */}
+              {t("userSettingsForm.man")}
             </label>
           </div>
           <div className={s.user}>
             <label className={s.labelInform}>
-              Your name
+              {/* Your name */}
+              {t("userSettingsForm.name")}
               <input type="text" className={s.userInput} placeholder="Name" />
             </label>
             <label className={s.labelInform}>
-              Email
+              {/* Email */}
+              {t("userSettingsForm.email")}
               <input type="text" className={s.userInput} />
             </label>
           </div>
-          <h3 className={s.labelNorma}>My daily norma</h3>
+          {/* <h3 className={s.labelNorma}>My daily norma</h3> */}
+          <h3 className={s.labelNorma}>{t("userSettingsForm.dailyNorma")}</h3>
+
           <div className={s.formulaNorma}>
             <div className={s.normContainer}>
-              <p className={s.subTitle}>For woman:</p>
+              {/* <p className={s.subTitle}>For woman:</p> */}
+              <p className={s.subTitle}>{t("userSettingsForm.forWoman")}</p>
+
               <span className={s.formula}>
                 {M && T
                   ? `${waterIntake.toFixed(2)}  = (${M} * 0.03) + (${T} * 0.4)`
@@ -127,7 +144,9 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
               </span>
             </div>
             <div className={s.normContainer}>
-              <p className={s.subTitle}>For man:</p>
+              {/* <p className={s.subTitle}>For man:</p> */}
+              <p className={s.subTitle}>{t("userSettingsForm.forMan")}</p>
+
               <span className={s.formula}>
                 {M && T
                   ? `${waterIntake.toFixed(2)} = (${M} * 0.04) + (${T} * 0.6)`
@@ -136,22 +155,25 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
             </div>
           </div>
           <p className={s.normaInfo}>
-            <span className={s.p}>*</span> V is the volume of the water norm in
+            {/* <span className={s.p}>*</span> V is the volume of the water norm in
             liters per day, M is your body weight, T is the time of active
             sports, or another type of activity commensurate in terms of loads
-            (in the absence of these, you must set 0)
+            (in the absence of these, you must set 0) */}
+            <span className={s.p}>*</span> {t("userSettingsForm.explanation")}
           </p>
           <p className={s.time}>
             <svg width="18" height="18">
               <use href="/src/assets/sprite.svg#icon-emojione-v1_white-exclamation-mark"></use>
             </svg>
-            Active time in hours
+            {/* Active time in hours */}
+            {t("userSettingsForm.activeTime")}
           </p>
         </div>
         <div className={s.rightColumn}>
           <div className={s.infoContainer}>
             <label className={s.waterInfo}>
-              Your weight in kilograms:
+              {/* Your weight in kilograms: */}
+              {t("userSettingsForm.weight")}
               <input
                 className={s.waterInput}
                 type="number"
@@ -161,7 +183,8 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
               />
             </label>
             <label className={s.waterInfo}>
-              The time of active participation in sports:
+              {/* The time of active participation in sports: */}
+              {t("userSettingsForm.sportTime")}
               <input
                 className={s.waterInput}
                 type="number"
@@ -173,7 +196,8 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
           </div>
           <div className={s.required}>
             <h3 className={s.waterInfo}>
-              The required amount of water in liters per day:
+              {/* The required amount of water in liters per day: */}
+              {t("userSettingsForm.waterRequired")}
             </h3>
             <div className={s.waterIntake}>
               {customWaterIntake
@@ -184,7 +208,8 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
             </div>
           </div>
           <label className={s.userIntake}>
-            Write down how much water you will drink:
+            {/* Write down how much water you will drink: */}
+            {t("userSettingsForm.drinkWater")}
             <input
               type="number"
               className={s.intake}
@@ -197,7 +222,8 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
       </div>
 
       <button className={s.save} type="submit">
-        Save
+        {/* Save */}
+        {t("userSettingsForm.saveBtn")}
       </button>
     </form>
   );

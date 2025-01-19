@@ -17,6 +17,10 @@ import { getWaterMonth } from "../../redux/water/operations";
 import { selectWaterMonth } from "../../redux/water/selectors";
 import { selectUser } from "../../redux/user/selectors";
 
+//================
+import { useTranslation } from "react-i18next";
+//==================
+
 const getCurrentWeek = (currentDate) => {
   const startOfWeek = new Date(currentDate);
   const dayIndex = startOfWeek.getDay();
@@ -36,7 +40,9 @@ const MonthInfo = () => {
   const [isCalendarActive, setCalendarActive] = useState(true);
   const [weekData, setWeekData] = useState([]);
   const [isPaginationDisabled, setPaginationDisabled] = useState(false);
-
+  //================
+  const { t } = useTranslation();
+  //==========================
   const dispatch = useDispatch();
   const monthInfo = useSelector(selectWaterMonth);
   const { dailyNorma } = useSelector(selectUser);
@@ -118,7 +124,8 @@ const MonthInfo = () => {
     <div className={s.monthInfo}>
       <div className={s.monthInfoHeader}>
         <h2 className={s.monthTitle}>{`${
-          isCalendarActive ? "Month" : "Statistics"
+          // isCalendarActive ? "Month" : "Statistics"
+          isCalendarActive ? t("monthInfo.month") : t("monthInfo.statistics")
         }`}</h2>
         <div className={s.container}>
           <CalendarPagination

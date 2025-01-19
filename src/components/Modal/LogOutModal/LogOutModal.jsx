@@ -3,6 +3,9 @@ import { logout } from "../../../redux/user/operations";
 import s from "./LogOutModal.module.css";
 import { useDispatch } from "react-redux";
 import Loader from "../../Loader/Loader.jsx";
+//=============
+import { useTranslation } from "react-i18next";
+//==============
 
 const LogOutModal = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -13,12 +16,18 @@ const LogOutModal = ({ onClose }) => {
     await dispatch(logout());
     setIsLoading(false);
     onClose();
+    //===========
+    const { t } = useTranslation();
+    //===========
   };
 
   return (
     <div className={s.modalWrapp}>
-      <h2 className={s.titleLogout}>Log out</h2>
-      <p className={s.textLogout}>Do you really want to leave?</p>
+      {/* <h2 className={s.titleLogout}>Log out</h2>
+      <p className={s.textLogout}>Do you really want to leave?</p> */}
+      <h2 className={s.titleLogout}> {t("logOutModal.logOut")}</h2>
+      <p className={s.textLogout}> {t("logOutModal.confirmation")}</p>
+
       <div className={s.wrappBtn}>
         <button
           type="button"
@@ -31,11 +40,14 @@ const LogOutModal = ({ onClose }) => {
               <Loader />
             </div>
           ) : (
-            "Log out"
+            {
+              /* (Log out) */
+            }(t("logOutModal.logOutBtn"))
           )}
         </button>
         <button type="button" className={s.btnCancel} onClick={onClose}>
-          Cancel
+          {/* Cancel */}
+          {t("logOutModal.cancelBtn")}
         </button>
       </div>
     </div>

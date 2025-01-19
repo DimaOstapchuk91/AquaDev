@@ -11,7 +11,14 @@ import {
 import { validationSchemaWaterChange } from "../../../utils/formValidation.js";
 import Loader from "../../Loader/Loader.jsx";
 
+//=============
+import { useTranslation } from "react-i18next";
+//===========
+
 const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
+  //================
+  const { t } = useTranslation();
+  //==============
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const {
@@ -71,7 +78,8 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
       <p className={s.subtitle}>{subtitle}</p>
 
       <div className={s.inputGroup}>
-        <label className={s.label}>Amount of water:</label>
+        {/* <label className={s.label}>Amount of water:</label> */}
+        <label className={s.label}>{t("waterForm.waterAmount")}</label>
         <div className={s.counter}>
           <button
             type="button"
@@ -103,7 +111,9 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
       </div>
 
       <div className={s.inputGroup}>
-        <label className={s.timelabel}>Recording time:</label>
+        {/* <label className={s.timelabel}>Recording time:</label> */}
+        <label className={s.timelabel}>{t("waterForm.recordingTime")}</label>
+
         <Controller
           name="time"
           control={control}
@@ -116,7 +126,8 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
 
       <div className={s.inputGroup}>
         <label className={s.valuelabel}>
-          Enter the value of the water used:
+          {/* Enter the value of the water used: */}
+          {t("waterForm.enterValue")}
         </label>
         <Controller
           name="amount"
@@ -141,10 +152,12 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
 
       <div className={s.wrappBtn}>
         <button type="submit" className={s.submit} disabled={isLoading}>
-          {isLoading ? <Loader /> : "Save"}
+          {/* {isLoading ? <Loader /> : "Save"} */}
+          {isLoading ? <Loader /> : t("waterForm.saveBtn")}
         </button>
         <button type="button" onClick={onClose} className={s.cancel}>
-          Cancel
+          {/* Cancel */}
+          {t("waterForm.cancelBtn")}
         </button>
       </div>
     </form>

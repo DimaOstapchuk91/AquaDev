@@ -9,6 +9,7 @@ import Modal from "../Modal/Modal.jsx";
 import WaterModal from "../Modal/WaterModal/WaterModal.jsx";
 import { selectTotalWater } from "../../redux/water/selectors.js";
 import { selectUser } from "../../redux/user/selectors.js";
+import LanguageDropdown from "../LocalizationDropdown/LocalizationDropdown.jsx";
 
 const WaterMainInfo = () => {
   const totalWater = useSelector(selectTotalWater);
@@ -29,6 +30,10 @@ const WaterMainInfo = () => {
 
   return (
     <div className={s.wrapper}>
+      {/* //===================
+      // //================= */}
+      <LanguageDropdown />
+      {/* //================== */}
       <Logo />
       <WaterDailyNorma dailyNorma={dailyNormaInL} />
       <WaterProgressBar value={waterConsumptionPercent} />

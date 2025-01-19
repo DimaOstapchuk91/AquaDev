@@ -1,9 +1,14 @@
+import { useTranslation } from "react-i18next";
+//=================
 import UserBar from "../UserBar/UserBar";
 import { selectUser } from "../../redux/user/selectors";
 import { useSelector } from "react-redux";
 import s from "./UserPanel.module.css";
 
 const UserPanel = () => {
+  //==================
+  const { t } = useTranslation();
+  //===========================
   const { name, email, avatar } = useSelector(selectUser);
   const userName = name ? name : email;
   const userPhoto = avatar
@@ -16,11 +21,12 @@ const UserPanel = () => {
   if (!userName) {
     return <div>Loading...</div>;
   }
-
   return (
     <div className={s.container}>
       <h2 className={s.title}>
-        Hello, <span className={s.span}>{truncateName(userName)} !</span>
+        {/* Hello, <span className={s.span}>{truncateName(userName)} !</span> */}
+        {t("userPanel")}{" "}
+        <span className={s.span}>{truncateName(userName)} !</span>
       </h2>
       <UserBar name={userName} avatar={userPhoto} />
     </div>

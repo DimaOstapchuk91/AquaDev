@@ -4,8 +4,13 @@ import LogOutModal from "../Modal/LogOutModal/LogOutModal.jsx";
 import Modal from "../Modal/Modal.jsx";
 import sprite from "../../assets/sprite.svg";
 import s from "./UserBarPopover.module.css";
+//========================
+import { useTranslation } from "react-i18next";
 
 const UserBarPopover = ({ buttonRef, onClose }) => {
+  //============================
+  const { t } = useTranslation();
+  //=======================
   const [settingModalOpen, setSettingModalOpen] = useState(false);
   const [logoutOpen, setlogoutOpen] = useState(false);
   const popoverRef = useRef(null);
@@ -61,7 +66,8 @@ const UserBarPopover = ({ buttonRef, onClose }) => {
           >
             <use href={`${sprite}#icon-log-out`}></use>
           </svg>
-          Log out
+          {/* Logout */}
+          {t("userBarPopover.logout")}
         </button>
       </div>
       <Modal isOpen={settingModalOpen} onClose={handleSettingClose}>
