@@ -1,17 +1,15 @@
-import { useState } from "react";
 import { logout } from "../../../redux/user/operations";
 import s from "./LogOutModal.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../Loader/Loader.jsx";
+import { selectLoading } from "../../../redux/water/selectors.js";
 
 const LogOutModal = ({ onClose }) => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector(selectLoading);
 
   const handleLogout = async () => {
-    setIsLoading(true);
     await dispatch(logout());
-    setIsLoading(false);
     onClose();
   };
 

@@ -59,8 +59,8 @@ export const validationSchemaWaterChange = Yup.object().shape({
     .required("Amount is required")
     .positive("Amount must be greater than 0")
     .integer("Amount must be an integer")
-    .min(1, "Amount must be at least 1 ml")
-    .max(10000, "Amount cannot exceed 10,000 ml"),
+    .min(50, "Amount must be at least 50 ml")
+    .max(2000, "Amount cannot exceed 2000 ml"),
   time: Yup.string()
     .required("Time is required")
     .matches(

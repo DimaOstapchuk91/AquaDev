@@ -64,8 +64,6 @@
 }
 
 .btnDelete:disabled {
-    background-color: transparent;
-    color: transparent;
     cursor: not-allowed;
     opacity: 0.6;
 }
@@ -74,7 +72,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+
 }
 
 .btnCancel {
