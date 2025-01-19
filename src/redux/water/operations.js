@@ -30,7 +30,7 @@ export const getWaterMonth = createAsyncThunk(
 );
 
 export const addWaterPortion = createAsyncThunk(
-  "water/aaddWaterPortion",
+  "water/addWaterPortion",
   async (credentials, thunkAPI) => {
     try {
       const response = await aquaDevApi.post("/water", credentials);
