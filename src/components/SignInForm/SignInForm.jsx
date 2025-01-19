@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { orderSchemaLogin } from '../../utils/formValidation.js';
 import { selectIsRefreshing } from '../../redux/user/selectors.js';
 import Loader from '../Loader/Loader.jsx';
+
 const SignInForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 

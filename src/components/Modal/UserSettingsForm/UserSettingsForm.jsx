@@ -1,60 +1,153 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userSettingsSchema } from "../../../utils/formValidation.js";
+import { updateUser } from "../../../redux/user/operations.js";
+import {
+  selectUser,
+  selectIsRefreshing,
+} from "../../../redux/user/selectors.js";
 import s from "./UserSettingsForm.module.css";
 
-const UserSettingsForm = ({ userName = "User", onClose }) => {
-  const [avatar, setAvatar] = useState(null);
-  const [M, setM] = useState(localStorage.getItem("userWeight") || "");
-  const [T, setT] = useState(localStorage.getItem("activeTime") || "");
+const UserSettingsForm = ({ onClose }) => {
+  const { name, email, gender, weight, timeActive, dailyNorma, avatar } =
+    useSelector(selectUser);
+  const [avatarPreview, setAvatarPreview] = useState(avatar || null);
   const [waterIntake, setWaterIntake] = useState(0);
-  const [customWaterIntake, setCustomWaterIntake] = useState(
-    localStorage.getItem("customWaterIntake") || ""
-  );
+  const loader = useSelector(selectIsRefreshing);
+  const [notification, setNotification] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const userName = name ? name : email;
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(userSettingsSchema),
+    defaultValues: {
+      gender: gender,
+      name: name || "",
+      email: email || "",
+      weight: weight || 0,
+      timeActive: timeActive || 0,
+      dailyNorma: dailyNorma / 1000 || 2,
+    },
+    shouldUnregister: true,
+  });
+
+  const newWeight = watch("weight");
+  const newActiveTime = watch("timeActive");
+  const genderValue = watch("gender");
+
+  const calculateWaterIntake = (M, T, gender) => {
+    if (gender === "woman") {
+      return M * 0.03 + T * (0.4).toFixed(1);
+    } else {
+      return M * 0.04 + T * (0.6).toFixed(1);
+    }
+  };
+
+  useEffect(() => {
+    if (newWeight && newActiveTime) {
+      setWaterIntake(
+        calculateWaterIntake(
+          Number(newWeight),
+          Number(newActiveTime),
+          genderValue
+        )
+      );
+    } else {
+      setWaterIntake(0);
+    }
+  }, [newWeight, newActiveTime, genderValue]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setAvatar(URL.createObjectURL(file));
+      setAvatarPreview(file);
     }
+  };
+
+  const handleBlur = (e) => {
+    const fieldName = e.target.name;
+    const fieldValue = e.target.value;
+
+    if (!fieldValue && fieldName === "name") {
+      setValue("name", name);
+    }
+    if (!fieldValue && fieldName === "weight") {
+      setValue("weight", weight || 0);
+    }
+    if (!fieldValue && fieldName === "timeActive") {
+      setValue("timeActive", timeActive || 0);
+    }
+    if (!fieldValue && fieldName === "dailyNorma") {
+      setValue("dailyNorma", dailyNorma / 1000 || 2000 / 1000);
+    }
+  };
+
+  const onSubmit = async (data) => {
+    const initialValues = {
+      gender: gender,
+      name: name,
+      email: email,
+      weight: weight,
+      timeActive: timeActive,
+      dailyNorma: dailyNorma / 1000,
+    };
+
+    const changedData = Object.keys(data).reduce((acc, key) => {
+      if (key === "dailyNorma" && data[key] !== initialValues[key]) {
+        acc[key] = data[key] * 1000;
+      } else if (data[key] !== initialValues[key]) {
+        acc[key] = data[key];
+      }
+      return acc;
+    }, {});
+
+    if (avatarPreview !== avatar) {
+      changedData.avatar = avatarPreview;
+    }
+
+    if (!changedData.customWaterIntake) {
+      delete changedData.customWaterIntake;
+    }
+
+    if (Object.keys(changedData).length === 0) {
+      return;
+    }
+
+    const formData = new FormData();
+
+    Object.keys(changedData).forEach((key) => {
+      if (key === "avatar" && avatarPreview instanceof File) {
+        formData.append("avatar", avatarPreview);
+      } else {
+        formData.append(key, changedData[key]);
+      }
+    });
+
+    dispatch(updateUser(formData));
+    setNotification({
+      type: "success",
+      message: "Your settings have been successfully saved!",
+    });
+
+    onClose();
   };
 
   const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
 
-  useEffect(() => {
-    setWaterIntake(M && T ? calculateWaterIntake(Number(M), Number(T)) : 0);
-  }, [M, T]);
-
-  const calculateWaterIntake = (M, T, gender = "female") => {
-    if (gender === "female") {
-      return M * 0.03 + T * 0.4;
-    } else {
-      return M * 0.04 + T * 0.6;
-    }
-  };
-
-  const handleMChange = (e) => {
-    const value = e.target.value;
-    setM(value === "" ? "" : Number(value));
-    setWaterIntake(
-      value === "" ? 0 : calculateWaterIntake(Number(value), Number(T))
-    );
-  };
-
-  const handleTChange = (e) => {
-    const value = e.target.value;
-    setT(value === "" ? "" : Number(value));
-    setWaterIntake(
-      value === "" ? 0 : calculateWaterIntake(Number(M), Number(value))
-    );
-  };
-
-  const handleCustomWaterChange = (e) => {
-    setCustomWaterIntake(e.target.value);
-  };
-
   return (
-    <form className={s.form}>
+    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={s.btnContainer}>
-        <button className={s.closeBtn} onClick={onClose}>
+        <button className={s.closeBtn} onClick={onClose} type="button">
           <svg className={s.close}>
             <use href="/src/assets/sprite.svg#icon-x-1"></use>
           </svg>
@@ -62,8 +155,22 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
       </div>
       <h2 className={s.title}>Setting</h2>
       <div className={s.avatarContainer}>
-        {avatar ? (
-          <img src={avatar} alt="Avatar Preview" className={s.avatar} />
+        {avatarPreview ? (
+          avatarPreview instanceof File ? (
+            <img
+              src={URL.createObjectURL(avatarPreview)}
+              alt="Avatar Preview"
+              className={s.avatar}
+            />
+          ) : (
+            <img
+              src={avatarPreview}
+              alt="Avatar Preview"
+              className={s.avatar}
+            />
+          )
+        ) : avatar ? (
+          <img src={avatar} alt="User Avatar" className={s.avatar} />
         ) : (
           <div className={s.avatarPlaceholder}>{getInitial(userName)}</div>
         )}
@@ -88,16 +195,17 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
           <div className={s.gender}>
             <label className={s.radioLabel}>
               <input
+                {...register("gender")}
                 type="radio"
                 name="gender"
                 value="woman"
-                defaultChecked
                 className={s.radioInput}
               />
               Woman
             </label>
             <label className={s.radioLabel}>
               <input
+                {...register("gender")}
                 type="radio"
                 name="gender"
                 value="man"
@@ -109,11 +217,30 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
           <div className={s.user}>
             <label className={s.labelInform}>
               Your name
-              <input type="text" className={s.userInput} placeholder="Name" />
+              <input
+                {...register("name")}
+                type="text"
+                className={s.userInput}
+                onBlur={handleBlur}
+                placeholder="Name"
+              />
+              {errors.name && (
+                <span className={s.error}>{errors.name.message}</span>
+              )}
             </label>
             <label className={s.labelInform}>
               Email
-              <input type="text" className={s.userInput} />
+              <input
+                {...register("email")}
+                type="text"
+                className={s.userInput}
+                onBlur={handleBlur}
+                placeholder="Email"
+                disabled
+              />
+              {errors.email && (
+                <span className={s.error}>{errors.email.message}</span>
+              )}
             </label>
           </div>
           <h3 className={s.labelNorma}>My daily norma</h3>
@@ -121,16 +248,20 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
             <div className={s.normContainer}>
               <p className={s.subTitle}>For woman:</p>
               <span className={s.formula}>
-                {M && T
-                  ? `${waterIntake.toFixed(2)}  = (${M} * 0.03) + (${T} * 0.4)`
+                {newWeight && newActiveTime
+                  ? `${waterIntake.toFixed(
+                      2
+                    )} = (${newWeight} * 0.03) + (${newActiveTime} * 0.4)`
                   : "V =  (M * 0.03) + (T * 0.4)"}
               </span>
             </div>
             <div className={s.normContainer}>
               <p className={s.subTitle}>For man:</p>
               <span className={s.formula}>
-                {M && T
-                  ? `${waterIntake.toFixed(2)} = (${M} * 0.04) + (${T} * 0.6)`
+                {newWeight && newActiveTime
+                  ? `${waterIntake.toFixed(
+                      2
+                    )} = (${newWeight} * 0.04) + (${newActiveTime} * 0.6)`
                   : "V = (M * 0.04) + (T * 0.6)"}
               </span>
             </div>
@@ -153,22 +284,28 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
             <label className={s.waterInfo}>
               Your weight in kilograms:
               <input
-                className={s.waterInput}
+                {...register("weight")}
                 type="number"
-                value={M}
-                onChange={handleMChange}
+                className={s.waterInput}
+                onBlur={handleBlur}
                 placeholder="0"
               />
+              {errors.weight && (
+                <span className={s.error}>{errors.weight.message}</span>
+              )}
             </label>
             <label className={s.waterInfo}>
               The time of active participation in sports:
               <input
-                className={s.waterInput}
+                {...register("timeActive")}
                 type="number"
-                value={T}
-                onChange={handleTChange}
+                className={s.waterInput}
+                onBlur={handleBlur}
                 placeholder="0"
               />
+              {errors.timeActive && (
+                <span className={s.error}>{errors.timeActive.message}</span>
+              )}
             </label>
           </div>
           <div className={s.required}>
@@ -176,9 +313,9 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
               The required amount of water in liters per day:
             </h3>
             <div className={s.waterIntake}>
-              {customWaterIntake
-                ? `${customWaterIntake} L`
-                : M && T
+              {watch("customWaterIntake")
+                ? `${watch("customWaterIntake")} L`
+                : newWeight && newActiveTime
                 ? `${waterIntake.toFixed(2)} L`
                 : "1.8 L"}
             </div>
@@ -186,19 +323,23 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
           <label className={s.userIntake}>
             Write down how much water you will drink:
             <input
+              {...register("customWaterIntake")}
               type="number"
               className={s.intake}
-              value={customWaterIntake}
-              onChange={handleCustomWaterChange}
-              placeholder="1,8"
+              onBlur={handleBlur}
+              placeholder="1.8"
             />
           </label>
         </div>
       </div>
-
-      <button className={s.save} type="submit">
-        Save
+      <button className={s.save} type="submit" disabled={loader}>
+        {loader ? "Saving..." : "Save"}
       </button>
+      {notification && (
+        <div className={`notification ${notification.type}`}>
+          {notification.message}
+        </div>
+      )}
     </form>
   );
 };

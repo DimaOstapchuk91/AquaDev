@@ -87,9 +87,7 @@ export const updateUser = createAsyncThunk(
       });
       return data.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(
-        error.response?.data?.message || error.message
-      );
+      return thunkApi.rejectWithValue(error.response?.message || error.message);
     }
   }
 );
@@ -105,6 +103,7 @@ export const getUserData = createAsyncThunk(
     setAuthHeader(token);
     try {
       const { data } = await aquaDevApi.get("/users/info");
+
       return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
