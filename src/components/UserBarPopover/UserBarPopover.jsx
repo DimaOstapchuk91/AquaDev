@@ -25,6 +25,7 @@ const UserBarPopover = ({ buttonRef, onClose }) => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
+      clearTimeout(timer);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [onClose, buttonRef]);
