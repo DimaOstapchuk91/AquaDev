@@ -9,6 +9,8 @@ const WaterItem = ({ id, amount, time }) => {
   const [isModalEdit, setIsModalEdit] = useState(false);
   const [isModalDelete, setIsModalDelete] = useState(false);
 
+  const liters = amount > 999 ? Number((amount / 1000).toFixed(2)) : amount;
+
   const handleDelete = () => {
     setIsModalDelete(true);
   };
@@ -31,7 +33,7 @@ const WaterItem = ({ id, amount, time }) => {
         <use href={`${sprite}#icon-mage_water-glass-fill`}></use>
       </svg>
       <div className={s.dataWrapper}>
-        <p className={s.textVolume}>{amount}ml</p>
+        <p className={s.textVolume}>{liters}{amount > 999 ? 'L' : 'ml'}</p>
         <p className={s.textTime}>{time}</p>
       </div>
       <div className={s.dataWrapperIcon}>
