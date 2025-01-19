@@ -1,3 +1,8 @@
+.userBarContainer {
+  max-width: 300px;
+  position: relative;
+}
+
 .userBarBtn {
   display: flex;
   flex-direction: row;
@@ -5,24 +10,37 @@
   align-items: center;
   border-radius: 30px;
   padding: 6px 12px;
-  background-color: #323f47;
-  color: #fff;
+  background-color: var(--bg-btn-dark-gray);
+  color: var(--background-white);
   border: none;
-  margin-bottom: 8px;
+  min-width: 157px;
   cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.userBarBtn:hover {
+  opacity: 0.8;
+}
+
+.span {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  max-width: 58px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .userBarImg {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  margin-left: 8px;
-  margin-right: 8px;
 }
 
 .userBarIcon {
   fill: transparent;
-  stroke: #fff;
+  stroke: var(--background-white);
   transition: transform 0.3s ease;
 }
 

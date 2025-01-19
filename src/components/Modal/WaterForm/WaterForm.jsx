@@ -3,21 +3,26 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import s from "./WaterForm.module.css";
 import sprite from "../../../assets/sprite.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addWaterPortion,
   updateWaterPortion,
 } from "../../../redux/water/operations.js";
 import { validationSchemaWaterChange } from "../../../utils/formValidation.js";
+import { selectLoading } from "../../../redux/water/selectors.js";
+import Loader from "../../Loader/Loader.jsx";
 
-const WaterForm = ({ subtitle, onClose, portionData, type }) => {
+const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
+  const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
     getValues,
+    watch,
   } = useForm({
     resolver: yupResolver(validationSchemaWaterChange),
     defaultValues: {
@@ -29,8 +34,10 @@ const WaterForm = ({ subtitle, onClose, portionData, type }) => {
     },
   });
 
+  const watchedAmount = watch("amount");
+
   useEffect(() => {
-    if (type === "edit" && portionData) {
+    if (portionData) {
       reset({
         amount: portionData.amount,
         time:
@@ -41,18 +48,21 @@ const WaterForm = ({ subtitle, onClose, portionData, type }) => {
           }),
       });
     }
-  }, [portionData, type, reset]);
+  }, [portionData, reset]);
 
-  const handleWaterChange = (value) => {
-    const newValue = Math.min(Math.max(value, 50), 10000);
-    reset({ amount: newValue, time: getValues("time") });
+  const handleBlur = () => {
+    if (portionData) {
+      setValue("amount", portionData.amount);
+    } else {
+      setValue("amount", 50);
+    }
   };
 
   const onSubmit = async (data) => {
     if (type === "add") {
-      dispatch(addWaterPortion(data));
+      await dispatch(addWaterPortion(data));
     } else if (type === "edit") {
-      dispatch(updateWaterPortion(portionData.id, data));
+      await dispatch(updateWaterPortion({ id, data }));
     }
     onClose();
   };
@@ -66,17 +76,23 @@ const WaterForm = ({ subtitle, onClose, portionData, type }) => {
         <div className={s.counter}>
           <button
             type="button"
-            onClick={() => handleWaterChange(getValues("amount") - 50)}
+            onClick={() => {
+              const newValue = Math.max(getValues("amount") - 50, 50);
+              setValue("amount", newValue);
+            }}
             className={s.iconButton}
           >
             <svg className={s.icon}>
               <use href={`${sprite}#icon-minus1`} />
             </svg>
           </button>
-          <span className={s.amountValue}>{`${getValues("amount")} ml`}</span>
+          <span className={s.amountValue}>{`${watchedAmount} ml`}</span>
           <button
             type="button"
-            onClick={() => handleWaterChange(getValues("amount") + 50)}
+            onClick={() => {
+              const newValue = Math.min(getValues("amount") + 50, 2000);
+              setValue("amount", newValue);
+            }}
             className={s.iconButton}
           >
             <svg className={s.icon}>
@@ -103,20 +119,32 @@ const WaterForm = ({ subtitle, onClose, portionData, type }) => {
         <label className={s.valuelabel}>
           Enter the value of the water used:
         </label>
-        <input
-          type="number"
-          className={s.input}
-          value={getValues("amount")}
-          onChange={(e) => handleWaterChange(Number(e.target.value))}
+        <Controller
+          name="amount"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              type="number"
+              name="amount"
+              className={s.input}
+              onBlur={handleBlur}
+            />
+          )}
         />
         {errors.amount && <p className={s.error}>{errors.amount.message}</p>}
       </div>
 
-      <div className={s.buttons}>
-        <button type="submit" className={s.submit}>
-          Save
+      <div className={s.wrappBtn}>
+        <button type="submit" className={s.submit} disabled={isLoading}>
+          {isLoading ? <Loader className={s.submitLoader} /> : "Save"}{" "}
         </button>
-        <button type="button" onClick={onClose} className={s.cancel}>
+        <button
+          type="button"
+          onClick={onClose}
+          className={s.cancel}
+          disabled={isLoading}
+        >
           Cancel
         </button>
       </div>

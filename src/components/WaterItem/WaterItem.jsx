@@ -1,9 +1,9 @@
-import s from './WaterItem.module.css';
-import sprite from '../../assets/sprite.svg';
-import Modal from '../Modal/Modal.jsx';
-import WaterModal from '../Modal/WaterModal/WaterModal.jsx';
-import { useState } from 'react';
-import DeleteWaterModal from '../Modal/DeleteWaterModal/DeleteWaterModal.jsx';
+import s from "./WaterItem.module.css";
+import sprite from "../../assets/sprite.svg";
+import Modal from "../Modal/Modal.jsx";
+import WaterModal from "../Modal/WaterModal/WaterModal.jsx";
+import { useState } from "react";
+import DeleteWaterModal from "../Modal/DeleteWaterModal/DeleteWaterModal.jsx";
 
 const WaterItem = ({ id, amount, time }) => {
   const [isModalEdit, setIsModalEdit] = useState(false);
@@ -27,22 +27,22 @@ const WaterItem = ({ id, amount, time }) => {
 
   return (
     <li className={s.item}>
-      <svg className={s.iconGlass} width='38' height='38'>
+      <svg className={s.iconGlass} width="38" height="38">
         <use href={`${sprite}#icon-mage_water-glass-fill`}></use>
       </svg>
       <div className={s.dataWrapper}>
         <p className={s.textVolume}>{amount}ml</p>
         <p className={s.textTime}>{time}</p>
       </div>
-      <div className={s.dataWrapper}>
-        <button type='button' onClick={handleEdit}>
-          <svg className={s.iconChange} width='14' height='14'>
-            <use href={`${sprite}#icon-edit-2`}></use>
+      <div className={s.dataWrapperIcon}>
+        <button type="button" onClick={handleEdit}>
+          <svg className={s.iconChange} width="14" height="14">
+            <use className={s.hoverIcon} href={`${sprite}#icon-edit-2`}></use>
           </svg>
         </button>
-        <button type='button' onClick={handleDelete}>
-          <svg className={s.iconDell} width='14' height='14'>
-            <use href={`${sprite}#icon-trash-04`}></use>
+        <button type="button" onClick={handleDelete}>
+          <svg className={s.iconDell} width="14" height="14">
+            <use className={s.hoverIcon} href={`${sprite}#icon-trash-04`}></use>
           </svg>
         </button>
         <div>
@@ -51,7 +51,7 @@ const WaterItem = ({ id, amount, time }) => {
               isOpen={isModalEdit}
               onClose={handleEditClose}
               id={id}
-              type={'edit'}
+              type={"edit"}
             />
           </Modal>
           <Modal isOpen={isModalDelete} onClose={handleDeleteClose}>

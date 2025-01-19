@@ -80,10 +80,6 @@ export const updateUser = createAsyncThunk(
   "user/update",
   async (credentials, thunkApi) => {
     try {
-      credentials.forEach((value, key) => {
-        console.log(key, value);
-      });
-
       const { data } = await aquaDevApi.patch("/users/update", credentials, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -106,7 +102,8 @@ export const getUserData = createAsyncThunk(
 
     setAuthHeader(token);
     try {
-      const { data } = await aquaDevApi.get("/users/data");
+      const { data } = await aquaDevApi.get("/users/info");
+
       return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

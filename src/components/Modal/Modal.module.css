@@ -11,11 +11,17 @@
     z-index: 1000;
 }
 
+.noScroll {
+    overflow: hidden;
+    height: 100%;
+}
+
 .window {
     position: relative;
     background-color: var(--background-white);
     border-radius: 15px;
-    width: max-content;
+    width: 100%;
+    max-width: 343px;
     box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -31,6 +37,16 @@
 .icon {
     width: 24px;
     height: 24px;
-    stroke: #2f2f2f;
+    stroke: var(--black);
 }
 
+.icon:hover {
+    opacity: 0.7;
+    transition: 250ms ease-in;
+}
+
+@media screen and (min-width: 768px) {
+    .window {
+        max-width: 518px;
+    }
+}

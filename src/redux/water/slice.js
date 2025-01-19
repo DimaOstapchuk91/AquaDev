@@ -1,12 +1,12 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import {
   addWaterPortion,
   deleteWaterPortion,
   getWaterDay,
   getWaterMonth,
   updateWaterPortion,
-} from './operations.js';
-import { logout, refreshUser } from '../user/operations.js';
+} from "./operations.js";
+import { logout, refreshUser } from "../user/operations.js";
 
 const initialState = {
   waterMonth: [],
@@ -18,9 +18,9 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'water',
+  name: "water",
   initialState,
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(getWaterDay.fulfilled, (state, action) => {
         state.waterPortions = action.payload.waterPortions;
@@ -32,22 +32,28 @@ const slice = createSlice({
       })
       .addCase(addWaterPortion.fulfilled, (state, action) => {
         state.waterPortions.push(action.payload);
+        state.totalWater = state.totalWater + action.payload.amount;
       })
       .addCase(updateWaterPortion.fulfilled, (state, action) => {
-        state.waterPortions = state.waterPortions.map(item =>
-          item.id === action.payload._id
+        state.totalWater = initialState.totalWater;
+        state.waterPortions = state.waterPortions.map((item) =>
+          item._id === action.payload._id
             ? {
-                ...item,
+                _id: action.payload._id,
                 amount: action.payload.amount,
                 time: action.payload.time,
               }
             : item
         );
+        state.totalWater = state.waterPortions.reduce((acc, portion) => {
+          return acc + portion.amount;
+        }, 0);
       })
       .addCase(deleteWaterPortion.fulfilled, (state, action) => {
         state.waterPortions = state.waterPortions.filter(
-          item => item.id !== action.payload
+          (item) => item._id !== action.payload._id
         );
+        state.totalWater = state.totalWater - action.payload.amount;
       })
       .addCase(logout.fulfilled, () => initialState)
       .addCase(refreshUser.rejected, () => initialState)
@@ -59,7 +65,7 @@ const slice = createSlice({
           updateWaterPortion.pending,
           deleteWaterPortion.pending
         ),
-        state => {
+        (state) => {
           state.loading = true;
           state.error = false;
         }
@@ -72,7 +78,7 @@ const slice = createSlice({
           updateWaterPortion.fulfilled,
           deleteWaterPortion.fulfilled
         ),
-        state => {
+        (state) => {
           state.loading = false;
           state.error = false;
         }
@@ -85,7 +91,7 @@ const slice = createSlice({
           updateWaterPortion.rejected,
           deleteWaterPortion.rejected
         ),
-        state => {
+        (state) => {
           state.loading = false;
           state.error = true;
         }

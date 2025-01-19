@@ -42,7 +42,7 @@ function App() {
           <Route
             path='/tracker'
             element={
-              <PrivateRoute component={<TrackerPage />} redirectTo='/signin' />
+              <PrivateRoute component={<TrackerPage />} redirectTo='/' />
             }
           />
           <Route
