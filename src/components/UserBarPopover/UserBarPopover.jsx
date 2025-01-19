@@ -8,20 +8,24 @@ import s from "./UserBarPopover.module.css";
 const UserBarPopover = ({ buttonRef, onClose }) => {
   const [settingModalOpen, setSettingModalOpen] = useState(false);
   const [logoutOpen, setlogoutOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
   const popoverRef = useRef(null);
 
   useEffect(() => {
+    const timer = setTimeout(() => setVisible(true), 0);
     const handleClickOutside = (event) => {
       if (
         popoverRef.current &&
         !popoverRef.current.contains(event.target) &&
         !buttonRef.current.contains(event.target)
       ) {
-        onClose();
+        setVisible(false);
+        setTimeout(onClose, 300);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
+      clearTimeout(timer);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [onClose, buttonRef]);
@@ -42,10 +46,10 @@ const UserBarPopover = ({ buttonRef, onClose }) => {
 
   return (
     <div ref={popoverRef}>
-      <div className={s.popoverContainer}>
+      <div className={`${s.popoverContainer} ${visible ? s.visib : ""}`}>
         <button onClick={handleSettingOpen} className={s.popoverBtn}>
           <svg
-            className={`${s.userBarIcon} ${settingModalOpen ? s.rotated : ""}`}
+            className={`${s.popoverIcons} ${settingModalOpen ? s.rotated : ""}`}
             width={16}
             height={16}
           >

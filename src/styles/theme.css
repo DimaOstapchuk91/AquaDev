@@ -9,7 +9,7 @@
   --input-red: #ef5050;
   --black: #2f2f2f;
   --modal-backdrop: rgba(47, 47, 47, 0.6);
-
+  --menu-backdrop-color-light: rgba(50, 63, 71, 0.4);
   transition: background-color 500ms ease;
 }
 
