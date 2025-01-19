@@ -81,7 +81,7 @@
   },
   "userSettingsModal": "UserSettingsForm",
   "userSettingsForm": {
-    "setting": "Setting",
+    "settings": "Setting",
     "uploadPhoto": "Upload a photo",
     "gender": "Your gender identity",
     "woman": "Woman",

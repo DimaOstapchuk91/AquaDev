@@ -11,14 +11,15 @@ const LogOutModal = ({ onClose }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
+  //===========
+  const { t } = useTranslation();
+  //===========
+
   const handleLogout = async () => {
     setIsLoading(true);
     await dispatch(logout());
     setIsLoading(false);
     onClose();
-    //===========
-    const { t } = useTranslation();
-    //===========
   };
 
   return (
@@ -40,9 +41,8 @@ const LogOutModal = ({ onClose }) => {
               <Loader />
             </div>
           ) : (
-            {
-              /* (Log out) */
-            }(t("logOutModal.logOutBtn"))
+            /* (Log out) */
+            t("logOutModal.logOutBtn")
           )}
         </button>
         <button type="button" className={s.btnCancel} onClick={onClose}>

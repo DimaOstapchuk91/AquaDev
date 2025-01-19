@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import s from "./UserSettingsForm.module.css";
+import { useTranslation } from "react-i18next";
 
 const UserSettingsForm = ({ userName = "User", onClose }) => {
+  //==============
+  const { t } = useTranslation();
+  //=================
   const [avatar, setAvatar] = useState(null);
   const [M, setM] = useState(localStorage.getItem("userWeight") || "");
   const [T, setT] = useState(localStorage.getItem("activeTime") || "");
