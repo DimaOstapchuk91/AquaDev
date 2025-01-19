@@ -57,9 +57,14 @@ const UserBarPopover = ({ buttonRef, onClose }) => {
           </svg>
           Setting
         </button>
-        <button onClick={handleLogoutOpen} className={s.popoverBtn}>
+        <button
+          onClick={handleLogoutOpen}
+          className={(s.popoverBtn, s.popoverBtnLogout)}
+        >
           <svg
-            className={`${s.popoverIcons} ${logoutOpen ? s.rotated : ""}`}
+            className={`${(s.popoverIcons, s.iconsLogout)} ${
+              logoutOpen ? s.rotated : ""
+            }`}
             width={16}
             height={16}
           >
