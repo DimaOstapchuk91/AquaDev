@@ -51,7 +51,7 @@
     color: var(--dark-gray-calendar);
     border: none;
     cursor: pointer;
-    transition: color 250ms ease-in;
+    transition: color 250ms ease-in, background-color 250ms ease-in;
 }
 
 .btnLogout {
@@ -61,6 +61,20 @@
     &:hover {
         background-color: var(--bg-component-dark-green);
     }
+}
+
+.btnLogout:disabled {
+    background-color: transparent;
+        color: transparent;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.loaderContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .btnCancel {

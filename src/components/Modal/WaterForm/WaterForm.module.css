@@ -134,6 +134,13 @@
     }
 }
 
+.submit:disabled {
+    background-color: transparent;
+    color: transparent;
+    cursor: not-allowed;
+    position: relative;
+}
+
 .cancel {
     background-color: var(--bg-component-gray);
     color: var(--dark-gray-calendar);

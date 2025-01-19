@@ -1,9 +1,19 @@
+import { useState } from "react";
 import { logout } from "../../../redux/user/operations";
 import s from "./LogOutModal.module.css";
 import { useDispatch } from "react-redux";
+import Loader from "../../Loader/Loader.jsx";
 
 const LogOutModal = ({ onClose }) => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLoading(true);
+    await dispatch(logout());
+    setIsLoading(false);
+    onClose();
+  };
 
   return (
     <div className={s.modalWrapp}>
@@ -13,9 +23,16 @@ const LogOutModal = ({ onClose }) => {
         <button
           type="button"
           className={s.btnLogout}
-          onClick={() => dispatch(logout())}
+          onClick={handleLogout}
+          disabled={isLoading}
         >
-          Log out
+          {isLoading ? (
+            <div className={s.loaderContainer}>
+              <Loader />
+            </div>
+          ) : (
+            "Log out"
+          )}
         </button>
         <button type="button" className={s.btnCancel} onClick={onClose}>
           Cancel

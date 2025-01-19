@@ -1,12 +1,17 @@
-import s from "./DeleteWaterModal.module.css";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteWaterPortion } from "../../../redux/water/operations";
+import s from "./DeleteWaterModal.module.css";
+import Loader from "../../Loader/Loader.jsx";
 
 const DeleteWaterModal = ({ onClose, id }) => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleDell = () => {
-    dispatch(deleteWaterPortion(id));
+  const handleDelete = async () => {
+    setIsLoading(true);
+    await dispatch(deleteWaterPortion(id));
+    setIsLoading(false);
     onClose();
   };
 
@@ -18,9 +23,20 @@ const DeleteWaterModal = ({ onClose, id }) => {
           Are you sure you want to delete the entry?
         </p>
         <div className={s.wrappBtn}>
-          <button type="button" className={s.btnDelete} onClick={handleDell}>
-            Delete
-          </button>
+          {!isLoading ? (
+            <button
+              type="button"
+              className={s.btnDelete}
+              onClick={handleDelete}
+              disabled={isLoading}
+            >
+              Delete
+            </button>
+          ) : (
+            <div className={s.loaderContainer}>
+              <Loader />
+            </div>
+          )}
           <button type="button" className={s.btnCancel} onClick={onClose}>
             Cancel
           </button>
