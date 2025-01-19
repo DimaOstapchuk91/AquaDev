@@ -35,12 +35,12 @@ const WaterItem = ({ id, amount, time }) => {
         <p className={s.textTime}>{time}</p>
       </div>
       <div className={s.dataWrapperIcon}>
-        <button type="button" onClick={handleEdit}>
+        <button className={s.buttonItem} type="button" onClick={handleEdit}>
           <svg className={s.iconChange} width="14" height="14">
             <use className={s.hoverIcon} href={`${sprite}#icon-edit-2`}></use>
           </svg>
         </button>
-        <button type="button" onClick={handleDelete}>
+        <button className={s.buttonItem} type="button" onClick={handleDelete}>
           <svg className={s.iconDell} width="14" height="14">
             <use className={s.hoverIcon} href={`${sprite}#icon-trash-04`}></use>
           </svg>
