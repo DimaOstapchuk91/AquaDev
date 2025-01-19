@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getFormattedDate } from "../../utils/formatDate";
 import CalendarItem from "../CalendarItem/CalendarItem";
 import s from "./Calendar.module.css";
 import { getWaterDay } from "../../redux/water/operations";
-import { selectTotalWater } from "../../redux/water/selectors";
 
 const Calendar = ({
   currentDate,
@@ -13,23 +12,17 @@ const Calendar = ({
   dailyNorma,
 }) => {
   const dispatch = useDispatch();
-  const getTotalWater = useSelector(selectTotalWater);
-
-  console.log(monthInfo, "monthInfo");
 
   const handleDayClick = (day) => {
     const date = new Date(currentDate);
     date.setDate(day);
 
     const formattedDate = getFormattedDate(date);
-    console.log(formattedDate, "formattedDate");
 
     dispatch(getWaterDay(formattedDate));
 
     setSelectedDate(date);
   };
-
-  console.log(getTotalWater, "getTotalWater");
 
   const daysInMonth = new Date(
     currentDate.getFullYear(),
@@ -50,15 +43,6 @@ const Calendar = ({
       100,
       Math.round((dayData.totalWater / dailyNorma) * 100)
     );
-
-    // console.log(
-    //   {
-    //     dailyNorm: dailyNorma,
-    //     total: dayData.totalWater,
-    //   },
-    //   (dayData.totalWater / dailyNorma) * 100,
-    //   formattedDate
-    // );
 
     return {
       day: dayNumber,

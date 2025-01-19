@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWaterMonth } from "../../redux/water/operations";
 import { selectWaterMonth } from "../../redux/water/selectors";
 import { selectUser } from "../../redux/user/selectors";
+import { getformatDateYearMonth } from "../../utils/formatDate";
 
 const getCurrentWeek = (currentDate) => {
   const startOfWeek = new Date(currentDate);
@@ -41,58 +42,16 @@ const MonthInfo = () => {
   const monthInfo = useSelector(selectWaterMonth);
   const { dailyNorma } = useSelector(selectUser);
 
-  // useEffect(() => {
-  //   const weekDays = getCurrentWeek(currentDate);
-  //   console.log(dailyNorma, "dailyNorma");
-
-  //   // misachni dani
-  //   const date = currentDate;
-
-  //   const year = date.getFullYear();
-  //   const month = String(date.getMonth() + 1).padStart(2, "0");
-
-  //   dispatch(getWaterMonth({ year, month }));
-
-  //   if (!monthInfo || monthInfo.length === 0) {
-  //     console.log("no data");
-  //     console.log(monthInfo, "inside if");
-
-  //     return;
-  //   }
-  //   console.log("have data");
-
-  //   console.log(monthInfo, "outside if");
-
-  //   // dani для граафіуу
-  //   const data = weekDays.map((day) => {
-  //     const formattedDate = day.toISOString().split("T")[0]; // data rik-misyac-den
-  //     const dayData = monthInfo.find((info) => info.date === formattedDate);
-  //     return {
-  //       name: day.getDate().toString(), // день
-  //       water: dayData ? dayData.totalWater : 0, // або дані або 0
-  //     };
-  //   });
-  //   console.log(data, "data");
-
-  //   setWeekData(data);
-  // }, [currentDate, dailyNorma, dispatch, monthInfo]);
-
-  // Запит даних місяця лише при зміні дати
   useEffect(() => {
-    const date = currentDate;
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const formattedDate = getformatDateYearMonth(currentDate);
 
-    dispatch(getWaterMonth({ year, month }));
-    console.log({ year, month });
+    dispatch(getWaterMonth(formattedDate));
   }, [currentDate, dispatch]);
 
   useEffect(() => {
-    console.log(monthInfo, "monthInfo");
-
     if (!monthInfo || monthInfo.length === 0) return;
 
-    const weekDays = getCurrentWeek(currentDate);
+    const weekDays = getCurrentWeek(new Date());
 
     const data = weekDays.map((day) => {
       const formattedDate = day.toISOString().split("T")[0];
@@ -104,7 +63,6 @@ const MonthInfo = () => {
         water: dayData ? dayData.totalWater : 0,
       };
     });
-    console.log(data, "data");
 
     setWeekData(data);
   }, [monthInfo, currentDate]);
