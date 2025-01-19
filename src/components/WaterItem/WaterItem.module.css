@@ -6,8 +6,8 @@
   border: 1px solid transparent;
   background-color: var(--background-white);
   align-items: center;
-  min-width: 192px;
-  max-height: 86px;
+  min-width: 149px;
+  max-height: 74px;
   align-self: flex-start;
   cursor: pointer;
   justify-content: space-around;
@@ -107,10 +107,20 @@ button {
     padding: 32px;
   }
 
+  .iconGlass{
+    width: 38px;
+    height: 38px;
+  }
+
+  .item{
+    width: 149px;
+    height: 74px;
+  }
+
   .iconChange,
   .iconDell {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -122,5 +132,25 @@ button {
   .container {
     width: 1440px;
     flex-direction: row;
+  }
+
+  .item{
+    width: 192px;
+    height: 86px;
+  }
+
+  .iconGlass{
+    width: 44px;
+    height: 45px;
+  }
+
+  .textVolume{
+    font-size: 15px;
+  }
+
+  .iconChange,
+  .iconDell {
+    width: 16px;
+    height: 16px;
   }
 }
