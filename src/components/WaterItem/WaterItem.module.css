@@ -3,26 +3,25 @@
   gap: 10px;
   padding: 18px 14px;
   border-radius: 15px;
-  border: 1px solid transparent;
   background-color: var(--background-white);
   align-items: center;
-  min-width: 149px;
-  max-height: 74px;
+  min-width: 146px;
+  height: 74px;
   align-self: flex-start;
-  cursor: pointer;
   justify-content: space-around;
 }
 
-button {
+.buttonItem {
   border: none;
   background-color: transparent;
+  cursor: pointer;
+  transition: opacity 250ms ease-in;
 }
 
 .iconChange,
 .iconDell {
   fill: none;
   stroke: black;
-  cursor: pointer;
   transition: all 300ms ease-in;
 }
 .dataWrapperIcon {
@@ -30,16 +29,8 @@ button {
   gap: 8px;
 }
 
-.hoverIcon:hover {
-  transition: all 300ms ease-in;
-  stroke: var(--bg-component-green);
-}
-
-.dailyInfo .plus {
-  border-radius: 30px;
-  width: 30px;
-  height: 30px;
-  transition: background-color 250ms ease-in;
+.buttonItem:hover {
+  opacity: 0.6;
 }
 
 .iconChange,
@@ -90,31 +81,24 @@ button {
 }
 
 .dailyInfo .spanContainer:hover {
-
   background-color: var(--bg-btn-dark-gray);
 }
 
 .dailyInfo .plus:hover {
   fill: white;
   stroke: white;
- 
 }
 
 @media (min-width: 768px) {
-  .container {
-    max-width: unset;
-    width: 768px;
-    padding: 32px;
-  }
-
-  .iconGlass{
+  .iconGlass {
     width: 38px;
     height: 38px;
   }
 
-  .item{
-    width: 149px;
-    height: 74px;
+  .item {
+    padding: 20px;
+    min-width: 192px;
+    height: 86px;
   }
 
   .iconChange,
@@ -125,26 +109,19 @@ button {
 }
 
 @media (min-width: 1440px) {
-  #root {
-    height: 100vh;
-  }
-
+   
   .container {
     width: 1440px;
     flex-direction: row;
   }
 
-  .item{
-    width: 192px;
-    height: 86px;
-  }
 
-  .iconGlass{
+  .iconGlass {
     width: 44px;
     height: 45px;
   }
 
-  .textVolume{
+  .textVolume {
     font-size: 15px;
   }
 

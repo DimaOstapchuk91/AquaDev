@@ -1,0 +1,15 @@
+.todayText {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+}
+
+@media (min-width: 768px){
+    .todayText{
+        font-size: 28px;
+        line-height: 32px;
+        letter-spacing: -0.28px;
+    }
+}

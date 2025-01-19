@@ -54,6 +54,10 @@ address {
   font-style: normal;
 }
 
+button{
+  border: none;
+}
+
 .container {
   max-width: 375px;
   margin: 0 auto;
@@ -62,6 +66,8 @@ address {
   flex-direction: column;
   gap: 16px;
 }
+
+
 
 @media (min-width: 768px) {
   .container {

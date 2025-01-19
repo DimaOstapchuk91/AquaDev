@@ -3,5 +3,62 @@
   overflow-x: auto;
   gap: 10px;
   max-width: 100%;
-  padding-bottom: 24px;
+  scrollbar-gutter: stable;
+  padding-bottom: 32px;
+  height: 106px;
+}
+
+.container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: var(--bg-btn-dark-gray);
+  border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bg-btn-dark-gray);
+}
+
+.container::-webkit-scrollbar-track {
+  background-color: var(--background-white);
+  border-radius: 4px;
+}
+.container::-webkit-scrollbar-track {
+  background-color: var(--background-white);
+  border-radius: 4px;
+}
+
+.nameText {
+  padding-bottom: 32px;
+  height: 106px;
+  padding: 10px;
+}
+.textItemDiv {
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  background-color: var(--background-white);
+  align-items: center;
+  width: 146px;
+  height: 74px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    gap: 30px;
+    height: 118px;
+  }
+
+  .textItemDiv{
+    width: 192px;
+    height: 86px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    gap: 16px;
+  }
 }
