@@ -14,7 +14,10 @@ import {
 } from "recharts";
 import { useDispatch, useSelector } from "react-redux";
 import { getWaterMonth } from "../../redux/water/operations";
-import { selectWaterMonth } from "../../redux/water/selectors";
+import {
+  selectTotalWater,
+  selectWaterMonth,
+} from "../../redux/water/selectors";
 import { selectUser } from "../../redux/user/selectors";
 import { getformatDateYearMonth } from "../../utils/formatDate";
 
@@ -37,6 +40,7 @@ const MonthInfo = () => {
   const [isCalendarActive, setCalendarActive] = useState(true);
   const [weekData, setWeekData] = useState([]);
   const [isPaginationDisabled, setPaginationDisabled] = useState(false);
+  const getTotalWater = useSelector(selectTotalWater);
 
   const dispatch = useDispatch();
   const monthInfo = useSelector(selectWaterMonth);
@@ -46,7 +50,7 @@ const MonthInfo = () => {
     const formattedDate = getformatDateYearMonth(currentDate);
 
     dispatch(getWaterMonth(formattedDate));
-  }, [currentDate, dispatch]);
+  }, [currentDate, dispatch, getTotalWater]);
 
   useEffect(() => {
     if (!monthInfo || monthInfo.length === 0) return;
