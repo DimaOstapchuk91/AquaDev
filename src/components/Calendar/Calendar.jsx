@@ -15,8 +15,6 @@ const Calendar = ({
   const dispatch = useDispatch();
   const getTotalWater = useSelector(selectTotalWater);
 
-  console.log(monthInfo, "monthInfo");
-
   const handleDayClick = (day) => {
     const date = new Date(currentDate);
     date.setDate(day);
@@ -38,6 +36,8 @@ const Calendar = ({
   ).getDate();
 
   const days = Array.from({ length: daysInMonth }, (_, index) => {
+    console.log(monthInfo, "monthInfo");
+
     const dayNumber = index + 1;
     const formattedDate = getFormattedDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth(), dayNumber)

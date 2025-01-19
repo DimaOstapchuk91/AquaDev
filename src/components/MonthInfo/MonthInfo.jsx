@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWaterMonth } from "../../redux/water/operations";
 import { selectWaterMonth } from "../../redux/water/selectors";
 import { selectUser } from "../../redux/user/selectors";
+import { getformatDateYearMonth } from "../../utils/formatDateYearMonth";
 
 const getCurrentWeek = (currentDate) => {
   const startOfWeek = new Date(currentDate);
@@ -79,12 +80,10 @@ const MonthInfo = () => {
 
   // Запит даних місяця лише при зміні дати
   useEffect(() => {
-    const date = currentDate;
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const formattedDate = getformatDateYearMonth(currentDate);
+    console.log(formattedDate, "formattedDate");
 
-    dispatch(getWaterMonth({ year, month }));
-    console.log({ year, month });
+    dispatch(getWaterMonth(formattedDate));
   }, [currentDate, dispatch]);
 
   useEffect(() => {
