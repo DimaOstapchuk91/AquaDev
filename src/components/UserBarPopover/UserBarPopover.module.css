@@ -12,7 +12,6 @@
   padding: 14px 57px 14px 20px;
   box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  margin-bottom: 8px;
   transform: scale(0.95);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -23,8 +22,10 @@
 }
 
 .popoverBtn {
+  width: 80px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-family: "Poppins", sans-serif;
   border: none;
   background-color: transparent;
@@ -35,7 +36,6 @@
 }
 
 .popoverIcons {
-  margin-right: 4px;
   fill: transparent;
   stroke: var(--text-color);
   transition: transform 0.6s ease, stroke 0.3s ease;
@@ -51,4 +51,33 @@
 
 .rotated {
   transform: rotate(180deg);
+}
+
+.popoverBtnLogout {
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--dark-gray-calendar);
+  transition: color 0.3s ease;
+}
+
+.iconsLogout {
+  fill: transparent;
+  stroke: var(--dark-gray-calendar);
+  transition: transform 0.6s ease, stroke 0.3s ease;
+}
+
+.popoverBtnLogout:hover {
+  color: var(--modal-backdrop);
+}
+
+.popoverBtnLogout:hover .iconsLogout {
+  stroke: var(--modal-backdrop);
 }
