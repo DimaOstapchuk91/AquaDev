@@ -7,6 +7,7 @@
   background: var(--background-white);
   margin-top: 49px;
   margin-left: 73px;
+  cursor: default;
 }
 
 .title {
