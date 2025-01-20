@@ -12,7 +12,12 @@ import { validationSchemaWaterChange } from "../../../utils/formValidation.js";
 import { selectLoading } from "../../../redux/water/selectors.js";
 import Loader from "../../Loader/Loader.jsx";
 
+//=============
+import { useTranslation } from "react-i18next";
+//===========
+
 const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
+  const { t } = useTranslation();
   const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
   const {
@@ -64,7 +69,8 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
       <p className={s.subtitle}>{subtitle}</p>
 
       <div className={s.inputGroup}>
-        <label className={s.label}>Amount of water:</label>
+        {/* <label className={s.label}>Amount of water:</label> */}
+        <label className={s.label}>{t("waterForm.waterAmount")}</label>
         <div className={s.counter}>
           <button
             type="button"
@@ -78,7 +84,11 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
               <use href={`${sprite}#icon-minus1`} />
             </svg>
           </button>
-          <span className={s.amountValue}>{`${watchedAmount} ml`}</span>
+          {/* <span className={s.amountValue}>{`${watchedAmount} ml`}</span> */}
+          <span className={s.amountValue}>{`${watchedAmount} ${t(
+            "waterForm.ml"
+          )}`}</span>
+
           <button
             type="button"
             onClick={() => {
@@ -96,7 +106,9 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
       </div>
 
       <div className={s.inputGroup}>
-        <label className={s.timelabel}>Recording time:</label>
+        {/* <label className={s.timelabel}>Recording time:</label> */}
+        <label className={s.timelabel}>{t("waterForm.recordingTime")}</label>
+
         <Controller
           name="time"
           control={control}
@@ -113,7 +125,8 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
 
       <div className={s.inputGroup}>
         <label className={s.valuelabel}>
-          Enter the value of the water used:
+          {/* Enter the value of the water used: */}
+          {t("waterForm.enterValue")}
         </label>
         <Controller
           name="amount"
@@ -133,7 +146,12 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
 
       <div className={s.wrappBtn}>
         <button type="submit" className={s.submit} disabled={isLoading}>
-          {isLoading ? <Loader className={s.submitLoader} /> : "Save"}
+          {/* {isLoading ? <Loader className={s.submitLoader} /> : "Save"}{" "} */}
+          {isLoading ? (
+            <Loader className={s.submitLoader} />
+          ) : (
+            t("waterForm.saveBtn")
+          )}
         </button>
         <button
           type="button"
@@ -141,7 +159,8 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
           className={s.cancel}
           disabled={isLoading}
         >
-          Cancel
+          {/* Cancel */}
+          {t("waterForm.cancelBtn")}
         </button>
       </div>
     </form>

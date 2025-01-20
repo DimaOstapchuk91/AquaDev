@@ -20,6 +20,7 @@ import {
 } from "../../redux/water/selectors";
 import { selectUser } from "../../redux/user/selectors";
 import { getformatDateYearMonth } from "../../utils/formatDate";
+import { useTranslation } from "react-i18next";
 
 const getCurrentWeek = (currentDate) => {
   const startOfWeek = new Date(currentDate);
@@ -41,6 +42,8 @@ const MonthInfo = () => {
   const [weekData, setWeekData] = useState([]);
   const [isPaginationDisabled, setPaginationDisabled] = useState(false);
   const getTotalWater = useSelector(selectTotalWater);
+
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const monthInfo = useSelector(selectWaterMonth);
@@ -80,7 +83,8 @@ const MonthInfo = () => {
     <div className={s.monthInfo}>
       <div className={s.monthInfoHeader}>
         <h2 className={s.monthTitle}>{`${
-          isCalendarActive ? "Month" : "Statistics"
+          // isCalendarActive ? "Month" : "Statistics"
+          isCalendarActive ? t("monthInfo.month") : t("monthInfo.statistics")
         }`}</h2>
         <div className={s.container}>
           <CalendarPagination
@@ -147,7 +151,10 @@ const MonthInfo = () => {
               />
               <YAxis
                 domain={[0, 3000]}
-                tickFormatter={(value) => `${(value / 1000).toFixed(1)}L`}
+                // tickFormatter={(value) => `${(value / 1000).toFixed(1)}L`}
+                tickFormatter={(value) =>
+                  `${(value / 1000).toFixed(1)}${t("monthInfo.litre")}`
+                }
                 tick={{
                   fontSize: 15,
                   fontWeight: "normal",
@@ -158,7 +165,8 @@ const MonthInfo = () => {
                 tickLine={false}
               />
               <Tooltip
-                formatter={(value) => [`${value} ml`]}
+                // formatter={(value) => [`${value} ml`]}
+                formatter={(value) => [`${value} ${t("monthInfo.ml")}`]}
                 contentStyle={{
                   backgroundColor: "#FFF",
                   border: "1px solid #EFEFEF",
