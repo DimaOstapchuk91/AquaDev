@@ -84,10 +84,21 @@
     letter-spacing: -0.14px;
 }
 
-.input:hover,
+
 .input:focus {
     outline: none;
-    border-color: var(--bg-component-green);
+}
+
+
+ .errorBorder {
+    border: 1px solid var(--input-red);
+}
+
+.error {
+    color: var(--input-red);
+    font-size: 0.875rem;
+    margin-bottom: 8px;
+
 }
 
 .valuelabel {
