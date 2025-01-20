@@ -22,7 +22,7 @@ export const register = createAsyncThunk(
     try {
       const { data } = await aquaDevApi.post("/users/register", credentials);
       if (data.status === 201) {
-        successfullyToast("Successfully Register");
+        successfullyToast("Successfully Register!");
         navigate("/signin");
       }
       return data;
