@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import WaterItem from "../WaterItem/WaterItem.jsx";
 import s from "./WaterList.module.css";
 import { selectWaterPortions } from "../../redux/water/selectors.js";
-import sprite from '../../assets/sprite.svg'
+// import sprite from '../../assets/sprite.svg'
 
 const WaterList = () => {
   const dailyData = useSelector(selectWaterPortions);
