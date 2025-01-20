@@ -1,51 +1,48 @@
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(47, 47, 47, 0.6);
-  z-index: 999;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.modal {
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translate(-50%);
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 15px 15px 0 0;
-  max-width: 343px;
-  z-index: 1000;
-  overflow: hidden;
-}
-
 .modalContent {
   padding: 40px 20px;
+  max-width: 342px;
+  height: 80vh;
   overflow-y: auto;
-  max-height: 89vh;
 }
 
-.modalTitle {
-  display: none;
+.title {
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.28px;
+  margin-bottom: 20px;
+}
+.modalContent::-webkit-scrollbar {
+  width: 8px;
+  height: 80vh;
+}
+.modalContent::-webkit-scrollbar-thumb {
+  background-color: var(--bg-component-gray);
+  border-radius: 4px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background-color: var(--background-white);
+  border-radius: 4px;
+}
+.modalContent::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 4px;
 }
 
 @media screen and (min-width: 768px) {
-  .modal {
-    min-width: 608px;
-  }
   .modalContent {
+    max-width: 648px;
     padding: 40px;
-    top: 64px;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .modal {
-    min-width: 920px;
+  .modalContent {
+    max-width: 920px;
+  }
+  .title {
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -0.28px;
   }
 }
