@@ -73,11 +73,10 @@ export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
   try {
     const { data } = await aquaDevApi.post("/users/logout");
     if (data.status === 204) {
-      // successfullyToast("Goodbye");
-      successfullyToast(i18next.t("toast.bye"));
-
       setAuthHeader();
     }
+    // successfullyToast("Goodbye");
+    successfullyToast(i18next.t("toast.bye"));
     return data;
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
@@ -93,9 +92,8 @@ export const updateUser = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
-      //==============
       successfullyToast(i18next.t("toast.userUpdated"));
-      //==============
+
       return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.response?.message || error.message);
