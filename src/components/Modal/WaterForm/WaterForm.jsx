@@ -50,14 +50,6 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
     }
   }, [portionData, reset]);
 
-  const handleBlur = () => {
-    if (portionData) {
-      setValue("amount", portionData.amount);
-    } else {
-      setValue("amount", 50);
-    }
-  };
-
   const onSubmit = async (data) => {
     if (type === "add") {
       await dispatch(addWaterPortion(data));
@@ -100,7 +92,7 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
             </svg>
           </button>
         </div>
-        {errors.amount && <p className={s.error}>{errors.amount.message}</p>}
+        {errors.amount && <p className={s.error}></p>}
       </div>
 
       <div className={s.inputGroup}>
@@ -109,7 +101,11 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
           name="time"
           control={control}
           render={({ field }) => (
-            <input {...field} type="time" className={s.input} />
+            <input
+              {...field}
+              type="time"
+              className={`${s.input} ${errors.time ? s.errorBorder : ""}`}
+            />
           )}
         />
         {errors.time && <p className={s.error}>{errors.time.message}</p>}
@@ -127,8 +123,8 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
               {...field}
               type="number"
               name="amount"
-              className={s.input}
-              onBlur={handleBlur}
+              className={`${s.input} ${errors.amount ? s.errorBorder : ""}`}
+              onBlur={() => {}}
             />
           )}
         />
@@ -137,7 +133,7 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
 
       <div className={s.wrappBtn}>
         <button type="submit" className={s.submit} disabled={isLoading}>
-          {isLoading ? <Loader className={s.submitLoader} /> : "Save"}{" "}
+          {isLoading ? <Loader className={s.submitLoader} /> : "Save"}
         </button>
         <button
           type="button"
