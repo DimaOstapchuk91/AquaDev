@@ -12,7 +12,7 @@
   padding: 14px 57px 14px 20px;
   box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  transform: scale(0.95);
+  transform: scale(0.94);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
