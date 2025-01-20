@@ -7,6 +7,13 @@
   gap: 16px;
 }
 
+.signInWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 .rightSection {
   display: none;
   position: relative;

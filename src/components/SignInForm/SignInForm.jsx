@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { orderSchemaLogin } from '../../utils/formValidation.js';
 import { selectIsRefreshing } from '../../redux/user/selectors.js';
 import Loader from '../Loader/Loader.jsx';
+import sprite from '../../assets/sprite.svg';
 
 const SignInForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -38,75 +39,115 @@ const SignInForm = () => {
           validationSchema={orderSchemaLogin}
           onSubmit={handleSubmit}
         >
-          <Form className={styles.form}>
-            <div className={styles.formGroup}>
-              <label htmlFor='email' className={styles.label}>
-                Email
-              </label>
-              <Field
-                name='email'
-                type='email'
-                id='email'
-                className={`${styles.input} ${
-                  initForm.email ? styles.error : styles.success
-                }`}
-                placeholder='Enter your email'
-                required
-              />
-              <ErrorMessage
-                className={styles.errorMessage}
-                name='email'
-                component='p'
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor='password' className={styles.label}>
-                Password
-              </label>
-              <div className={styles.passwordWrapper}>
+          {({ errors, touched }) => (
+            <Form className={styles.form}>
+              <div className={styles.formGroup}>
+                <label htmlFor='email' className={styles.label}>
+                  Email
+                </label>
                 <Field
-                  name='password'
-                  type={passwordVisible ? 'text' : 'password'}
-                  id='password'
+                  name='email'
+                  type='email'
+                  id='email'
                   className={`${styles.input} ${
-                    initForm.password ? styles.error : styles.success
+                    touched.email
+                      ? errors.email
+                        ? styles.error
+                        : styles.success
+                      : ''
                   }`}
-                  placeholder='Enter your password'
+                  placeholder='Enter your email'
                   required
                 />
-                <button
-                  type='button'
-                  className={styles.togglePassword}
-                  onClick={togglePasswordVisibility}
-                >
-                  {passwordVisible ? '🙈' : '👁️'}
-                </button>
+                <ErrorMessage
+                  className={styles.errorMessage}
+                  name='email'
+                  component='p'
+                />
               </div>
-              <ErrorMessage
-                className={styles.errorMessage}
-                name='password'
-                component='p'
-              />
-            </div>
-            {isLoading ? (
-              <div className={styles.wrapperLoader}>
-                <Loader />
+              <div className={styles.formGroup}>
+                <label htmlFor='password' className={styles.label}>
+                  Password
+                </label>
+                <div className={styles.passwordWrapper}>
+                  <Field
+                    name='password'
+                    type={passwordVisible ? 'text' : 'password'}
+                    id='password'
+                    className={`${styles.input} ${
+                      touched.password
+                        ? errors.password
+                          ? styles.error
+                          : styles.success
+                        : ''
+                    }`}
+                    placeholder='Enter your password'
+                    required
+                  />
+                  <button
+                    type='button'
+                    className={styles.togglePassword}
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <svg
+                        width='15'
+                        height='15'
+                        className={`${styles.eye} ${
+                          touched.password
+                            ? errors.password
+                              ? styles.error
+                              : styles.success
+                            : ''
+                        }`}
+                      >
+                        <use href={`${sprite}#icon-eye`}></use>
+                      </svg>
+                    ) : (
+                      <svg
+                        width='15'
+                        height='15'
+                        className={`${styles.eye} ${
+                          touched.password
+                            ? errors.password
+                              ? styles.error
+                              : styles.success
+                            : ''
+                        }`}
+                      >
+                        <use href={`${sprite}#icon-eye-off`}></use>
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                <ErrorMessage
+                  className={styles.errorMessage}
+                  name='password'
+                  component='p'
+                />
               </div>
-            ) : (
-              <button type='submit' className={styles.submitButton}>
-                Sign In
+
+              <button
+                type='submit'
+                disabled={isLoading}
+                className={styles.submitButton}
+              >
+                Sign In{' '}
+                {isLoading && (
+                  <span className={styles.loaderBtn}>
+                    <Loader />
+                  </span>
+                )}
               </button>
-            )}
-          </Form>
+            </Form>
+          )}
         </Formik>
-        {!isLoading && (
-          <p className={styles.footerText}>
-            Don&apos;t have an account?{' '}
-            <NavLink to='/signup' className={styles.signupLink}>
-              Sign Up
-            </NavLink>
-          </p>
-        )}
+        <p className={styles.footerText}>
+          Don&apos;t have an account?{' '}
+          <NavLink to='/signup' className={styles.signupLink}>
+            Sign Up
+          </NavLink>
+        </p>
       </div>
     </div>
   );
