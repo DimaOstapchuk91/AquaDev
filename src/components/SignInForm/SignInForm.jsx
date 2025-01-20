@@ -11,6 +11,7 @@ import Loader from "../Loader/Loader.jsx";
 
 //=======================================
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 import LocalizationDropdown from "../LocalizationDropdown/LocalizationDropdown.jsx";
 //==============================
 const SignInForm = () => {
@@ -45,6 +46,9 @@ const SignInForm = () => {
         {/* <h2 className={styles.title}>Sign In</h2> */}
         <h2 className={styles.title}>{t("signIn.signIn")}</h2>
         <Formik
+          //==============
+          key={i18next.language}
+          //===========
           initialValues={initForm}
           validationSchema={orderSchemaLogin}
           onSubmit={handleSubmit}
