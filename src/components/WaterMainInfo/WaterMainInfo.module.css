@@ -16,6 +16,13 @@
   margin-right: 16px;
   justify-content: flex-end;
 }
+/* //=============== */
+.parentTwoVisible {
+  display: block;
+  position: absolute;
+  top: 16px;
+  right: 8px;
+}
 
 @media screen and (min-width: 768px) {
   .wrapper {
@@ -27,6 +34,10 @@
     margin-top: 26px;
     margin-right: 32px;
   }
+  .parentTwoVisible {
+    top: 24px;
+    right: 24px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
@@ -37,5 +48,9 @@
   }
   .btnContainer {
     margin-top: 56px;
+  }
+  .parentTwoVisible {
+    top: 8px;
+    right: 8px;
   }
 }

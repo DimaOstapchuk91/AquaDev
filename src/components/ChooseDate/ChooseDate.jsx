@@ -2,8 +2,11 @@ import { useSelector } from "react-redux";
 import { selectDateDay } from "../../redux/water/selectors.js";
 import { getFormattedDate } from "../../utils/formatDate.js";
 import s from "./ChooseDate.module.css";
+import { useTranslation } from "react-i18next";
 
 const ChooseDate = () => {
+  const { t } = useTranslation();
+
   const getDate = useSelector(selectDateDay);
 
   const months = [
@@ -29,7 +32,9 @@ const ChooseDate = () => {
 
   const comparison = getFormattedDate(new Date());
 
-  const chosenDay = comparison === getDate ? "Today" : formatDate(getDate);
+  // const chosenDay = comparison === getDate ? "Today" : formatDate(getDate);
+  const chosenDay =
+    comparison === getDate ? t("chooseDate") : formatDate(getDate);
 
   return (
     <div>
