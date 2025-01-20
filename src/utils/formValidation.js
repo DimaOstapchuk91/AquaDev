@@ -65,8 +65,13 @@ export const userSettingsSchema = Yup.object().shape({
   dailyNorma: waterIntakeValid,
 });
 
+
+
+
 export const validationSchemaWaterChange = Yup.object().shape({
   amount: Yup.number()
+    .transform((value, originalValue) => (String(originalValue).trim() === '' ? null : value))
+    .nullable()
     .required('Amount is required')
     .positive('Amount must be greater than 0')
     .integer('Amount must be an integer')
@@ -76,3 +81,5 @@ export const validationSchemaWaterChange = Yup.object().shape({
     .required('Time is required')
     .matches(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Invalid time format (hh:mm)'),
 });
+
+
