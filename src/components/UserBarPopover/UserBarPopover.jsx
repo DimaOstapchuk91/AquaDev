@@ -56,7 +56,8 @@ const UserBarPopover = ({ buttonRef, onClose }) => {
           >
             <use href={`${sprite}#icon-settings`}></use>
           </svg>
-          Setting
+          {/* Setting */}
+          {t("userBarPopover.setting")}
         </button>
         <button onClick={handleLogoutOpen} className={s.popoverBtn}>
           <svg

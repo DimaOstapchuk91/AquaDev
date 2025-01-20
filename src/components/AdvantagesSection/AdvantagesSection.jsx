@@ -41,7 +41,7 @@ const AdvantagesSection = () => {
   return (
     <div className={css.section}>
       {/* //========== */}
-      <div>
+      <div className={css.parentOneVisible}>
         <LocalizationDropdown />
       </div>
       {/* //================ */}

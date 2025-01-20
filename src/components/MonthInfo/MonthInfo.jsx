@@ -192,7 +192,10 @@ const MonthInfo = () => {
               />
               <YAxis
                 domain={[0, 3000]}
-                tickFormatter={(value) => `${(value / 1000).toFixed(1)}L`}
+                // tickFormatter={(value) => `${(value / 1000).toFixed(1)}L`}
+                tickFormatter={(value) =>
+                  `${(value / 1000).toFixed(1)}${t("monthInfo.litre")}`
+                }
                 tick={{
                   fontSize: 15,
                   fontWeight: "normal",
@@ -203,7 +206,8 @@ const MonthInfo = () => {
                 tickLine={false}
               />
               <Tooltip
-                formatter={(value) => [`${value} ml`]}
+                // formatter={(value) => [`${value} ml`]}
+                formatter={(value) => [`${value} ${t("monthInfo.ml")}`]}
                 contentStyle={{
                   backgroundColor: "#FFF",
                   border: "1px solid #EFEFEF",

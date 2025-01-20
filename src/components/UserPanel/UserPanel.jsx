@@ -19,13 +19,14 @@ const UserPanel = () => {
     return userName.length > 9 ? `${userName.slice(0, 9)} ...` : userName;
   };
   if (!userName) {
-    return <div>Loading...</div>;
+    // return <div>Loading...</div>;
+    return <div>{t("userPanel.load")}</div>;
   }
   return (
     <div className={s.container}>
       <h2 className={s.title}>
         {/* Hello, <span className={s.span}>{truncateName(userName)} !</span> */}
-        {t("userPanel")}{" "}
+        {t("userPanel.greet")}{" "}
         <span className={s.span}>{truncateName(userName)} !</span>
       </h2>
       <UserBar name={userName} avatar={userPhoto} />

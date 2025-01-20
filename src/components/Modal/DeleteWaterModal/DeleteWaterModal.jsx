@@ -11,21 +11,22 @@ const DeleteWaterModal = ({ onClose, id }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
+  //================
+  const { t } = useTranslation();
+  //=============
+
   const handleDelete = async () => {
     setIsLoading(true);
     await dispatch(deleteWaterPortion(id));
     setIsLoading(false);
     onClose();
-    //================
-    const { t } = useTranslation();
-    //=============
   };
 
   return (
     <div className={s.modalWrapp}>
       <div className={s.modalContent}>
         {/* <h2 className={s.titleDelete}>Delete entry</h2> */}
-        <h2 className={s.titleDelete}> {t("deleteWaterModal.delete")}</h2>
+        <h2 className={s.titleDelete}>{t("deleteWaterModal.delete")}</h2>
 
         <p className={s.textDelete}>
           {/* Are you sure you want to delete the entry? */}

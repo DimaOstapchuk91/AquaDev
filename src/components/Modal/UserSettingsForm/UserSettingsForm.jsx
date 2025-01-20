@@ -204,11 +204,16 @@ const UserSettingsForm = ({ userName = "User", onClose }) => {
               {t("userSettingsForm.waterRequired")}
             </h3>
             <div className={s.waterIntake}>
-              {customWaterIntake
+              {/* {customWaterIntake
                 ? `${customWaterIntake} L`
                 : M && T
                 ? `${waterIntake.toFixed(2)} L`
-                : "1.8 L"}
+                : "1.8 L"} */}
+              {customWaterIntake
+                ? `${customWaterIntake} ${t("userSettingsForm.litre")}`
+                : M && T
+                ? `${waterIntake.toFixed(2)} ${t("userSettingsForm.litre")}`
+                : `1.8 ${t("userSettingsForm.litre")}`}
             </div>
           </div>
           <label className={s.userIntake}>

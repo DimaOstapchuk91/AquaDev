@@ -93,7 +93,11 @@ const WaterForm = ({ subtitle, onClose, portionData, id, type }) => {
               <use href={`${sprite}#icon-minus1`} />
             </svg>
           </button>
-          <span className={s.amountValue}>{`${watchedAmount} ml`}</span>
+          {/* <span className={s.amountValue}>{`${watchedAmount} ml`}</span> */}
+          <span className={s.amountValue}>{`${watchedAmount} ${t(
+            "waterForm.ml"
+          )}`}</span>
+
           <button
             type="button"
             onClick={() => {

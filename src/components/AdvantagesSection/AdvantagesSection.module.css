@@ -114,6 +114,11 @@
   height: 28px;
 }
 
+/* //============= */
+.parentOneVisible {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .section {
     background-image: url(../../assets/img/HomePageImg/womanWater-tab-2x.jpg);
@@ -179,5 +184,9 @@
 
   .group {
     bottom: 64px;
+  }
+
+  .parentOneVisible {
+    display: block;
   }
 }

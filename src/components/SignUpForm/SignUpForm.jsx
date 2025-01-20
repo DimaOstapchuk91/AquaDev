@@ -12,6 +12,7 @@ import Loader from "../Loader/Loader.jsx";
 
 //===============
 import { useTranslation } from "react-i18next";
+import LocalizationDropdown from "../LocalizationDropdown/LocalizationDropdown.jsx";
 //================
 
 export default function SignUpForm() {
@@ -45,7 +46,13 @@ export default function SignUpForm() {
 
   return (
     <div className={styles.leftSection}>
+      {/* //===================== */}
+      <div className={styles.parentTwoVisible}>
+        <LocalizationDropdown />
+      </div>
+      {/* //================= */}
       <h1 className={styles.brand}>AQUATRACK</h1>
+
       <div className={styles.card}>
         {/* <h2 className={styles.title}>Sign Up</h2> */}
         <h2 className={styles.title}>{t("signUp.signUp")}</h2>
@@ -155,7 +162,7 @@ export default function SignUpForm() {
         </Formik>
         {!isLoading && (
           <p className={styles.footerText}>
-            {t("signUp.noAccount")}
+            {t("signUp.hasAccount")}
             {/* Don't have an account? */}{" "}
             <NavLink to="/signin" className={styles.signupLink}>
               {/* Sign In */}

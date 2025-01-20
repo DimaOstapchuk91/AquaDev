@@ -1,5 +1,7 @@
 import React from "react";
 import i18next from "i18next";
+// import { useTranslation } from "react-i18next";
+import styles from "./LocalizationDropdown.module.css";
 
 //==================
 const lngs = {
@@ -9,18 +11,21 @@ const lngs = {
 //===================
 
 const LanguageDropdown = () => {
+  // const { t } = useTranslation();
   const changeLanguage = (event) => {
     const selectedLanguage = event.target.value;
     i18next.changeLanguage(selectedLanguage);
   };
 
   return (
-    <div>
-      <label htmlFor="language-select" style={{ marginRight: "8px" }}>
-        Language
-      </label>
+    <div className={styles.divDropdown}>
+      {/* <label htmlFor="language-select" style={{ marginRight: "8px" }}>
+        {/* Language */}
+      {/* {t("language")} */}
+      {/* </label> */}
       <select
         id="language-select"
+        className={styles.dropdown}
         onChange={changeLanguage}
         defaultValue={i18next.language}
       >

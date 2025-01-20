@@ -73,6 +73,14 @@
   color: var(--accent);
 }
 
+/* //=============== */
+.parentTwoVisible {
+  display: block;
+  position: absolute;
+  top: 16px;
+  right: 8px;
+}
+
 @media (min-width: 768px) {
   .welcomeSection {
     padding: 106px 93px 64px 50px;
@@ -121,5 +129,8 @@
   .welcomeTitle {
     font-size: 80px;
     line-height: 95%;
+  }
+  .parentTwoVisible {
+    display: none;
   }
 }

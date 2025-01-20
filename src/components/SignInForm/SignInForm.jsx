@@ -11,6 +11,7 @@ import Loader from "../Loader/Loader.jsx";
 
 //=======================================
 import { useTranslation } from "react-i18next";
+import LocalizationDropdown from "../LocalizationDropdown/LocalizationDropdown.jsx";
 //==============================
 const SignInForm = () => {
   const { t } = useTranslation();
@@ -34,6 +35,11 @@ const SignInForm = () => {
 
   return (
     <div className={styles.leftSection}>
+      {/* //===================== */}
+      <div className={styles.parentTwoVisible}>
+        <LocalizationDropdown />
+      </div>
+      {/* //================= */}
       <h1 className={styles.brand}>AQUATRACK</h1>
       <div className={styles.card}>
         {/* <h2 className={styles.title}>Sign In</h2> */}
