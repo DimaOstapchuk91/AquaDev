@@ -42,6 +42,16 @@
   align-items: center;
   width: 146px;
   height: 74px;
+
+}
+
+
+
+.textItemCardWaterAdd{
+ font-family: 'Times New Roman', Times, serif;
+  font-weight: 600;
+  letter-spacing: 0.23px;
+  font-size: 18px;
 }
 
 @media (min-width: 768px) {

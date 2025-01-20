@@ -10,9 +10,10 @@ const WaterList = () => {
   return dailyData.length === 0 ? (
     <div className={s.nameText}>
       <div className={s.textItemDiv}>
-      <svg className={s.iconGlass} width="38" height="38">
+        <p className={s.textItemCardWaterAdd}>Add your water...</p>
+      {/* <svg className={s.iconGlass} width="38" height="38">
               <use href={`${sprite}#icon-mage_water-glass-fill`}></use>
-            </svg>
+            </svg> */}
       </div>
     </div>
   ) : (
