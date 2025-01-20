@@ -1,11 +1,19 @@
 .section {
-  background-image: url(../../assets/img/HomePageImg/womanWater-phone-2x.jpg);
+  background-image: url(../../assets/img/HomePageImg/womanWater-phone.jpg);
+
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   height: 353px;
   border-radius: 30px;
   position: relative;
+}
+@media screen and (min-device-pixel-ratio: 2),
+  screen and (min-resolution: 192dpi),
+  screen and (min-resolution: 2dppx) {
+  .section {
+    background-image: url(../../assets/img/HomePageImg/womanWater-phone-2x.jpg);
+  }
 }
 
 .customersBox {
@@ -116,8 +124,16 @@
 
 @media (min-width: 768px) {
   .section {
-    background-image: url(../../assets/img/HomePageImg/womanWater-tab-2x.jpg);
+    background-image: url(../../assets/img/HomePageImg/womanWater-tab.jpg);
     height: 446px;
+  }
+
+  @media screen and (min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi),
+    screen and (min-resolution: 2dppx) {
+    .section {
+      background-image: url(../../assets/img/HomePageImg/womanWater-tab-2x.jpg);
+    }
   }
 
   .customersBox {
@@ -168,9 +184,16 @@
 
 @media (min-width: 1440px) {
   .section {
-    background-image: url(../../assets/img/HomePageImg/womanWater-desctop-2x.jpg);
+    background-image: url(../../assets/img/HomePageImg/womanWater-desctop.jpg);
     height: 736px;
     width: 672px;
+  }
+  @media screen and (min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi),
+    screen and (min-resolution: 2dppx) {
+    .section {
+      background-image: url(../../assets/img/HomePageImg/womanWater-desctop-2x.jpg);
+    }
   }
 
   .customersBox {
