@@ -93,6 +93,9 @@ export const updateUser = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
+      //==============
+      successfullyToast(i18next.t("toast.userUpdated"));
+      //==============
       return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(

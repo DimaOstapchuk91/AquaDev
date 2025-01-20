@@ -132,6 +132,7 @@
     "noUser": "No such user exists",
     "invalidPwd": "Invalid password",
     "bye": "Goodbye",
+    "userUpdated": "Your information was updated",
     "noToken": "Token not found",
     "waterAddedSuccess": "Water portion added successfully",
     "invalidData": "Invalid data provided",
