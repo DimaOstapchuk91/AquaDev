@@ -38,9 +38,7 @@ const DeleteWaterModal = ({ onClose, id }) => {
                 <Loader />
               </div>
             ) : (
-              {
-                /* Delete */
-              }(t("deleteWaterModal.deleteBtn"))
+              t("deleteWaterModal.deleteBtn")
             )}
           </button>
           <button type="button" className={s.btnCancel} onClick={onClose}>

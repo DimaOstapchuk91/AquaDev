@@ -87,7 +87,7 @@
     "saveBtn": "Save",
     "cancelBtn": "Cancel"
   },
-  "userSettingsModal": "UserSettingsForm",
+  "userSettingsModal": "Settings",
   "userSettingsForm": {
     "settings": "Setting",
     "uploadPhoto": "Upload a photo",
@@ -122,7 +122,8 @@
   },
   "chooseDate": "Today",
   "waterItem": {
-    "ml": "ml"
+    "ml": "ml",
+    "litre": "L"
   },
 
   "toast": {
@@ -161,27 +162,31 @@
       "confirmRequired": "Password confirmation is required"
     },
     "name": {
-      "min": "Minimum 3 characters",
-      "max": "Maximum 50 characters"
+      "min": "Minimum 2 characters",
+      "max": "Maximum 16 characters"
     },
     "activityTime": {
       "typeError": "Activity time must be a number",
-      "min": "Activity time must be 0 or greater"
+      "min": "Activity time must be 0 or greater",
+      "max": "The time of action should be no more than 12"
     },
     "weight": {
       "min": "Weight must be greater than 0",
+      "max": "The weight must be less than 200",
       "typeError": "Weight must be a number"
     },
     "waterIntake": {
-      "min": "Water intake must be 0 or greater",
-      "typeError": "Water intake must be a number"
+      "min": "Water intake must be at least 0.5 liters (500 ml)",
+      "max": "Water intake cannot exceed 15 liters (15,000 ml)",
+      "typeError": "Water intake must be a number",
+      "test": "Water intake must have at most one decimal place"
     },
     "amount": {
       "required": "Amount is required",
       "positive": "Amount must be greater than 0",
       "integer": "Amount must be an integer",
-      "min": "Amount must be at least 1 ml",
-      "max": "Amount cannot exceed 10,000 ml"
+      "min": "Amount must be at least 50 ml",
+      "max": "Amount cannot exceed 2000 ml"
     },
     "time": {
       "required": "Time is required",
