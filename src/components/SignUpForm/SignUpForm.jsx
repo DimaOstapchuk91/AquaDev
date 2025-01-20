@@ -133,7 +133,7 @@ export default function SignUpForm() {
               </div>
             ) : (
               <button type='submit' className={styles.submitButton}>
-                Sign In
+                Sign Up
               </button>
             )}
           </Form>
