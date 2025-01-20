@@ -3,12 +3,6 @@
   flex-direction: column;
 }
 
-.close {
-  stroke: var(--black);
-  width: 24px;
-  height: 24px;
-}
-
 .mainContainer {
   margin-bottom: 40px;
 }
@@ -124,7 +118,7 @@
 }
 
 .radioInput:checked::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -305,7 +299,7 @@
 
 .save {
   padding: 14px 40px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   border-radius: 30px;
   background-color: var(--bg-component-green);
   border: none;
@@ -329,8 +323,8 @@
   transform: translate(0, -16px);
 }
 
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -435,8 +429,9 @@ input[type='number']::-webkit-outer-spin-button {
   }
 
   .waterIntake {
-    font-size: 15px;
+    font-size: 16px;
     margin: 0;
+    line-height: 22.4px;
   }
 
   .intake {
@@ -474,6 +469,11 @@ input[type='number']::-webkit-outer-spin-button {
     padding-top: 86px;
   }
 
+  .normContainer {
+    height: 76px;
+    width: 170px;
+  }
+
   .formula {
     word-wrap: break-word;
     white-space: normal;
@@ -489,7 +489,6 @@ input[type='number']::-webkit-outer-spin-button {
   }
 
   .required {
-    flex-direction: column;
     margin-bottom: 14px;
   }
 }

@@ -85,9 +85,20 @@ export const updateUser = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
+      successfullyToast("User updated successfully!");
       return data.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.response?.message || error.message);
+      const status = error.response?.status;
+      const message =
+        status === 404
+          ? "User not found!"
+          : status === 500
+          ? "Server error. Please try again later."
+          : error.response?.message || error.message;
+
+      errToast(message);
+
+      return thunkApi.rejectWithValue(message);
     }
   }
 );
