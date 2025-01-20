@@ -1,6 +1,6 @@
-import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
-import s from "./WaterProgressBar.module.css";
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import s from './WaterProgressBar.module.css';
 
 const WaterProgressBar = ({ value }) => {
   return (
@@ -8,59 +8,60 @@ const WaterProgressBar = ({ value }) => {
       <h3 className={s.title}>Today</h3>
       <Slider
         value={value}
+        style={{ cursor: 'default' }}
         marks={{
           0: {
             style: {
-              color: "rgba(47, 47, 47, 0.6)",
-              fontSize: "10px",
-              lineHeight: "10px",
-              fontWeight: "400",
+              color: 'rgba(47, 47, 47, 0.6)',
+              fontSize: '10px',
+              lineHeight: '10px',
+              fontWeight: '400',
             },
-            label: "0%",
+            label: '0%',
           },
           50: {
             style: {
-              color: "rgba(47, 47, 47, 0.6)",
-              fontSize: "10px",
-              lineHeight: "10px",
-              fontWeight: "400",
+              color: 'rgba(47, 47, 47, 0.6)',
+              fontSize: '10px',
+              lineHeight: '10px',
+              fontWeight: '400',
             },
-            label: "50%",
+            label: '50%',
           },
           100: {
             style: {
-              color: "rgba(47, 47, 47, 0.6)",
-              fontSize: "10px",
-              lineHeight: "10px",
-              fontWeight: "400",
+              color: 'rgba(47, 47, 47, 0.6)',
+              fontSize: '10px',
+              lineHeight: '10px',
+              fontWeight: '400',
             },
-            label: "100%",
+            label: '100%',
           },
           ...(value <= 100 &&
             (value <= 40 || value >= 60) && {
               [value]: {
                 style: {
-                  color: "rgba(47, 47, 47, 0.6)",
-                  fontSize: "10px",
-                  lineHeight: "10px",
-                  fontWeight: "400",
+                  color: '#87d28d',
+                  fontSize: '10px',
+                  lineHeight: '10px',
+                  fontWeight: '400',
                 },
                 label: `${value}%`,
               },
             }),
         }}
         railStyle={{
-          backgroundColor: "#F0EFF4",
+          backgroundColor: '#F0EFF4',
           height: 6,
         }}
         handleStyle={{
-          borderColor: "#9BE1A0",
+          borderColor: '#9BE1A0',
           height: 15,
           width: 15,
           marginTop: -5,
         }}
         trackStyle={{
-          backgroundColor: "#9BE1A0",
+          backgroundColor: '#9BE1A0',
           height: 6,
         }}
       />

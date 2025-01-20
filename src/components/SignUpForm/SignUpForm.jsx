@@ -140,7 +140,7 @@ export default function SignUpForm() {
         </Formik>
         {!isLoading && (
           <p className={styles.footerText}>
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <NavLink to='/signin' className={styles.signupLink}>
               Sign In
             </NavLink>
