@@ -30,6 +30,8 @@ const Calendar = ({
     0
   ).getDate();
 
+  const today = new Date();
+
   const days = Array.from({ length: daysInMonth }, (_, index) => {
     const dayNumber = index + 1;
     const formattedDate = getFormattedDate(
@@ -44,18 +46,21 @@ const Calendar = ({
       Math.round((dayData.totalWater / dailyNorma) * 100)
     );
 
+    const isFutureDate =
+      new Date(currentDate.getFullYear(), currentDate.getMonth(), dayNumber) >
+      today;
+
     return {
       day: dayNumber,
       totalWater: dayData.totalWater,
       percentage,
+      isFutureDate,
     };
   });
 
-  const today = new Date();
-
   return (
     <ul className={s.calendar}>
-      {days.map(({ day, percentage }) => {
+      {days.map(({ day, percentage, isFutureDate }) => {
         const isCurrentDay =
           today.getDate() === day &&
           today.getMonth() === currentDate.getMonth() &&
@@ -72,6 +77,7 @@ const Calendar = ({
               selectedDate.getMonth() === currentDate.getMonth()
             }
             percentage={percentage}
+            isDisabled={isFutureDate}
             onClick={() => handleDayClick(day)}
           />
         );

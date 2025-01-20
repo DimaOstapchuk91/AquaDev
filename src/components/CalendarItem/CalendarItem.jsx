@@ -1,5 +1,12 @@
 import s from "./CalendarItem.module.css";
-const CalendarItem = ({ day, isToday, isSelected, onClick, percentage }) => {
+const CalendarItem = ({
+  day,
+  isToday,
+  isSelected,
+  onClick,
+  percentage,
+  isDisabled,
+}) => {
   return (
     <li className={s.calendarItemContainer}>
       <button
@@ -7,6 +14,7 @@ const CalendarItem = ({ day, isToday, isSelected, onClick, percentage }) => {
           isSelected ? s.selected : ""
         } ${percentage === 0 ? s.emptyDay : ""}`}
         onClick={() => onClick(day)}
+        disabled={isDisabled}
       >
         {day}
       </button>
