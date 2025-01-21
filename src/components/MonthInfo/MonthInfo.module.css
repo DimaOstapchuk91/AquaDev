@@ -29,6 +29,10 @@
 .button {
   background-color: transparent;
   border: none;
+  transition: opacity 250ms ease-in;
+}
+.button:hover {
+  opacity: 0.6;
 }
 
 .chartContainer {
