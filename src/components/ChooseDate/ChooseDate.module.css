@@ -6,10 +6,21 @@
   letter-spacing: -0.2px;
 }
 
-@media (min-width: 768px){
-    .todayText{
-        font-size: 28px;
-        line-height: 32px;
-        letter-spacing: -0.28px;
-    }
+.progressBarTitle {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+@media (min-width: 768px) {
+  .todayText {
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -0.28px;
+  }
+
+  .progressBarTitle {
+    font-size: 15px;
+    line-height: 22px;
+  }
 }
