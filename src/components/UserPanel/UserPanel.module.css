@@ -1,0 +1,27 @@
+.container {
+  margin-bottom: 40px;
+}
+
+.title {
+  font-weight: 400;
+  font-size: 36px;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.span {
+  font-weight: 700;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .title {
+    max-width: 310px;
+  }
+}

@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--text-color);
   font-weight: 700;
   background-color: var(--background-white);
@@ -54,6 +54,10 @@ address {
   font-style: normal;
 }
 
+button {
+  border: none;
+}
+
 .container {
   max-width: 375px;
   margin: 0 auto;
@@ -61,6 +65,10 @@ address {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 @media (min-width: 768px) {

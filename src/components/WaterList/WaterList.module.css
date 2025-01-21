@@ -3,5 +3,73 @@
   overflow-x: auto;
   gap: 10px;
   max-width: 100%;
-  padding-bottom: 24px;
+  scrollbar-gutter: stable;
+  height: 106px;
 }
+
+.container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: var(--bg-btn-dark-gray);
+  border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bg-btn-dark-gray);
+}
+
+.container::-webkit-scrollbar-track {
+  background-color: var(--background-white);
+  border-radius: 4px;
+}
+.container::-webkit-scrollbar-track {
+  background-color: var(--background-white);
+  border-radius: 4px;
+}
+
+
+
+.nameText {
+  padding-bottom: 32px;
+  height: 106px;
+}
+.textItemDiv {
+  display: flex;
+  background-color: transparent;
+  font-size: 16px;
+  align-items: center;
+  opacity: 0.6;
+  min-width: 250px;
+  height: 74px;
+}
+
+@media (min-width: 768px) {
+  .nameText {
+    padding-bottom: 32px;
+    height: 118px;
+  }
+  .container {
+    gap: 30px;
+    height: 118px;
+  }
+
+  .textItemDiv {
+    font-size: 20px;
+    min-width: 250px;
+    height: 86px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    gap: 16px;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .container {
+   -webkit-overflow-scrolling: touch;
+ }
+ }

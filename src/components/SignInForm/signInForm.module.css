@@ -58,6 +58,7 @@
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: -0.01em;
+  outline: none;
   color: var(--modal-backdrop);
   transition: border-color 0.3s ease;
 }
@@ -72,8 +73,17 @@
 }
 
 .input:focus {
-  border-color: var(--bg-component-green);
-  outline: none;
+  border-color: var(--dark-gray-calendar);
+}
+
+.eye {
+  fill: transparent;
+  stroke: var(--text-color);
+  transition: opacity 250ms ease-in;
+}
+
+.eye.error {
+  stroke: var(--input-red);
 }
 
 .errorMessage {
@@ -95,9 +105,15 @@
   font-size: 16px;
 }
 
+.togglePassword:hover .eye {
+  opacity: 0.7;
+}
+
 .submitButton {
+  font-family: "Poppins", sans-serif;
   background-color: var(--bg-component-green);
   color: var(--text-color);
+  position: relative;
   border: none;
   font-weight: 700;
   font-size: 16px;
@@ -106,16 +122,23 @@
   border-radius: 30px;
   padding: 18px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 250ms ease;
+}
+.loaderBtn {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  transform: translate(0px, -10px);
 }
 
 .submitButton:hover {
-  background-color: #45a049;
+  background-color: var(--bg-component-dark-green);
 }
 
 .footerText {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   margin-top: 16px;
   font-weight: 400;
   font-size: 16px;
@@ -130,10 +153,17 @@
   text-decoration-skip-ink: none;
   color: var(--black);
   margin-left: 5px;
+  transition: opacity 250ms ease-in;
 }
 
 .signupLink:hover {
-  text-decoration: none;
+  opacity: 0.6;
+}
+
+.wrapperLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .buttonWrapperGoogle {
@@ -283,10 +313,13 @@
 }
 
 /* media 768px  */
+
 @media (min-width: 768px) {
+  .loaderBtn {
+    transform: translate(0px, -20px);
+  }
   .leftSection {
     padding: 32px;
-    /* width: 672px; */
     width: 100%;
     height: 736px;
   }

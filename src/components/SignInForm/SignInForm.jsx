@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import styles from "./signInForm.module.css";
 import { logIn } from "../../redux/user/operations.js";
 import { useDispatch } from "react-redux";
 import { orderSchemaLogin } from "../../utils/formValidation.js";
-import sprit from "../../assets/sprite.svg";
+import { selectIsRefreshing } from "../../redux/user/selectors.js";
+import Loader from "../Loader/Loader.jsx";
+import sprite from "../../assets/sprite.svg";
 
 const SignInForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -20,11 +23,10 @@ const SignInForm = () => {
   };
 
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsRefreshing);
 
-  const handleSubmit = (values, options) => {
+  const handleSubmit = (values) => {
     dispatch(logIn(values));
-
-    options.resetForm();
   };
 
   const handleGoogleLogin = async () => {
@@ -55,64 +57,111 @@ const SignInForm = () => {
           validationSchema={orderSchemaLogin}
           onSubmit={handleSubmit}
         >
-          <Form className={styles.form}>
-            <div className={styles.formGroup}>
-              <label htmlFor="email" className={styles.label}>
-                Email
-              </label>
-              <Field
-                name="email"
-                type="email"
-                id="email"
-                className={`${styles.input} ${
-                  initForm.email ? styles.error : styles.success
-                }`}
-                placeholder="Enter your email"
-                required
-              />
-              <ErrorMessage
-                className={styles.errorMessage}
-                name="email"
-                component="p"
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="password" className={styles.label}>
-                Password
-              </label>
-              <div className={styles.passwordWrapper}>
+          {({ errors, touched }) => (
+            <Form className={styles.form}>
+              <div className={styles.formGroup}>
+                <label htmlFor="email" className={styles.label}>
+                  Email
+                </label>
                 <Field
-                  name="password"
-                  type={passwordVisible ? "text" : "password"}
-                  id="password"
+                  name="email"
+                  type="email"
+                  id="email"
                   className={`${styles.input} ${
-                    initForm.password ? styles.error : styles.success
+                    touched.email
+                      ? errors.email
+                        ? styles.error
+                        : styles.success
+                      : ""
                   }`}
-                  placeholder="Enter your password"
+                  placeholder="Enter your email"
                   required
                 />
-                <button
-                  type="button"
-                  className={styles.togglePassword}
-                  onClick={togglePasswordVisibility}
-                >
-                  {passwordVisible ? "🙈" : "👁️"}
-                </button>
+                <ErrorMessage
+                  className={styles.errorMessage}
+                  name="email"
+                  component="p"
+                />
               </div>
-              <ErrorMessage
-                className={styles.errorMessage}
-                name="password"
-                component="p"
-              />
-            </div>
-            <button type="submit" className={styles.submitButton}>
-              Sign In
-            </button>
-          </Form>
-        </Formik>
+              <div className={styles.formGroup}>
+                <label htmlFor="password" className={styles.label}>
+                  Password
+                </label>
+                <div className={styles.passwordWrapper}>
+                  <Field
+                    name="password"
+                    type={passwordVisible ? "text" : "password"}
+                    id="password"
+                    className={`${styles.input} ${
+                      touched.password
+                        ? errors.password
+                          ? styles.error
+                          : styles.success
+                        : ""
+                    }`}
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className={styles.togglePassword}
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <svg
+                        width="15"
+                        height="15"
+                        className={`${styles.eye} ${
+                          touched.password
+                            ? errors.password
+                              ? styles.error
+                              : styles.success
+                            : ""
+                        }`}
+                      >
+                        <use href={`${sprite}#icon-eye`}></use>
+                      </svg>
+                    ) : (
+                      <svg
+                        width="15"
+                        height="15"
+                        className={`${styles.eye} ${
+                          touched.password
+                            ? errors.password
+                              ? styles.error
+                              : styles.success
+                            : ""
+                        }`}
+                      >
+                        <use href={`${sprite}#icon-eye-off`}></use>
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                <ErrorMessage
+                  className={styles.errorMessage}
+                  name="password"
+                  component="p"
+                />
+              </div>
 
+              <button
+                type="submit"
+                disabled={isLoading}
+                className={styles.submitButton}
+              >
+                Sign In{" "}
+                {isLoading && (
+                  <span className={styles.loaderBtn}>
+                    <Loader />
+                  </span>
+                )}
+              </button>
+            </Form>
+          )}
+        </Formik>
         <p className={styles.footerText}>
-          Don`t have an account?{" "}
+          Don&apos;t have an account?{" "}
           <NavLink to="/signup" className={styles.signupLink}>
             Sign Up
           </NavLink>
@@ -125,7 +174,7 @@ const SignInForm = () => {
               height="30"
               aria-label="Google icon"
             >
-              <use href={`${sprit}#icon-google-icon`}></use>
+              <use href={`${sprite}#icon-google-icon`}></use>
             </svg>
             Sing In with Google
           </button>

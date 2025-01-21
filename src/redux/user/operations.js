@@ -22,7 +22,7 @@ export const register = createAsyncThunk(
     try {
       const { data } = await aquaDevApi.post("/users/register", credentials);
       if (data.status === 201) {
-        successfullyToast("Successfully Register");
+        successfullyToast("Successfully Register!");
         navigate("/signin");
       }
       return data;
@@ -79,30 +79,26 @@ export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
 export const updateUser = createAsyncThunk(
   "user/update",
   async (credentials, thunkApi) => {
-    const token = thunkApi.getState().user.token;
-    if (!token) {
-      return thunkApi.rejectWithValue("Token not found");
-    }
-    setAuthHeader(token);
-
-    const formData = new FormData();
-    Object.entries(credentials).forEach(([key, value]) => {
-      if (value) {
-        formData.append(key, value);
-      }
-    });
-
     try {
-      const { data } = await aquaDevApi.patch("/users/update", formData, {
+      const { data } = await aquaDevApi.patch("/users/update", credentials, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      return data;
+      successfullyToast("User updated successfully!");
+      return data.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(
-        error.response?.data?.message || error.message
-      );
+      const status = error.response?.status;
+      const message =
+        status === 404
+          ? "User not found!"
+          : status === 500
+          ? "Server error. Please try again later."
+          : error.response?.message || error.message;
+
+      errToast(message);
+
+      return thunkApi.rejectWithValue(message);
     }
   }
 );
@@ -117,7 +113,8 @@ export const getUserData = createAsyncThunk(
 
     setAuthHeader(token);
     try {
-      const { data } = await aquaDevApi.get("/users/data");
+      const { data } = await aquaDevApi.get("/users/info");
+
       return data.data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

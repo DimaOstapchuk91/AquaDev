@@ -1,64 +1,54 @@
-import { Route, Routes } from "react-router-dom";
-import SharedLayout from "./components/SharedLayout/SharedLayout.jsx";
-import HomePage from "./pages/HomePage/HomePage.jsx";
-import { RestrictedRoute } from "./components/RestrictedRoute/RestrictedRoute.jsx";
-import SignUpPage from "./pages/SignUpPage/SignUpPage.jsx";
-import SignInPage from "./pages/SignInPage/SignInPage.jsx";
-import TrackerPage from "./pages/TrackerPage/TrackerPage.jsx";
-import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute.jsx";
-import { Toaster } from "react-hot-toast";
-import { useEffect } from "react";
-import { refreshUser } from "./redux/user/operations.js";
-import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoggedIn } from "./redux/user/selectors.js";
-// import { setAuthHeader } from './redux/service/configApi.js';
+import { Route, Routes } from 'react-router-dom';
+import SharedLayout from './components/SharedLayout/SharedLayout.jsx';
+import HomePage from './pages/HomePage/HomePage.jsx';
+import { RestrictedRoute } from './components/RestrictedRoute/RestrictedRoute.jsx';
+import SignUpPage from './pages/SignUpPage/SignUpPage.jsx';
+import SignInPage from './pages/SignInPage/SignInPage.jsx';
+import TrackerPage from './pages/TrackerPage/TrackerPage.jsx';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute.jsx';
+import { Toaster } from 'react-hot-toast';
+import useAccessRefresh from './hooks/accessRefresh.js';
 
 function App() {
-  const dispatch = useDispatch();
-  const isLogged = useSelector(selectIsLoggedIn);
-
-  useEffect(() => {
-    if (isLogged) dispatch(refreshUser());
-  }, [dispatch, isLogged]);
-
+  useAccessRefresh();
   return (
     <>
       <SharedLayout>
         <Routes>
           <Route
-            path="/"
+            path='/'
             element={
-              <RestrictedRoute component={<HomePage />} redirectTo="/tracker" />
+              <RestrictedRoute component={<HomePage />} redirectTo='/tracker' />
             }
           />
           <Route
-            path="/signup"
+            path='/signup'
             element={
               <RestrictedRoute
                 component={<SignUpPage />}
-                redirectTo="/tracker"
+                redirectTo='/tracker'
               />
             }
           />
           <Route
-            path="/signin"
+            path='/signin'
             element={
               <RestrictedRoute
                 component={<SignInPage />}
-                redirectTo="/tracker"
+                redirectTo='/tracker'
               />
             }
           />
           <Route
-            path="/tracker"
+            path='/tracker'
             element={
-              <PrivateRoute component={<TrackerPage />} redirectTo="/signin" />
+              <PrivateRoute component={<TrackerPage />} redirectTo='/' />
             }
           />
           <Route
-            path="*"
+            path='*'
             element={
-              <RestrictedRoute component={<HomePage />} redirectTo="/tracker" />
+              <RestrictedRoute component={<HomePage />} redirectTo='/tracker' />
             }
           />
         </Routes>

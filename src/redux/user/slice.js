@@ -52,6 +52,7 @@ const slice = createSlice({
       })
       .addMatcher(
         isAnyOf(
+          logIn.pending,
           register.pending,
           logout.pending,
           refreshUser.pending,

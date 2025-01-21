@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChooseDate from "../ChooseDate/ChooseDate.jsx";
 import AddWaterBtn from "../AddWaterBtn/AddWaterBtn.jsx";
 import Modal from "../Modal/Modal.jsx";
 import WaterModal from "../Modal/WaterModal/WaterModal.jsx";
 import WaterList from "../WaterList/WaterList.jsx";
 import s from "./DailyInfo.module.css";
+import { useSelector } from "react-redux";
+import { selectDateDay } from "../../redux/water/selectors.js";
+import { getFormattedDate } from "../../utils/formatDate.js";
+
 const DailyInfo = () => {
-  const waterData = [
-    { volume: 250, time: "08:00" },
-    { volume: 200, time: "10:30" },
-    { volume: 300, time: "12:45" },
-  ];
+  const [isToday, setIsToday] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const getDate = useSelector(selectDateDay);
+  const currentDay = getFormattedDate(new Date());
+  useEffect(() => {
+    if (getDate === currentDay) {
+      setIsToday(true);
+    } else {
+      setIsToday(false);
+    }
+  }, [getDate, currentDay]);
 
   const handleAddWaterBtnClick = () => {
     setIsModalOpen(true);
@@ -20,26 +30,20 @@ const DailyInfo = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-  const handleDateChange = (newDate) => {
-    setSelectedDate(newDate);
-  };
+
   return (
     <div className={s.wrapper}>
       <div className={s.dailyWrapper}>
         <div className={s.chooseWrapper}>
-          <ChooseDate
-            selectedDate={selectedDate}
-            onDateChange={handleDateChange}
-          />
-          <AddWaterBtn
-            customClassName={"dailyInfo"}
-            onClick={handleAddWaterBtnClick}
-          />
+          <ChooseDate customClassName={"todayText"} />
+          {isToday && (
+            <AddWaterBtn
+              customClassName={"dailyInfo"}
+              onClick={handleAddWaterBtnClick}
+            />
+          )}
         </div>
-        <WaterList waterData={waterData} />
+        <WaterList getDate={getDate} currentDay={currentDay} />
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <WaterModal
@@ -47,7 +51,6 @@ const DailyInfo = () => {
           onClose={handleCloseModal}
           type={"add"}
         />
-        
       </Modal>
     </div>
   );

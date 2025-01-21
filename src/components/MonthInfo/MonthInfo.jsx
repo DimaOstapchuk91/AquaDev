@@ -12,6 +12,14 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useDispatch, useSelector } from "react-redux";
+import { getWaterMonth } from "../../redux/water/operations";
+import {
+  selectTotalWater,
+  selectWaterMonth,
+} from "../../redux/water/selectors";
+import { selectUser } from "../../redux/user/selectors";
+import { getformatDateYearMonth } from "../../utils/formatDate";
 
 const getCurrentWeek = (currentDate) => {
   const startOfWeek = new Date(currentDate);
@@ -26,23 +34,42 @@ const getCurrentWeek = (currentDate) => {
   });
 };
 
-const mockData = [2000, 1000, 900, 500, 3000, 1000, 2500];
-
 const MonthInfo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [isCalendarActive, setCalendarActive] = useState(true);
   const [weekData, setWeekData] = useState([]);
   const [isPaginationDisabled, setPaginationDisabled] = useState(false);
+  const getTotalWater = useSelector(selectTotalWater);
+
+  const dispatch = useDispatch();
+  const monthInfo = useSelector(selectWaterMonth);
+  const { dailyNorma } = useSelector(selectUser);
 
   useEffect(() => {
-    const weekDays = getCurrentWeek(currentDate);
-    const data = weekDays.map((day, i) => ({
-      name: day.getDate().toString(),
-      water: mockData[i],
-    }));
+    const formattedDate = getformatDateYearMonth(currentDate);
+
+    dispatch(getWaterMonth(formattedDate));
+  }, [currentDate, dispatch, getTotalWater]);
+
+  useEffect(() => {
+    if (!monthInfo || monthInfo.length === 0) return;
+
+    const weekDays = getCurrentWeek(new Date());
+
+    const data = weekDays.map((day) => {
+      const formattedDate = day.toISOString().split("T")[0];
+
+      const dayData = monthInfo.find((info) => info.date === formattedDate);
+
+      return {
+        name: day.getDate().toString(),
+        water: dayData ? dayData.totalWater : 0,
+      };
+    });
+
     setWeekData(data);
-  }, [currentDate]);
+  }, [monthInfo, currentDate]);
 
   const handleClick = () => {
     setCalendarActive(!isCalendarActive);
@@ -70,9 +97,11 @@ const MonthInfo = () => {
       </div>
       {isCalendarActive ? (
         <Calendar
+          monthInfo={monthInfo}
           currentDate={currentDate}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          dailyNorma={dailyNorma}
         />
       ) : (
         <div style={{ width: "100%", height: "300px", maxWidth: "600px" }}>
@@ -107,14 +136,24 @@ const MonthInfo = () => {
               />
               <XAxis
                 dataKey="name"
-                tick={{ fontSize: 12, fill: "#909090" }}
+                tick={{
+                  fontSize: 15,
+                  fontWeight: "normal",
+                  fill: "#323F47",
+                  dy: 21,
+                }}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
                 domain={[0, 3000]}
                 tickFormatter={(value) => `${(value / 1000).toFixed(1)}L`}
-                tick={{ fontSize: 12, fill: "#909090" }}
+                tick={{
+                  fontSize: 15,
+                  fontWeight: "normal",
+                  fill: "#323F47",
+                  dx: -20,
+                }}
                 axisLine={false}
                 tickLine={false}
               />

@@ -9,9 +9,15 @@
   transition: color 250ms ease-in;
 }
 
-.mainInfoButton:hover {
+.mainInfoButton:hover,
+.mainInfoButton:focus {
   cursor: pointer;
   color: var(--bg-component-green);
+}
+
+.mainInfoButton:hover .plus,
+.mainInfoButton:focus .plus {
+  stroke: var(--bg-component-green);
 }
 
 .mainInfoButton .textContainer {
@@ -35,18 +41,38 @@
 .mainInfoButton .plus {
   fill: transparent;
   stroke: var(--background-white);
+  transition: stroke 250ms ease-in;
 }
 
 .dailyInfo {
   width: 124px;
   height: 30px;
   padding: 0;
+  border: none;
+  cursor: pointer;
+  transition: color 250ms ease-in;
+  background-color: transparent;
 }
 
 .dailyInfo .plus {
   fill: transparent;
-  stroke: black;
+  stroke: var(--text-color);
+  transition: stroke 250ms ease-in;
 }
+
+.dailyInfo:hover .plus,
+.dailyInfo:focus .plus {
+  fill: transparent;
+  stroke: var(--background-white);
+}
+.dailyInfo:hover .spanContainer,
+.dailyInfo:focus .spanContainer {
+  background-color: var(--text-color);
+}
+
+.dailyInfo:hover{
+  color:var(--modal-backdrop);
+} 
 
 .dailyInfo .spanContainer {
   display: flex;
@@ -56,17 +82,20 @@
   border-radius: 30px;
   width: 30px;
   height: 30px;
+  transition: background-color 250ms ease-in;
 }
 
 .dailyInfo .textContainer {
   font-family: "Poppins", sans-serif;
+  color: var(--text-color);
   display: flex;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
   letter-spacing: -0.01em;
   align-items: center;
   gap: 10px;
+  
 }
 
 @media screen and (min-width: 768px) {
@@ -82,7 +111,6 @@
   }
 
   .dailyInfo .textContainer {
-    font-size: 16px;
     line-height: 24px;
   }
 
@@ -91,7 +119,7 @@
     height: 18px;
   }
 
-  .mainInfoButton .plus{
+  .mainInfoButton .plus {
     width: 18px;
     height: 18px;
   }

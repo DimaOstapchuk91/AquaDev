@@ -1,39 +1,65 @@
 .calendarPagination {
   display: flex;
-  gap: 16px;
+  gap: 10px;
   justify-content: center;
   align-items: center;
 }
 
 .dataInfo {
   font-size: 14px;
-  font-style: normal;
   font-weight: 700;
   line-height: 18px; /* 128.571% */
   letter-spacing: -0.14px;
+  text-align: center;
+
+  min-width: 120px;
 }
 
 .calendarPaginationButton {
   background-color: transparent;
+  stroke: var(--text-color);
+  fill: tra;
   border: none;
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
+
+.calendarPaginationButton .iconArrLeft {
+  stroke: var(--text-color);
+  fill: transparent;
+  transform: rotate(90deg);
+  transition: opacity 250ms ease-in;
+}
+
+.calendarPaginationButton .iconArrRight {
+  stroke: var(--text-color);
+  fill: transparent;
+  transform: rotate(-90deg);
+  transition: opacity 250ms ease-in;
+}
+
+.calendarPaginationButton:hover .iconArrRight {
+  opacity: 0.6;
+}
+.calendarPaginationButton:hover .iconArrLeft {
+  opacity: 0.6;
+}
+
 .calendarPaginationButton:disabled {
   cursor: not-allowed;
 }
+
 @media screen and (min-width: 768px) {
   .dataInfo {
     font-size: 16px;
-
     line-height: 24px; /* 150% */
     letter-spacing: -0.16px;
+    min-width: 140px;
   }
+
   .calendarPaginationButton {
     width: 18px;
     height: 18px;
   }
-}
-@media screen and (min-width: 1440px) {
 }

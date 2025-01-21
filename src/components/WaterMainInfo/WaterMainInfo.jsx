@@ -12,6 +12,7 @@ import { selectUser } from "../../redux/user/selectors.js";
 
 const WaterMainInfo = () => {
   const totalWater = useSelector(selectTotalWater);
+  const totalWaterInL = totalWater / 1000;
   const user = useSelector(selectUser);
   const dailyNormaInL = user.dailyNorma / 1000;
   const waterConsumptionPercent = Math.round(
@@ -31,7 +32,11 @@ const WaterMainInfo = () => {
     <div className={s.wrapper}>
       <Logo />
       <WaterDailyNorma dailyNorma={dailyNormaInL} />
-      <WaterProgressBar value={waterConsumptionPercent} />
+      <WaterProgressBar
+        value={waterConsumptionPercent}
+        totalWaterInL={totalWaterInL}
+        dailyNormaInL={dailyNormaInL}
+      />
       <div className={s.btnContainer}>
         <AddWaterBtn
           customClassName={"mainInfoButton"}

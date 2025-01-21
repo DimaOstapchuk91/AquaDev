@@ -1,22 +1,23 @@
-// import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import clsx from "clsx";
+import { selectDateDay } from "../../redux/water/selectors.js";
+import {
+  formatDateDatMonth,
+  getFormattedDate,
+} from "../../utils/formatDate.js";
+import s from "./ChooseDate.module.css";
 
-const ChooseDate = ({ selectedDate, onDateChange }) => {
-//   const [currentDate, setCurrentDate] = useState(
-//     selectedDate || new Date().toISOString().trim("T")[0]
-//   );
-//   useEffect(() => {
-//     if (!selectedDate) {
-//       onDateChange(currentDate);
-//     }
-//   }, [currentDate, selectedDate, onDateChange]);
+const ChooseDate = ({ customClassName }) => {
+  const getDate = useSelector(selectDateDay);
 
-//   const handleDateChange = (e) => {
-//     setCurrentDate(e.target.value);
-//     onDateChange(e.target.value);
-//   };
+  const comparison = getFormattedDate(new Date());
+
+  const chosenDay =
+    comparison === getDate ? "Today" : formatDateDatMonth(getDate);
+
   return (
     <div>
-     <p>Today</p>
+      <p className={clsx(s[customClassName])}>{chosenDay}</p>
     </div>
   );
 };

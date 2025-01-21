@@ -1,9 +1,11 @@
 .dailyWrapper {
-  margin-bottom: 24px;
+  margin-bottom: 40px;
 }
 
 .chooseWrapper{
     display: flex;
     justify-content: space-between;
+    height: 30px;
     margin-bottom: 24px;
 }
+

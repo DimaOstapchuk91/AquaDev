@@ -1,10 +1,16 @@
+.calendarItemContainer {
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+}
 .calendarItem {
   border-radius: 50%;
   width: 28px;
   height: 28px;
 
-  background: #fff;
+  background: var(--bg-component-green);
   border: none;
+  color: var(--background-white);
 
   font-family: Poppins;
   font-size: 14px;
@@ -14,33 +20,58 @@
   letter-spacing: -0.14px;
 
   cursor: pointer;
+
+  transition: box-shadow 250ms ease-in;
+
+  &:hover {
+    box-shadow: 0 0 10px var(--bg-component-green);
+  }
+}
+
+.calendarItem:disabled {
+  cursor: default;
+  background-color: transparent;
+  border: 1px solid var(--bg-component-green);
+  color: var(--menu-backdrop-color-light);
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+.selected {
+  background-color: #e6f9e8;
+}
+
+.emptyDay {
+  color: var(--text-color);
+  background: var(--background-white);
 }
 
 .notAchievedYet {
-  background: rgba(50, 63, 71, 0.2);
+  background: var(--dark-gray-calendar);
 }
 
 .percentage {
-  color: rgba(47, 47, 47, 0.6);
+  color: var(--modal-backdrop);
 
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
-  line-height: 10px; /* 100% */
+  line-height: 10px;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 6px;
 }
+
 .currentDay {
-  color: #9be1a0;
-  background: #323f47;
+  color: var(--bg-component-green);
+  background: var(--bg-btn-dark-gray);
 }
 
 .selected {
-  color: #fff;
-  background: #9be1a0;
+  color: var(--background-white);
+  background: var(--bg-component-dark-green);
 }
 
 @media screen and (min-width: 768px) {
@@ -52,6 +83,12 @@
 
     line-height: 24px;
     letter-spacing: -0.16px;
+  }
+
+  .percentage {
+    font-size: 12px;
+
+    line-height: 22.4px;
   }
 }
 
