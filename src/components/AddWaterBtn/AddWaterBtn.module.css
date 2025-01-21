@@ -86,6 +86,7 @@
 
 .dailyInfo .textContainer {
   font-family: "Poppins", sans-serif;
+  color: var(--text-color);
   display: flex;
   font-weight: 700;
   font-size: 16px;
@@ -93,7 +94,7 @@
   letter-spacing: -0.01em;
   align-items: center;
   gap: 10px;
-
+  
 }
 
 @media screen and (min-width: 768px) {
