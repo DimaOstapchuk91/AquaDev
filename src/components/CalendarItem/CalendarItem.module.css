@@ -68,7 +68,7 @@
 .selected {
   color: var(--background-white);
   background: var(--bg-component-dark-green);
-  border: 2px solid var(--bg-btn-dark-gray);
+  border: 1px solid var(--bg-btn-dark-gray);
 }
 
 @media screen and (min-width: 768px) {
