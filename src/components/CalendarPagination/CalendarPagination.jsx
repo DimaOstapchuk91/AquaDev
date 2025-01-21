@@ -1,6 +1,7 @@
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import s from "./CalendarPagination.module.css";
+import sprite from "../../assets/sprite.svg";
 import { useTranslation } from "react-i18next";
+
 const CalendarPagination = ({
   currentDate,
   setCurrentDate,
@@ -21,18 +22,6 @@ const CalendarPagination = ({
     t("months.october"),
     t("months.november"),
     t("months.december"),
-    // "January",
-    // "February",
-    // "March",
-    // "April",
-    // "May",
-    // "June",
-    // "July",
-    // "August",
-    // "September",
-    // "October",
-    // "November",
-    // "December",
   ];
 
   const currentMonth = months[currentDate.getMonth()];
@@ -53,7 +42,9 @@ const CalendarPagination = ({
         className={s.calendarPaginationButton}
         disabled={isPaginationDisabled}
       >
-        <FaChevronLeft />
+        <svg className={s.iconArrLeft} width="20" height="20">
+          <use className={s.left} href={`${sprite}#icon-down`}></use>
+        </svg>
       </button>
       <p className={s.dataInfo}>{`${
         isPaginationDisabled ? months[new Date().getMonth()] : currentMonth
@@ -63,7 +54,9 @@ const CalendarPagination = ({
         className={s.calendarPaginationButton}
         disabled={isPaginationDisabled}
       >
-        <FaChevronRight />
+        <svg className={s.iconArrRight} width="20" height="20">
+          <use className={s.right} href={`${sprite}#icon-down`}></use>
+        </svg>
       </button>
     </div>
   );

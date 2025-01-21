@@ -17,10 +17,33 @@
 
 .calendarPaginationButton {
   background-color: transparent;
+  stroke: var(--text-color);
+  fill: tra;
   border: none;
   width: 16px;
   height: 16px;
   cursor: pointer;
+}
+
+.calendarPaginationButton .iconArrLeft {
+  stroke: var(--text-color);
+  fill: transparent;
+  transform: rotate(90deg);
+  transition: opacity 250ms ease-in;
+}
+
+.calendarPaginationButton .iconArrRight {
+  stroke: var(--text-color);
+  fill: transparent;
+  transform: rotate(-90deg);
+  transition: opacity 250ms ease-in;
+}
+
+.calendarPaginationButton:hover .iconArrRight {
+  opacity: 0.6;
+}
+.calendarPaginationButton:hover .iconArrLeft {
+  opacity: 0.6;
 }
 
 .calendarPaginationButton:disabled {

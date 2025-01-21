@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,10 +16,11 @@ import { useTranslation } from "react-i18next";
 const UserSettingsForm = ({ onClose }) => {
   const { name, email, gender, weight, timeActive, dailyNorma, avatar } =
     useSelector(selectUser);
-  const { t } = useTranslation();
   const [avatarPreview, setAvatarPreview] = useState(avatar || null);
   const loader = useSelector(selectIsRefreshing);
   const [notification, setNotification] = useState(null);
+
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -39,10 +40,9 @@ const UserSettingsForm = ({ onClose }) => {
       email: email,
       weight: weight || 0,
       timeActive: timeActive || 0,
-      dailyNorma: dailyNorma / 1000 || calculateWaterIntake(gender) || 2,
+      dailyNorma: dailyNorma / 1000,
     },
     shouldUnregister: true,
-    // mode: 'onChange',
   });
 
   const newWeight = watch("weight");
@@ -68,9 +68,6 @@ const UserSettingsForm = ({ onClose }) => {
     const fieldName = e.target.name;
     const fieldValue = e.target.value;
 
-    if (!fieldValue && fieldName === "name") {
-      setValue("name", name);
-    }
     if (!fieldValue && fieldName === "weight") {
       setValue("weight", weight || 0);
     }
@@ -81,10 +78,6 @@ const UserSettingsForm = ({ onClose }) => {
       setValue("dailyNorma", dailyNorma / 1000 || 2000 / 1000);
     }
   };
-
-  useEffect(() => {
-    setValue("dailyNorma", calculateWaterIntake(genderValue));
-  }, [genderValue, newActiveTime, newWeight]);
 
   const onSubmit = async (data) => {
     const initialValues = {
@@ -176,7 +169,6 @@ const UserSettingsForm = ({ onClose }) => {
           <svg width="20" height="20" className={s.upload}>
             <use href={`${sprite}#icon-upload`}></use>
           </svg>
-          {/* <span className={s.uploadBtn}>Upload a photo</span> */}
           <span className={s.uploadBtn}>
             {t("userSettingsForm.uploadPhoto")}
           </span>
@@ -184,7 +176,6 @@ const UserSettingsForm = ({ onClose }) => {
       </label>
       <div className={s.mainContainer}>
         <div className={s.leftColumn}>
-          {/* <label className={s.labelGender}>Your gender identity</label> */}
           <label className={s.labelGender}>
             {t("userSettingsForm.gender")}
           </label>
@@ -198,7 +189,6 @@ const UserSettingsForm = ({ onClose }) => {
                 value="woman"
                 className={s.radioInput}
               />
-              {/* Woman */}
               {t("userSettingsForm.woman")}
             </label>
             <label className={s.radioLabel}>
@@ -209,21 +199,18 @@ const UserSettingsForm = ({ onClose }) => {
                 value="man"
                 className={s.radioInput}
               />
-              {/* Man */}
               {t("userSettingsForm.man")}
             </label>
           </div>
           <div className={s.user}>
             <label className={s.labelInform}>
-              {/* Your name */}
               {t("userSettingsForm.name")}
               <input
                 {...register("name")}
                 type="text"
                 name="name"
-                className={`${s.userInput} ${errors.name ? s.inputError : ""}`}
+                className={`${s.userInput}`}
                 onBlur={handleBlur}
-                // placeholder="Name"
                 placeholder={t("userSettingsForm.placeholderName")}
               />
               {errors.name && (
@@ -231,7 +218,6 @@ const UserSettingsForm = ({ onClose }) => {
               )}
             </label>
             <label className={s.labelInform}>
-              {/* Email */}
               {t("userSettingsForm.email")}
               <input
                 {...register("email")}
@@ -239,7 +225,6 @@ const UserSettingsForm = ({ onClose }) => {
                 name="email"
                 className={`${s.userInput} ${errors.email ? s.inputError : ""}`}
                 onBlur={handleBlur}
-                // placeholder="Email"
                 placeholder={t("userSettingsForm.placeholderEmail")}
                 disabled
               />
@@ -248,40 +233,33 @@ const UserSettingsForm = ({ onClose }) => {
               )}
             </label>
           </div>
-          {/* <h3 className={s.labelNorma}>My daily norma</h3> */}
           <h3 className={s.labelNorma}>{t("userSettingsForm.dailyNorma")}</h3>
 
           <div className={s.formulaNorma}>
             <div className={s.normContainer}>
-              {/* <p className={s.subTitle}>For woman:</p> */}
               <p className={s.subTitle}>{t("userSettingsForm.forWoman")}</p>
 
               <span className={s.formula}>
                 {gender === "woman"
-                  ? `You = (${newWeight} * 0.03) + (${newActiveTime} * 0.4) =  ${calculateWaterIntake(
+                  ? `${calculateWaterIntake(
                       "woman"
-                    )} L`
+                    )} L = (${newWeight} * 0.03) + (${newActiveTime} * 0.4)`
                   : "V =  (M * 0.03) + (T * 0.4)"}
               </span>
             </div>
             <div className={s.normContainer}>
-              {/* <p className={s.subTitle}>For man:</p> */}
               <p className={s.subTitle}>{t("userSettingsForm.forMan")}</p>
 
               <span className={s.formula}>
                 {gender === "man"
-                  ? `You = (${newWeight} * 0.04) + (${newActiveTime} * 0.6) =  ${calculateWaterIntake(
+                  ? `${calculateWaterIntake(
                       "man"
-                    )} L`
+                    )} L = (${newWeight} * 0.04) + (${newActiveTime} * 0.6)`
                   : "V = (M * 0.04) + (T * 0.6)"}
               </span>
             </div>
           </div>
           <p className={s.normaInfo}>
-            {/* <span className={s.p}>*</span> V is the volume of the water norm in
-            liters per day, M is your body weight, T is the time of active
-            sports, or another type of activity commensurate in terms of loads
-            (in the absence of these, you must set 0) */}
             <span className={s.p}>*</span> {t("userSettingsForm.explanation")}
           </p>
           <p className={s.time}>
@@ -290,14 +268,12 @@ const UserSettingsForm = ({ onClose }) => {
                 href={`${sprite}#icon-emojione-v1_white-exclamation-mark`}
               ></use>
             </svg>
-            {/* Active time in hours */}
             {t("userSettingsForm.activeTime")}
           </p>
         </div>
         <div className={s.rightColumn}>
           <div className={s.infoContainer}>
             <label className={s.waterInfo}>
-              {/* Your weight in kilograms: */}
               {t("userSettingsForm.weight")}
               <input
                 {...register("weight")}
@@ -308,13 +284,17 @@ const UserSettingsForm = ({ onClose }) => {
                 }`}
                 onBlur={handleBlur}
                 placeholder="0"
+                onInput={(e) => {
+                  if (e.target.value > 999) {
+                    e.target.value = 999;
+                  }
+                }}
               />
               {errors.weight && (
                 <span className={s.error}>{errors.weight.message}</span>
               )}
             </label>
             <label className={s.waterInfo}>
-              {/* The time of active participation in sports: */}
               {t("userSettingsForm.sportTime")}
               <input
                 {...register("timeActive")}
@@ -325,6 +305,11 @@ const UserSettingsForm = ({ onClose }) => {
                 }`}
                 onBlur={handleBlur}
                 placeholder="0"
+                onInput={(e) => {
+                  if (e.target.value > 999) {
+                    e.target.value = 999;
+                  }
+                }}
               />
               {errors.timeActive && (
                 <span className={s.error}>{errors.timeActive.message}</span>
@@ -333,22 +318,17 @@ const UserSettingsForm = ({ onClose }) => {
           </div>
           <div className={s.required}>
             <h3 className={s.waterInfo}>
-              {/* The required amount of water in liters per day: */}
               {t("userSettingsForm.waterRequired")}
             </h3>
             <div className={s.waterIntake}>
-              {/* {newWeight || newActiveTime
-                ? `${calculateWaterIntake(genderValue)} L`
-                : '1.8 L'} */}
               {newWeight || newActiveTime
                 ? `${calculateWaterIntake(genderValue)} ${t(
                     "userSettingsForm.litre"
                   )}`
-                : `1.8 ${t("userSettingsForm.litre")}`}
+                : `0 ${t("userSettingsForm.litre")}`}
             </div>
           </div>
           <label className={s.userIntake}>
-            {/* Write down how much water you will drink: */}
             {t("userSettingsForm.drinkWater")}
             <input
               {...register("dailyNorma")}
@@ -357,7 +337,6 @@ const UserSettingsForm = ({ onClose }) => {
               step="0.1"
               className={`${s.intake} ${errors.dailyNorma ? s.inputError : ""}`}
               onBlur={handleBlur}
-              placeholder="1.8"
             />
             {errors.dailyNorma && (
               <span className={s.error}>{errors.dailyNorma.message}</span>
@@ -366,9 +345,7 @@ const UserSettingsForm = ({ onClose }) => {
         </div>
       </div>
       <button className={s.save} type="submit" disabled={loader}>
-        {/* Save{' '} */}
-
-        {t("userSettingsForm.saveBtn")}
+        {t("userSettingsForm.saveBtn")}{" "}
         {loader && (
           <span className={s.loaderBtn}>
             <Loader />

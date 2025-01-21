@@ -8,8 +8,9 @@
   width: 28px;
   height: 28px;
 
-  background: #fff;
+  background: var(--bg-component-green);
   border: none;
+  color: var(--background-white);
 
   font-family: Poppins;
   font-size: 14px;
@@ -20,13 +21,21 @@
 
   cursor: pointer;
 
+  transition: box-shadow 250ms ease-in;
+
   &:hover {
-    border: 2px solid #1d6334;
+    box-shadow: 0 0 10px var(--bg-component-green);
   }
 }
 
-.currentDay {
-  border: 2px solid #9be1a0;
+.calendarItem:disabled {
+  cursor: default;
+  background-color: transparent;
+  border: 1px solid var(--bg-component-green);
+  color: var(--menu-backdrop-color-light);
+  &:hover {
+    box-shadow: none;
+  }
 }
 
 .selected {
@@ -34,22 +43,21 @@
 }
 
 .emptyDay {
-  /* opacity: 0.4;   */
-  color: #323f47;
-  background: rgba(50, 63, 71, 0.2);
+  color: var(--text-color);
+  background: var(--background-white);
 }
 
 .notAchievedYet {
-  background: rgba(50, 63, 71, 0.2);
+  background: var(--dark-gray-calendar);
 }
 
 .percentage {
-  color: rgba(47, 47, 47, 0.6);
+  color: var(--modal-backdrop);
 
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
-  line-height: 10px; /* 100% */
+  line-height: 10px;
 
   display: flex;
   justify-content: center;
@@ -57,13 +65,13 @@
 }
 
 .currentDay {
-  color: #9be1a0;
-  background: #323f47;
+  color: var(--bg-component-green);
+  background: var(--bg-btn-dark-gray);
 }
 
 .selected {
-  color: #fff;
-  background: #9be1a0;
+  color: var(--background-white);
+  background: var(--bg-component-dark-green);
 }
 
 @media screen and (min-width: 768px) {

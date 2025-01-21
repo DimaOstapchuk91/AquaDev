@@ -35,15 +35,15 @@ const DailyInfo = () => {
     <div className={s.wrapper}>
       <div className={s.dailyWrapper}>
         <div className={s.chooseWrapper}>
-          <ChooseDate />
-          {isToday &&
+          <ChooseDate customClassName={"todayText"} />
+          {isToday && (
             <AddWaterBtn
               customClassName={"dailyInfo"}
               onClick={handleAddWaterBtnClick}
             />
-          }
+          )}
         </div>
-        <WaterList />
+        <WaterList getDate={getDate} currentDay={currentDay} />
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <WaterModal

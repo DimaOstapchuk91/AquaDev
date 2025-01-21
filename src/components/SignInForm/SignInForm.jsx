@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { orderSchemaLogin } from "../../utils/formValidation.js";
 import { selectIsRefreshing } from "../../redux/user/selectors.js";
 import Loader from "../Loader/Loader.jsx";
-
+import sprite from "../../assets/sprite.svg";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import LocalizationDropdown from "../LocalizationDropdown/LocalizationDropdown.jsx";
@@ -35,100 +35,127 @@ const SignInForm = () => {
 
   return (
     <div className={styles.leftSection}>
-      {/* //===================== */}
       <div className={styles.parentTwoVisible}>
         <LocalizationDropdown />
       </div>
-      {/* //================= */}
       <h1 className={styles.brand}>AQUATRACK</h1>
       <div className={styles.card}>
-        {/* <h2 className={styles.title}>Sign In</h2> */}
         <h2 className={styles.title}>{t("signIn.signIn")}</h2>
         <Formik
-          //==============
           key={i18next.language}
-          //===========
           initialValues={initForm}
           validationSchema={orderSchemaLogin}
           onSubmit={handleSubmit}
         >
-          <Form className={styles.form}>
-            <div className={styles.formGroup}>
-              <label htmlFor="email" className={styles.label}>
-                {/* Email */}
-                {t("signIn.email")}
-              </label>
-              <Field
-                name="email"
-                type="email"
-                id="email"
-                className={`${styles.input} ${
-                  initForm.email ? styles.error : styles.success
-                }`}
-                // placeholder="Enter your email"
-                placeholder={t("signIn.enterEmail")}
-                required
-              />
-              <ErrorMessage
-                className={styles.errorMessage}
-                name="email"
-                component="p"
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="password" className={styles.label}>
-                {/* Password */}
-                {t("signIn.password")}
-              </label>
-              <div className={styles.passwordWrapper}>
+          {({ errors, touched }) => (
+            <Form className={styles.form}>
+              <div className={styles.formGroup}>
+                <label htmlFor="email" className={styles.label}>
+                  {t("signIn.email")}
+                </label>
                 <Field
-                  name="password"
-                  type={passwordVisible ? "text" : "password"}
-                  id="password"
+                  name="email"
+                  type="email"
+                  id="email"
                   className={`${styles.input} ${
-                    initForm.password ? styles.error : styles.success
+                    touched.email
+                      ? errors.email
+                        ? styles.error
+                        : styles.success
+                      : ""
                   }`}
-                  // placeholder="Enter your password"
-                  placeholder={t("signIn.enterPassword")}
+                  placeholder={t("signIn.enterEmail")}
                   required
                 />
-                <button
-                  type="button"
-                  className={styles.togglePassword}
-                  onClick={togglePasswordVisibility}
-                >
-                  {passwordVisible ? "🙈" : "👁️"}
-                </button>
+                <ErrorMessage
+                  className={styles.errorMessage}
+                  name="email"
+                  component="p"
+                />
               </div>
-              <ErrorMessage
-                className={styles.errorMessage}
-                name="password"
-                component="p"
-              />
-            </div>
-            {isLoading ? (
-              <div className={styles.wrapperLoader}>
-                <Loader />
+              <div className={styles.formGroup}>
+                <label htmlFor="password" className={styles.label}>
+                  {t("signIn.password")}
+                </label>
+                <div className={styles.passwordWrapper}>
+                  <Field
+                    name="password"
+                    type={passwordVisible ? "text" : "password"}
+                    id="password"
+                    className={`${styles.input} ${
+                      touched.password
+                        ? errors.password
+                          ? styles.error
+                          : styles.success
+                        : ""
+                    }`}
+                    placeholder={t("signIn.enterPassword")}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className={styles.togglePassword}
+                    onClick={togglePasswordVisibility}
+                  >
+                    {passwordVisible ? (
+                      <svg
+                        width="15"
+                        height="15"
+                        className={`${styles.eye} ${
+                          touched.password
+                            ? errors.password
+                              ? styles.error
+                              : styles.success
+                            : ""
+                        }`}
+                      >
+                        <use href={`${sprite}#icon-eye`}></use>
+                      </svg>
+                    ) : (
+                      <svg
+                        width="15"
+                        height="15"
+                        className={`${styles.eye} ${
+                          touched.password
+                            ? errors.password
+                              ? styles.error
+                              : styles.success
+                            : ""
+                        }`}
+                      >
+                        <use href={`${sprite}#icon-eye-off`}></use>
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                <ErrorMessage
+                  className={styles.errorMessage}
+                  name="password"
+                  component="p"
+                />
               </div>
-            ) : (
-              <button type="submit" className={styles.submitButton}>
-                {/* Sign In */}
-                {t("signIn.signIn")}
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className={styles.submitButton}
+              >
+                {t("signIn.signIn")}{" "}
+                {isLoading && (
+                  <span className={styles.loaderBtn}>
+                    <Loader />
+                  </span>
+                )}
               </button>
-            )}
-          </Form>
+            </Form>
+          )}
         </Formik>
-        {!isLoading && (
-          <p className={styles.footerText}>
-            {" "}
-            {/* Don't have an account? */}
-            {t("signIn.noAccount")}{" "}
-            <NavLink to="/signup" className={styles.signupLink}>
-              {/* Sign Up */}
-              {t("signIn.signUp")}
-            </NavLink>
-          </p>
-        )}
+        <p className={styles.footerText}>
+          {t("signIn.noAccount")}{" "}
+          <NavLink to="/signup" className={styles.signupLink}>
+            {t("signIn.signUp")}
+          </NavLink>
+        </p>
       </div>
     </div>
   );

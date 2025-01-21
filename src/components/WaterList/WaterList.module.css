@@ -29,29 +29,35 @@
   border-radius: 4px;
 }
 
+
+
 .nameText {
   padding-bottom: 32px;
   height: 106px;
-  padding: 10px;
 }
 .textItemDiv {
   display: flex;
-  justify-content: center;
-  border-radius: 15px;
-  background-color: var(--background-white);
+  background-color: transparent;
+  font-size: 16px;
   align-items: center;
-  width: 146px;
+  opacity: 0.6;
+  min-width: 250px;
   height: 74px;
 }
 
 @media (min-width: 768px) {
+  .nameText {
+    padding-bottom: 32px;
+    height: 118px;
+  }
   .container {
     gap: 30px;
     height: 118px;
   }
 
-  .textItemDiv{
-    width: 192px;
+  .textItemDiv {
+    font-size: 20px;
+    min-width: 250px;
     height: 86px;
   }
 }
@@ -61,3 +67,9 @@
     gap: 16px;
   }
 }
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .container {
+   -webkit-overflow-scrolling: touch;
+ }
+ }

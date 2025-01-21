@@ -1,18 +1,22 @@
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import s from "./WaterProgressBar.module.css";
+import ChooseDate from "../ChooseDate/ChooseDate.jsx";
 import { useTranslation } from "react-i18next";
 
-const WaterProgressBar = ({ value }) => {
+const WaterProgressBar = ({ value, totalWaterInL, dailyNormaInL }) => {
   const { t } = useTranslation();
   return (
     <div className={s.progressBarContainer}>
-      {/* <h3 className={s.title}>Today</h3> */}
-      <h3 className={s.title}>{t("chooseDate")}</h3>
+      <div className={s.titleWrap}>
+        <ChooseDate customClassName={"progressBarTitle"} />
+        <p className={s.textWrap}>
+          {totalWaterInL} / {dailyNormaInL}L
+        </p>
+      </div>
 
       <Slider
         value={value}
-        style={{ cursor: "default" }}
         marks={{
           0: {
             style: {
@@ -20,6 +24,7 @@ const WaterProgressBar = ({ value }) => {
               fontSize: "10px",
               lineHeight: "10px",
               fontWeight: "400",
+              left: "2%",
             },
             label: "0%",
           },
@@ -38,13 +43,16 @@ const WaterProgressBar = ({ value }) => {
               fontSize: "10px",
               lineHeight: "10px",
               fontWeight: "400",
+              left: "96%",
             },
             label: "100%",
           },
-          ...(value <= 100 &&
-            (value <= 40 || value >= 60) && {
+          ...(value > 0 &&
+            value < 100 &&
+            value != 50 && {
               [value]: {
                 style: {
+                  top: "-30px",
                   color: "#87d28d",
                   fontSize: "10px",
                   lineHeight: "10px",
@@ -63,6 +71,7 @@ const WaterProgressBar = ({ value }) => {
           height: 15,
           width: 15,
           marginTop: -5,
+          cursor: "default",
         }}
         trackStyle={{
           backgroundColor: "#9BE1A0",
