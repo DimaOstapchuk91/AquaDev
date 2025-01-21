@@ -29,6 +29,8 @@
   border-radius: 4px;
 }
 
+
+
 .nameText {
   padding-bottom: 32px;
   height: 106px;
@@ -65,3 +67,9 @@
     gap: 16px;
   }
 }
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  .container {
+   -webkit-overflow-scrolling: touch;
+ }
+ }
