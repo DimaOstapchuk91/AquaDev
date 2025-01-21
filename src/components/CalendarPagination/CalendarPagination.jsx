@@ -1,6 +1,6 @@
 import s from "./CalendarPagination.module.css";
 import sprite from "../../assets/sprite.svg";
-import { formatDateDatMonth } from "../../utils/dateFormatter";
+import { formatDateDatMonth } from "../../utils/formatDate";
 
 const CalendarPagination = ({
   currentDate,
