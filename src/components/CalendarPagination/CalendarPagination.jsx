@@ -1,6 +1,6 @@
 import s from "./CalendarPagination.module.css";
 import sprite from "../../assets/sprite.svg";
-import { formatDateDatMonth } from "../../utils/formatDate";
+import { formatDateYearMonth } from "../../utils/formatDate";
 
 const CalendarPagination = ({
   currentDate,
@@ -28,8 +28,8 @@ const CalendarPagination = ({
       </button>
       <p className={s.dataInfo}>
         {isPaginationDisabled
-          ? formatDateDatMonth(new Date().toISOString())
-          : formatDateDatMonth(currentDate.toISOString())}
+          ? formatDateYearMonth(new Date().toISOString())
+          : formatDateYearMonth(currentDate.toISOString())}
       </p>
       <button
         onClick={() => changeMonth(1)}
