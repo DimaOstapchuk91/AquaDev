@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import ChooseDate from '../ChooseDate/ChooseDate.jsx';
-import AddWaterBtn from '../AddWaterBtn/AddWaterBtn.jsx';
-import Modal from '../Modal/Modal.jsx';
-import WaterModal from '../Modal/WaterModal/WaterModal.jsx';
-import WaterList from '../WaterList/WaterList.jsx';
-import s from './DailyInfo.module.css';
-import { useSelector } from 'react-redux';
-import { selectDateDay } from '../../redux/water/selectors.js';
-import { getFormattedDate } from '../../utils/formatDate.js';
+import { useEffect, useState } from "react";
+import ChooseDate from "../ChooseDate/ChooseDate.jsx";
+import AddWaterBtn from "../AddWaterBtn/AddWaterBtn.jsx";
+import Modal from "../Modal/Modal.jsx";
+import WaterModal from "../Modal/WaterModal/WaterModal.jsx";
+import WaterList from "../WaterList/WaterList.jsx";
+import s from "./DailyInfo.module.css";
+import { useSelector } from "react-redux";
+import { selectDateDay } from "../../redux/water/selectors.js";
+import { getFormattedDate } from "../../utils/formatDate.js";
 
 const DailyInfo = () => {
   const [isToday, setIsToday] = useState(false);
@@ -35,10 +35,10 @@ const DailyInfo = () => {
     <div className={s.wrapper}>
       <div className={s.dailyWrapper}>
         <div className={s.chooseWrapper}>
-          <ChooseDate />
+          <ChooseDate customClassName={"todayText"} />
           {isToday && (
             <AddWaterBtn
-              customClassName={'dailyInfo'}
+              customClassName={"dailyInfo"}
               onClick={handleAddWaterBtnClick}
             />
           )}
@@ -49,7 +49,7 @@ const DailyInfo = () => {
         <WaterModal
           isOpen={isModalOpen}
           onClose={handleCloseModal}
-          type={'add'}
+          type={"add"}
         />
       </Modal>
     </div>

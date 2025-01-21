@@ -1,22 +1,23 @@
-import { useSelector } from 'react-redux';
-import { selectDateDay } from '../../redux/water/selectors.js';
+import { useSelector } from "react-redux";
+import clsx from "clsx";
+import { selectDateDay } from "../../redux/water/selectors.js";
 import {
   formatDateDatMonth,
   getFormattedDate,
-} from '../../utils/formatDate.js';
-import s from './ChooseDate.module.css';
+} from "../../utils/formatDate.js";
+import s from "./ChooseDate.module.css";
 
-const ChooseDate = () => {
+const ChooseDate = ({ customClassName }) => {
   const getDate = useSelector(selectDateDay);
 
   const comparison = getFormattedDate(new Date());
 
   const chosenDay =
-    comparison === getDate ? 'Today' : formatDateDatMonth(getDate);
+    comparison === getDate ? "Today" : formatDateDatMonth(getDate);
 
   return (
     <div>
-      <p className={s.todayText}>{chosenDay}</p>
+      <p className={clsx(s[customClassName])}>{chosenDay}</p>
     </div>
   );
 };
