@@ -11,7 +11,7 @@ const WaterProgressBar = ({ value, totalWaterInL, dailyNormaInL }) => {
       <div className={s.titleWrap}>
         <ChooseDate customClassName={"progressBarTitle"} />
         <p className={s.textWrap}>
-          {totalWaterInL} / {dailyNormaInL}L
+          {totalWaterInL} / {dailyNormaInL} {t("waterProgressBar.litre")}
         </p>
       </div>
 

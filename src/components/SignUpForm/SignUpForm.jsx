@@ -10,7 +10,7 @@ import { orderSchemaReg } from "../../utils/formValidation.js";
 import { selectIsRefreshing } from "../../redux/user/selectors.js";
 import Loader from "../Loader/Loader.jsx";
 import sprite from "../../assets/sprite.svg";
-
+import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import LocalizationDropdown from "../LocalizationDropdown/LocalizationDropdown.jsx";
 
@@ -53,6 +53,7 @@ export default function SignUpForm() {
       <div className={styles.card}>
         <h2 className={styles.title}>{t("signUp.signUp")}</h2>
         <Formik
+          key={i18next.language}
           initialValues={initForm}
           validationSchema={orderSchemaReg}
           onSubmit={handleSubmit}

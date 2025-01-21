@@ -29,7 +29,6 @@ const UserPanel = () => {
         />
       ) : (
         <h2 className={s.title}>
-          {/* Hello, <span className={s.span}>{userName} !</span> */}
           {t("userPanel.greet")} <span className={s.span}>{userName} !</span>
         </h2>
       )}

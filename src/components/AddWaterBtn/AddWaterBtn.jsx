@@ -17,7 +17,6 @@ const AddWaterBtn = ({ customClassName, onClick }) => {
             <use href={`${sprite}#icon-plus`}></use>
           </svg>
         </span>
-        {/* Add water */}
         {t("addWaterBtn.addWater")}
       </div>
     </button>

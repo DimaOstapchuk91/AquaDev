@@ -19,13 +19,9 @@ const DeleteWaterModal = ({ onClose, id }) => {
   return (
     <div className={s.modalWrapp}>
       <div className={s.modalContent}>
-        {/* <h2 className={s.titleDelete}>Delete entry</h2> */}
         <h2 className={s.titleDelete}>{t("deleteWaterModal.delete")}</h2>
 
-        <p className={s.textDelete}>
-          {/* Are you sure you want to delete the entry? */}
-          {t("deleteWaterModal.confirmation")}
-        </p>
+        <p className={s.textDelete}>{t("deleteWaterModal.confirmation")}</p>
         <div className={s.wrappBtn}>
           <button
             type="button"
@@ -42,7 +38,6 @@ const DeleteWaterModal = ({ onClose, id }) => {
             )}
           </button>
           <button type="button" className={s.btnCancel} onClick={onClose}>
-            {/* Cancel */}
             {t("deleteWaterModal.cancelBtn")}
           </button>
         </div>

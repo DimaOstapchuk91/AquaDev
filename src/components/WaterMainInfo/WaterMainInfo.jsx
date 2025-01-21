@@ -31,13 +31,10 @@ const WaterMainInfo = () => {
 
   return (
     <div className={s.wrapper}>
-      {/* //===================
-      // //================= */}
+
       <div className={s.parentTwoVisible}>
         <LanguageDropdown />
       </div>
-
-      {/* //================== */}
       <Logo />
       <WaterDailyNorma dailyNorma={dailyNormaInL} />
       <WaterProgressBar

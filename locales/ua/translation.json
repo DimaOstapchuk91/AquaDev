@@ -194,5 +194,12 @@
       "required": "Час є обов'язковим",
       "format": "Невірний формат часу (год:хв)"
     }
+  },
+  "waterList": {
+    "letsDrinkWater": "Давай вип'ємо трохи води!",
+    "oopsNoWater": "Ой, ти не пив воду того дня…"
+  },
+  "waterProgressBar": {
+    "litre": "Л"
   }
 }

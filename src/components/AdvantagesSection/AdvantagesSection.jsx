@@ -35,11 +35,9 @@ const AdvantagesSection = () => {
 
   return (
     <div className={css.section}>
-      {/* //========== */}
       <div className={css.parentOneVisible}>
         <LocalizationDropdown />
       </div>
-      {/* //================ */}
       <div className={css.customersBox}>
         <div className={css.customersContainer}>
           <picture className={css.firstContainer}>
@@ -92,8 +90,6 @@ const AdvantagesSection = () => {
           </picture>
         </div>
         <p className={css.sectionsTextLeters}>
-          {/* Our <span className={css.span}>{allUsersCount} happy</span> <br />{" "}
-          customers */}
           <Trans
             i18nKey={
               allUsersCount === 1
@@ -114,7 +110,6 @@ const AdvantagesSection = () => {
         <ul className={css.groupList}>
           <li className={css.groupListItem}>
             <div className={css.ellipse}></div>
-            {/* <p className={css.groupListItemText}>Habit drive</p> */}
             <p className={css.groupListItemText}>
               {t("advantagesSection.habitDrive")}
             </p>

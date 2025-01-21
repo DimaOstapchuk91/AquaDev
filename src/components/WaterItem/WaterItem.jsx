@@ -39,7 +39,6 @@ const WaterItem = ({ id, amount, time }) => {
       <div className={s.dataWrapper}>
         <p className={s.textVolume}>
           {liters}
-          {/* {amount > 999 ? 'L' : 'ml'} */}
           {amount > 999 ? t("waterItem.litre") : t("waterItem.ml")}
         </p>
         <p className={s.textTime}>{time}</p>

@@ -1,18 +1,12 @@
 import WaterForm from "../WaterForm/WaterForm.jsx";
 import s from "./WaterModal.module.css";
 
-//==================
 import { useTranslation } from "react-i18next";
-//===========
 
 const WaterModal = ({ onClose, toggleHandle, portionData, id, type }) => {
-  //=====================
   const { t } = useTranslation();
-  //====================
-  const title =
-    //   type === "add" ? "Add water" : "Edit the entered amount of water";
-    // const subtitle = type === "add" ? "Choose a value:" : "Correct entered data:";
 
+  const title =
     type === "add" ? t("waterModal.addWater") : t("waterModal.editValue");
   const subtitle =
     type === "add" ? t("waterModal.chooseValue") : t("waterModal.correctData");

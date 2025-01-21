@@ -306,6 +306,7 @@
 .save {
   padding: 14px 40px;
   font-family: "Poppins", sans-serif;
+  width: 116px;
   border-radius: 30px;
   background-color: var(--bg-component-green);
   border: none;
@@ -451,7 +452,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .save {
     padding: 16px 50px;
-    max-width: 141px;
+    min-width: 141px;
     text-align: center;
     font-size: 16px;
     line-height: 24px;

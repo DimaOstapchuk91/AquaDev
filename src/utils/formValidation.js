@@ -22,15 +22,6 @@ const nameValid = Yup.string()
     if (value === "") return null;
     return value;
   })
-  // .test("is-null-or-valid", "Minimum 2 characters", (value) => {
-  //   console.log("Current value:", value);
-  //   if (value === null) return true;
-  //   return value.length >= 2;
-  // })
-  // .test("is-max-length", "Maximum 16 characters", (value) => {
-  //   if (value === null) return true;
-  //   return value.length <= 16;
-  // });
   .test("is-null-or-valid", lazyT("validation.name.min"), (value) => {
     console.log("Current value:", value);
     if (value === null) return true;
@@ -42,27 +33,23 @@ const nameValid = Yup.string()
   });
 
 const activityTimeValid = Yup.number()
-.typeError(lazyT("validation.activityTime.typeError"))
-.min(0, lazyT("validation.activityTime.min"))
-.max(12, lazyT("validation.activityTime.max"));
+  .typeError(lazyT("validation.activityTime.typeError"))
+  .min(0, lazyT("validation.activityTime.min"))
+  .max(12, lazyT("validation.activityTime.max"));
 
 const weightValid = Yup.number()
-.min(0, lazyT("validation.weight.min"))
-.max(200, lazyT("validation.weight.max"));
-.typeError(lazyT("validation.weight.typeError"))
+  .min(0, lazyT("validation.weight.min"))
+  .max(200, lazyT("validation.weight.max"))
+  .typeError(lazyT("validation.weight.typeError"));
 
 const waterIntakeValid = Yup.number()
-.min(0.5, lazyT("validation.waterIntake.min"))
-.max(15, lazyT("validation.waterIntake.max"))
-.typeError(lazyT("validation.waterIntake.typeError"))
-  .test(
-    "one-decimal-place",
-    lazyT("validation.waterIntake.test"),
-    (value) => {
-      if (value === undefined || value === null) return true;
-      return /^\d+(\.\d{1})?$/.test(String(value));
-    }
-  );
+  .min(0.5, lazyT("validation.waterIntake.min"))
+  .max(15, lazyT("validation.waterIntake.max"))
+  .typeError(lazyT("validation.waterIntake.typeError"))
+  .test("one-decimal-place", lazyT("validation.waterIntake.test"), (value) => {
+    if (value === undefined || value === null) return true;
+    return /^\d+(\.\d{1})?$/.test(String(value));
+  });
 
 export const orderSchemaLogin = Yup.object({
   email: emailValid,
@@ -73,8 +60,8 @@ export const orderSchemaReg = Yup.object({
   email: emailValid,
   password: passwordValid,
   confirmPassword: Yup.string()
-  .oneOf([Yup.ref("password"), null], lazyT("validation.password.match"))
-  .required(lazyT("validation.password.confirmRequired")),
+    .oneOf([Yup.ref("password"), null], lazyT("validation.password.match"))
+    .required(lazyT("validation.password.confirmRequired")),
 });
 
 export const userSettingsSchema = Yup.object().shape({
@@ -101,9 +88,9 @@ export const validationSchemaWaterChange = Yup.object().shape({
     .min(50, lazyT("validation.amount.min"))
     .max(2000, lazyT("validation.amount.max")),
   time: Yup.string()
-  .required(lazyT("validation.time.required"))
-  .matches(
-    /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/,
-    lazyT("validation.time.format")
-  ),
+    .required(lazyT("validation.time.required"))
+    .matches(
+      /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/,
+      lazyT("validation.time.format")
+    ),
 });

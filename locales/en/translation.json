@@ -194,5 +194,12 @@
       "required": "Time is required",
       "format": "Invalid time format (hh:mm)"
     }
+  },
+  "waterList": {
+    "letsDrinkWater": "Let's drink some water!",
+    "oopsNoWater": "Oops, you didn't drink water that day…"
+  },
+  "waterProgressBar": {
+    "litre": "L"
   }
 }

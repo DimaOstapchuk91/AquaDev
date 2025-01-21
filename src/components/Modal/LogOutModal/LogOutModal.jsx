@@ -18,8 +18,6 @@ const LogOutModal = ({ onClose }) => {
 
   return (
     <div className={s.modalWrapp}>
-      {/* <h2 className={s.titleLogout}>Log out</h2>
-      <p className={s.textLogout}>Do you really want to leave?</p> */}
       <h2 className={s.titleLogout}> {t("logOutModal.logOut")}</h2>
       <p className={s.textLogout}> {t("logOutModal.confirmation")}</p>
 
@@ -35,12 +33,10 @@ const LogOutModal = ({ onClose }) => {
               <Loader />
             </div>
           ) : (
-            /* (Log out) */
             t("logOutModal.logOutBtn")
           )}
         </button>
         <button type="button" className={s.btnCancel} onClick={onClose}>
-          {/* Cancel */}
           {t("logOutModal.cancelBtn")}
         </button>
       </div>
