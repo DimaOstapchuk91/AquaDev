@@ -1,5 +1,5 @@
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import s from "./CalendarPagination.module.css";
+import sprite from "../../assets/sprite.svg";
 import { formatDateDatMonth } from "../../utils/dateFormatter";
 
 const CalendarPagination = ({
@@ -22,7 +22,9 @@ const CalendarPagination = ({
         className={s.calendarPaginationButton}
         disabled={isPaginationDisabled}
       >
-        <FaChevronLeft />
+        <svg className={s.iconArrLeft} width="20" height="20">
+          <use className={s.left} href={`${sprite}#icon-down`}></use>
+        </svg>
       </button>
       <p className={s.dataInfo}>
         {isPaginationDisabled
@@ -34,7 +36,9 @@ const CalendarPagination = ({
         className={s.calendarPaginationButton}
         disabled={isPaginationDisabled}
       >
-        <FaChevronRight />
+        <svg className={s.iconArrRight} width="20" height="20">
+          <use className={s.right} href={`${sprite}#icon-down`}></use>
+        </svg>
       </button>
     </div>
   );
