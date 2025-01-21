@@ -32,7 +32,14 @@ const SignInForm = () => {
   const handleGoogleLogin = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/users/auth/google/url"
+        "http://localhost:3000/users/auth/google/url",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
       );
       const data = await response.json();
       console.log("Google Login URL:", data?.data?.url);
