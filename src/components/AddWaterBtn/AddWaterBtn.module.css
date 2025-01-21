@@ -51,6 +51,7 @@
   border: none;
   cursor: pointer;
   transition: color 250ms ease-in;
+  background-color: transparent;
 }
 
 .dailyInfo .plus {
