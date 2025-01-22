@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AddWaterBtn from "../AddWaterBtn/AddWaterBtn.jsx";
 import Logo from "../Logo/Logo.jsx";
@@ -7,11 +7,16 @@ import WaterProgressBar from "../WaterProgressBar/WaterProgressBar.jsx";
 import s from "./WaterMainInfo.module.css";
 import Modal from "../Modal/Modal.jsx";
 import WaterModal from "../Modal/WaterModal/WaterModal.jsx";
-import { selectTotalWater } from "../../redux/water/selectors.js";
+import {
+  selectDateDay,
+  selectTotalWater,
+} from "../../redux/water/selectors.js";
 import { selectUser } from "../../redux/user/selectors.js";
 import LanguageDropdown from "../LocalizationDropdown/LocalizationDropdown.jsx";
+import { getFormattedDate } from "../../utils/formatDate.js";
 
 const WaterMainInfo = () => {
+  const getDate = useSelector(selectDateDay);
   const totalWater = useSelector(selectTotalWater);
   const totalWaterInL = totalWater / 1000;
   const user = useSelector(selectUser);
@@ -20,6 +25,16 @@ const WaterMainInfo = () => {
     (totalWater / user.dailyNorma) * 100
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isToday, setIsToday] = useState(false);
+
+  const currentDay = getFormattedDate(new Date());
+  useEffect(() => {
+    if (getDate === currentDay) {
+      setIsToday(true);
+    } else {
+      setIsToday(false);
+    }
+  }, [getDate, currentDay]);
 
   const handleAddWaterBtnClick = () => {
     setIsModalOpen(true);
@@ -31,7 +46,6 @@ const WaterMainInfo = () => {
 
   return (
     <div className={s.wrapper}>
-
       <div className={s.parentTwoVisible}>
         <LanguageDropdown />
       </div>
@@ -43,10 +57,12 @@ const WaterMainInfo = () => {
         dailyNormaInL={dailyNormaInL}
       />
       <div className={s.btnContainer}>
-        <AddWaterBtn
-          customClassName={"mainInfoButton"}
-          onClick={handleAddWaterBtnClick}
-        />
+        {isToday && (
+          <AddWaterBtn
+            customClassName={"mainInfoButton"}
+            onClick={handleAddWaterBtnClick}
+          />
+        )}
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <WaterModal
