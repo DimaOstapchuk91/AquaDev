@@ -21,7 +21,8 @@
     "enterPassword": "Enter your password",
     "repeatPassword": "Repeat password",
     "hasAccount": "Do you have an account?",
-    "signIn": " Sign In"
+    "signIn": " Sign In",
+    "signUpGoogle": "Sing Up with Google"
   },
   "signUpValidation": {
     "mustBeFilled": "Must be filled",
@@ -35,7 +36,8 @@
     "password": "Password",
     "enterPassword": "Enter your password",
     "noAccount": "Don't have an account?",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "signInGoogle": "Sing In with Google"
   },
   "waterDashboard": {
     "dailyNorm": "My daily norm",

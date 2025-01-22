@@ -169,6 +169,13 @@
   align-items: center;
 }
 
+.parentTwoVisible {
+  display: block;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
 .buttonWrapperGoogle {
   transition: all 0.3s ease;
 }
@@ -220,5 +227,15 @@
 
   .footerText {
     font-size: 16px;
+  }
+  .parentTwoVisible {
+    top: 24px;
+    right: 24px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .parentTwoVisible {
+    display: none;
   }
 }
