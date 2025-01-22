@@ -124,6 +124,7 @@
   border-radius: 30px;
   padding: 18px;
   cursor: pointer;
+  margin-bottom: 10px;
   transition: background-color 250ms ease;
 }
 .loaderBtn {
@@ -141,12 +142,13 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 16px;
+  margin-top: 10px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
   letter-spacing: -0.01em;
   color: var(--modal-backdrop);
+  margin-bottom: 100px;
 }
 
 .signupLink {
@@ -175,6 +177,39 @@
   right: 16px;
 }
 
+.buttonWrapperGoogle {
+  transition: all 0.3s ease;
+}
+
+.googleButton {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: opacity 250ms ease-in;
+  width: 100%;
+}
+
+.googleButton:hover {
+  opacity: 0.6;
+}
+
+.googleIcon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.googleButton:hover .googleIcon {
+  transform: scale(1.1);
+}
+
 @media (min-width: 768px) {
   .loaderBtn {
     transform: translate(0px, -20px);
@@ -188,6 +223,13 @@
   .parentTwoVisible {
     top: 24px;
     right: 24px;
+  }
+  .googleButton {
+    font-size: 16px;
+  }
+
+  .footerText {
+    font-size: 16px;
   }
 }
 
