@@ -241,9 +241,9 @@ const UserSettingsForm = ({ onClose }) => {
 
               <span className={s.formula}>
                 {gender === "woman"
-                  ? `${calculateWaterIntake(
-                      "woman"
-                    )} L = (${newWeight} * 0.03) + (${newActiveTime} * 0.4)`
+                  ? `${calculateWaterIntake("woman")} ${t(
+                      "userSettingsForm.litre"
+                    )} = (${newWeight} * 0.03) + (${newActiveTime} * 0.4)`
                   : "V =  (M * 0.03) + (T * 0.4)"}
               </span>
             </div>
@@ -252,9 +252,9 @@ const UserSettingsForm = ({ onClose }) => {
 
               <span className={s.formula}>
                 {gender === "man"
-                  ? `${calculateWaterIntake(
-                      "man"
-                    )} L = (${newWeight} * 0.04) + (${newActiveTime} * 0.6)`
+                  ? `${calculateWaterIntake("man")} ${t(
+                      "userSettingsForm.litre"
+                    )} = (${newWeight} * 0.04) + (${newActiveTime} * 0.6)`
                   : "V = (M * 0.04) + (T * 0.6)"}
               </span>
             </div>
