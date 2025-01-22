@@ -70,7 +70,6 @@ const WaterProgressBar = ({ value, totalWaterInL, dailyNormaInL }) => {
           borderColor: "#9BE1A0",
           height: 15,
           width: 15,
-          marginTop: -5,
           cursor: "default",
         }}
         trackStyle={{
@@ -78,6 +77,13 @@ const WaterProgressBar = ({ value, totalWaterInL, dailyNormaInL }) => {
           height: 6,
         }}
       />
+      <style>
+        {`
+          .rc-slider-dot {
+            display: none; 
+          }
+        `}
+      </style>
     </div>
   );
 };
