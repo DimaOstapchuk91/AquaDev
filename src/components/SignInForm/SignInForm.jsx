@@ -161,7 +161,7 @@ const SignInForm = () => {
         </Formik>
         <div className={styles.buttonWrapperGoogle}>
           <button onClick={handleGoogleLogin} className={styles.googleButton}>
-            Sing In with Google
+            {t("signIn.signInGoogle")}
             <svg
               className={styles.googleIcon}
               width="20"

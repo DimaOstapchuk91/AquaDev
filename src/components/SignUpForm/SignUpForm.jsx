@@ -232,7 +232,7 @@ export default function SignUpForm() {
         </Formik>
         <div className={styles.buttonWrapperGoogle}>
           <button onClick={handleGoogleLogin} className={styles.googleButton}>
-            Sing Up with Google
+            {t("signUp.signUpGoogle")}
             <svg
               className={styles.googleIcon}
               width="20"

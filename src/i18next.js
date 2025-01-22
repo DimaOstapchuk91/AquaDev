@@ -16,7 +16,7 @@ i18next
       ua: { translation: uaTranslation },
     },
     fallbackLng: "en",
-    debug: true,
+    debug: false,
     // change debug to true to debug the issues
     interpolation: {
       escapeValue: false,

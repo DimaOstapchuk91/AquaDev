@@ -22,7 +22,8 @@
     "enterPassword": "Введіть ваш пароль",
     "repeatPassword": "Повторіть пароль",
     "hasAccount": "Вже є акаунт?",
-    "signIn": " Увійти"
+    "signIn": " Увійти",
+    "signUpGoogle": "Зареєструватися через Google"
   },
   "signIn": {
     "signIn": "Увійти",
@@ -31,7 +32,8 @@
     "password": "Пароль",
     "enterPassword": "Введіть ваш пароль",
     "noAccount": "Немає акаунта?",
-    "signUp": "Зареєструватися"
+    "signUp": "Зареєструватися",
+    "signInGoogle": "Увійти через Google"
   },
   "signUpValidation": {
     "mustBeFilled": "Обов'язково до заповнення",
