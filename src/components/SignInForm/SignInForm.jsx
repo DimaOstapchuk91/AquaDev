@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import styles from "./signInForm.module.css";
-import { logIn } from "../../redux/user/operations.js";
+import { googleLoginUrl, logIn } from "../../redux/user/operations.js";
 import { useDispatch } from "react-redux";
 import { orderSchemaLogin } from "../../utils/formValidation.js";
 import { selectIsRefreshing } from "../../redux/user/selectors.js";
@@ -31,6 +31,15 @@ const SignInForm = () => {
 
   const handleSubmit = (values) => {
     dispatch(logIn(values));
+  };
+
+  const handleGoogleLogin = async () => {
+    const result = await dispatch(googleLoginUrl());
+    if (googleLoginUrl.fulfilled.match(result)) {
+      window.location.href = result.payload;
+    } else {
+      console.error("Error:", result.payload);
+    }
   };
 
   return (
@@ -150,6 +159,19 @@ const SignInForm = () => {
             </Form>
           )}
         </Formik>
+        <div className={styles.buttonWrapperGoogle}>
+          <button onClick={handleGoogleLogin} className={styles.googleButton}>
+            Sing In with Google
+            <svg
+              className={styles.googleIcon}
+              width="20"
+              height="20"
+              aria-label="Google icon"
+            >
+              <use href={`${sprite}#icon-google-icon`}></use>
+            </svg>
+          </button>
+        </div>
         <p className={styles.footerText}>
           {t("signIn.noAccount")}{" "}
           <NavLink to="/signup" className={styles.signupLink}>

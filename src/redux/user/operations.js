@@ -143,3 +143,16 @@ export const refreshUser = createAsyncThunk(
     }
   }
 );
+
+export const googleLoginUrl = createAsyncThunk(
+  "user/googleLoginUrl",
+  async (_, thunkApi) => {
+    try {
+      const response = await aquaDevApi.get("users/auth/google/url");
+
+      return response.data.data.url;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
