@@ -8,7 +8,7 @@ import TrackerPage from './pages/TrackerPage/TrackerPage.jsx';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute.jsx';
 import { Toaster } from 'react-hot-toast';
 import useAccessRefresh from './hooks/accessRefresh.js';
-import GoogleCallback from './pages/GoogleCallback/googleCallback.jsx';
+import GoogleCallbacks from './pages/GoogleCallbacks/GoogleCallbacks.jsx';
 
 function App() {
   useAccessRefresh();
@@ -16,7 +16,7 @@ function App() {
     <>
       <SharedLayout>
         <Routes>
-          <Route path='/google-callback' element={<GoogleCallback />} />
+          <Route path='/google-callback' element={<GoogleCallbacks />} />
           <Route
             path='/'
             element={
