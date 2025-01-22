@@ -1,14 +1,14 @@
-import { Route, Routes } from "react-router-dom";
-import SharedLayout from "./components/SharedLayout/SharedLayout.jsx";
-import HomePage from "./pages/HomePage/HomePage.jsx";
-import { RestrictedRoute } from "./components/RestrictedRoute/RestrictedRoute.jsx";
-import SignUpPage from "./pages/SignUpPage/SignUpPage.jsx";
-import SignInPage from "./pages/SignInPage/SignInPage.jsx";
-import TrackerPage from "./pages/TrackerPage/TrackerPage.jsx";
-import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute.jsx";
-import { Toaster } from "react-hot-toast";
-import useAccessRefresh from "./hooks/accessRefresh.js";
-import GoogleCallback from "./pages/googleCallback/googleCallback.jsx";
+import { Route, Routes } from 'react-router-dom';
+import SharedLayout from './components/SharedLayout/SharedLayout.jsx';
+import HomePage from './pages/HomePage/HomePage.jsx';
+import { RestrictedRoute } from './components/RestrictedRoute/RestrictedRoute.jsx';
+import SignUpPage from './pages/SignUpPage/SignUpPage.jsx';
+import SignInPage from './pages/SignInPage/SignInPage.jsx';
+import TrackerPage from './pages/TrackerPage/TrackerPage.jsx';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute.jsx';
+import { Toaster } from 'react-hot-toast';
+import useAccessRefresh from './hooks/accessRefresh.js';
+import GoogleCallbacks from './pages/GoogleCallbacks/GoogleCallbacks.jsx';
 
 function App() {
   useAccessRefresh();
@@ -16,42 +16,42 @@ function App() {
     <>
       <SharedLayout>
         <Routes>
-          <Route path="/google-callback" element={<GoogleCallback />} />
+          <Route path='/google-callback' element={<GoogleCallbacks />} />
           <Route
-            path="/"
+            path='/'
             element={
-              <RestrictedRoute component={<HomePage />} redirectTo="/tracker" />
+              <RestrictedRoute component={<HomePage />} redirectTo='/tracker' />
             }
           />
           <Route
-            path="/signup"
+            path='/signup'
             element={
               <RestrictedRoute
                 component={<SignUpPage />}
-                redirectTo="/tracker"
+                redirectTo='/tracker'
               />
             }
           />
           <Route
-            path="/signin"
+            path='/signin'
             element={
               <RestrictedRoute
                 component={<SignInPage />}
-                redirectTo="/tracker"
+                redirectTo='/tracker'
               />
             }
           />
 
           <Route
-            path="/tracker"
+            path='/tracker'
             element={
-              <PrivateRoute component={<TrackerPage />} redirectTo="/" />
+              <PrivateRoute component={<TrackerPage />} redirectTo='/' />
             }
           />
           <Route
-            path="*"
+            path='*'
             element={
-              <RestrictedRoute component={<HomePage />} redirectTo="/tracker" />
+              <RestrictedRoute component={<HomePage />} redirectTo='/tracker' />
             }
           />
         </Routes>
