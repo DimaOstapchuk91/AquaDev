@@ -70,7 +70,9 @@
   },
   "monthInfo": {
     "month": "Місяць",
-    "statistics": "Статистика",
+    "statistics": "Статистика"
+  },
+  "chart": {
     "ml": "мл",
     "litre": "Л"
   },

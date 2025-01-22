@@ -7,7 +7,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import { useTranslation } from "react-i18next";
+
 const Chart = ({ weekData }) => {
+  const { t } = useTranslation();
   return (
     <div style={{ width: "100%", height: "300px", maxWidth: "600px" }}>
       <ResponsiveContainer>
@@ -52,7 +55,9 @@ const Chart = ({ weekData }) => {
           />
           <YAxis
             domain={[0, 3000]}
-            tickFormatter={(value) => `${(value / 1000).toFixed(1)}L`}
+            tickFormatter={(value) =>
+              `${(value / 1000).toFixed(1)}${t("chart.litre")}`
+            }
             tick={{
               fontSize: 15,
               fontWeight: "normal",
@@ -63,7 +68,7 @@ const Chart = ({ weekData }) => {
             tickLine={false}
           />
           <Tooltip
-            formatter={(value) => [`${value} ml`]}
+            formatter={(value) => [`${value} ${t("chart.ml")}`]}
             contentStyle={{
               backgroundColor: "#FFF",
               border: "1px solid #EFEFEF",

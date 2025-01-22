@@ -69,7 +69,9 @@
   },
   "monthInfo": {
     "month": "Month",
-    "statistics": "Statistics",
+    "statistics": "Statistics"
+  },
+  "chart": {
     "ml": "ml",
     "litre": "L"
   },

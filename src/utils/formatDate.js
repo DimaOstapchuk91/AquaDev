@@ -1,3 +1,5 @@
+import i18next from "i18next";
+
 export const getFormattedDate = (getDate) => {
   const date = getDate;
   const year = date.getFullYear();
@@ -19,18 +21,18 @@ export const formatDateDatMonth = (dateStr) => {
   if (!dateStr) return "";
 
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    i18next.t("months.january"),
+    i18next.t("months.february"),
+    i18next.t("months.march"),
+    i18next.t("months.april"),
+    i18next.t("months.may"),
+    i18next.t("months.june"),
+    i18next.t("months.july"),
+    i18next.t("months.august"),
+    i18next.t("months.september"),
+    i18next.t("months.october"),
+    i18next.t("months.november"),
+    i18next.t("months.december"),
   ];
 
   const date = new Date(dateStr);
@@ -44,18 +46,18 @@ export const formatDateYearMonth = (dateStr) => {
   if (!dateStr) return "";
 
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    i18next.t("months.january"),
+    i18next.t("months.february"),
+    i18next.t("months.march"),
+    i18next.t("months.april"),
+    i18next.t("months.may"),
+    i18next.t("months.june"),
+    i18next.t("months.july"),
+    i18next.t("months.august"),
+    i18next.t("months.september"),
+    i18next.t("months.october"),
+    i18next.t("months.november"),
+    i18next.t("months.december"),
   ];
 
   const date = new Date(dateStr);
