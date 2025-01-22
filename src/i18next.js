@@ -9,7 +9,7 @@ i18next
   .use(Backend)
   .init({
     fallbackLng: "en",
-    debug: false,
+    debug: true,
     // change debug to true to debug the issues
     interpolation: {
       escapeValue: false,
