@@ -15,22 +15,22 @@ export const getformatDateYearMonth = (getDate) => {
   return `${year}-${month}`;
 };
 
-export const formatDateDatMonth = dateStr => {
-  if (!dateStr) return '';
+export const formatDateDatMonth = (dateStr) => {
+  if (!dateStr) return "";
 
   const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const date = new Date(dateStr);
@@ -38,4 +38,29 @@ export const formatDateDatMonth = dateStr => {
   const day = date.getDate();
   const month = months[date.getMonth()];
   return `${day}, ${month}`;
+};
+
+export const formatDateYearMonth = (dateStr) => {
+  if (!dateStr) return "";
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const date = new Date(dateStr);
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+
+  return `${month}, ${year}`;
 };

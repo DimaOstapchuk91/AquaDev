@@ -1,32 +1,12 @@
 import s from "./CalendarPagination.module.css";
 import sprite from "../../assets/sprite.svg";
-import { useTranslation } from "react-i18next";
+import { formatDateYearMonth } from "../../utils/formatDate";
 
 const CalendarPagination = ({
   currentDate,
   setCurrentDate,
   isPaginationDisabled,
 }) => {
-  const { t } = useTranslation();
-
-  const months = [
-    t("months.january"),
-    t("months.february"),
-    t("months.march"),
-    t("months.april"),
-    t("months.may"),
-    t("months.june"),
-    t("months.july"),
-    t("months.august"),
-    t("months.september"),
-    t("months.october"),
-    t("months.november"),
-    t("months.december"),
-  ];
-
-  const currentMonth = months[currentDate.getMonth()];
-  const currentYear = currentDate.getFullYear();
-
   const changeMonth = (direction) => {
     setCurrentDate((prevDate) => {
       const newDate = new Date(prevDate);
@@ -46,9 +26,11 @@ const CalendarPagination = ({
           <use className={s.left} href={`${sprite}#icon-down`}></use>
         </svg>
       </button>
-      <p className={s.dataInfo}>{`${
-        isPaginationDisabled ? months[new Date().getMonth()] : currentMonth
-      }, ${isPaginationDisabled ? new Date().getFullYear() : currentYear}`}</p>
+      <p className={s.dataInfo}>
+        {isPaginationDisabled
+          ? formatDateYearMonth(new Date().toISOString())
+          : formatDateYearMonth(currentDate.toISOString())}
+      </p>
       <button
         onClick={() => changeMonth(1)}
         className={s.calendarPaginationButton}
