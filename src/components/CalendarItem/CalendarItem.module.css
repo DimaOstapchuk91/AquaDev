@@ -9,7 +9,7 @@
   height: 28px;
 
   background: var(--bg-component-green);
-  border: none;
+
   color: var(--background-white);
 
   font-family: Poppins;
@@ -36,10 +36,6 @@
   &:hover {
     box-shadow: none;
   }
-}
-
-.selected {
-  background-color: #e6f9e8;
 }
 
 .emptyDay {
@@ -72,6 +68,7 @@
 .selected {
   color: var(--background-white);
   background: var(--bg-component-dark-green);
+  border: 1px solid var(--bg-btn-dark-gray);
 }
 
 @media screen and (min-width: 768px) {
