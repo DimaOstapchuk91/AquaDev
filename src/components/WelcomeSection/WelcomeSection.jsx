@@ -3,7 +3,7 @@ import css from "./WelcomeSection.module.css";
 import Logo from "../Logo/Logo";
 
 import { useTranslation } from "react-i18next";
-import LocalizationDropdown from "../LocalizationDropdown/LocalizationDropdown";
+import LocalizationDropdown from "../LocalizationDropdown/LocalizationDropdown.jsx";
 
 const WelcomeSection = () => {
   const { t } = useTranslation();
