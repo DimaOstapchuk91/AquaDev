@@ -1,8 +1,10 @@
 import React from "react";
 import clsx from "clsx";
 import s from "./AddWaterBtn.module.css";
-import sprite from '../../assets/sprite.svg'
+import sprite from "../../assets/sprite.svg";
+import { useTranslation } from "react-i18next";
 const AddWaterBtn = ({ customClassName, onClick }) => {
+  const { t } = useTranslation();
   return (
     <button
       type="button"
@@ -15,7 +17,7 @@ const AddWaterBtn = ({ customClassName, onClick }) => {
             <use href={`${sprite}#icon-plus`}></use>
           </svg>
         </span>
-        Add water
+        {t("addWaterBtn.addWater")}
       </div>
     </button>
   );

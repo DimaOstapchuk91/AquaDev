@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { errToast, successfullyToast } from "../../utils/toast.js";
 import { aquaDevApi, setAuthHeader } from "../service/configApi.js";
+import i18next from "i18next";
 
 export const getAllUsersCount = createAsyncThunk(
   "user/getAllUsersCount",
@@ -22,13 +23,13 @@ export const register = createAsyncThunk(
     try {
       const { data } = await aquaDevApi.post("/users/register", credentials);
       if (data.status === 201) {
-        successfullyToast("Successfully Register!");
+        successfullyToast(i18next.t("toast.registeredSuccess"));
         navigate("/signin");
       }
       return data;
     } catch (error) {
       if (error.status === 409) {
-        errToast("Email in use");
+        errToast(i18next.t("toast.emailInUse"));
         return thunkApi.rejectWithValue(error.message);
       }
       return thunkApi.rejectWithValue(error.message);
@@ -44,18 +45,18 @@ export const logIn = createAsyncThunk(
 
       if (data.status === 200) {
         setAuthHeader(data.data.accessToken);
-        successfullyToast("Successfully logged");
+        successfullyToast(i18next.t("toast.loggedInSuccess"));
       }
 
       return data.data.accessToken;
     } catch (error) {
       if (error.status === 404) {
-        errToast("No such user exists");
+        errToast(i18next.t("toast.noUser"));
         return thunkApi.rejectWithValue("No such user exists");
       }
 
       if (error.status === 401) {
-        errToast("Invalid password");
+        errToast(i18next.t("toast.invalidPwd"));
         return thunkApi.rejectWithValue("Invalid password");
       }
       return thunkApi.rejectWithValue(error.message);
@@ -67,9 +68,9 @@ export const logout = createAsyncThunk("user/logout", async (_, thunkApi) => {
   try {
     const { data } = await aquaDevApi.post("/users/logout");
     if (data.status === 204) {
-      successfullyToast("Goodbye");
       setAuthHeader();
     }
+    successfullyToast(i18next.t("toast.bye"));
     return data;
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
@@ -85,7 +86,8 @@ export const updateUser = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
-      successfullyToast("User updated successfully!");
+      successfullyToast(i18next.t("toast.userUpdated"));
+
       return data.data;
     } catch (error) {
       const status = error.response?.status;
@@ -131,8 +133,9 @@ export const refreshUser = createAsyncThunk(
       return data.data.accessToken;
     } catch (error) {
       if (error.status === 401) {
-        errToast("token not found");
-        return thunkApi.rejectWithValue("token not found");
+        errToast(i18next.t("toast.noToken"));
+
+        return thunkApi.rejectWithValue("Token not found");
       }
       return thunkApi.rejectWithValue(
         error.response ? error.response.data : error.message

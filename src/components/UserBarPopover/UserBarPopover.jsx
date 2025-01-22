@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import sprite from "../../assets/sprite.svg";
 import s from "./UserBarPopover.module.css";
+import { useTranslation } from "react-i18next";
 
 const UserBarPopover = ({
   buttonRef,
@@ -10,6 +11,7 @@ const UserBarPopover = ({
 }) => {
   const [visible, setVisible] = useState(false);
   const popoverRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 0);
@@ -39,7 +41,7 @@ const UserBarPopover = ({
         <svg className={`${s.popoverIcons}`} width={16} height={16}>
           <use href={`${sprite}#icon-settings`}></use>
         </svg>
-        Setting
+        {t("userBarPopover.setting")}
       </button>
       <button
         onClick={handleLogoutOpen}
@@ -52,7 +54,7 @@ const UserBarPopover = ({
         >
           <use href={`${sprite}#icon-log-out`}></use>
         </svg>
-        Log out
+        {t("userBarPopover.logout")}
       </button>
     </div>
   );

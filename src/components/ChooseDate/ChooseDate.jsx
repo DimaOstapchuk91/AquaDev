@@ -6,14 +6,17 @@ import {
   getFormattedDate,
 } from "../../utils/formatDate.js";
 import s from "./ChooseDate.module.css";
+import { useTranslation } from "react-i18next";
 
 const ChooseDate = ({ customClassName }) => {
+  const { t } = useTranslation();
+
   const getDate = useSelector(selectDateDay);
 
   const comparison = getFormattedDate(new Date());
 
   const chosenDay =
-    comparison === getDate ? "Today" : formatDateDatMonth(getDate);
+    comparison === getDate ? t("chooseDate") : formatDateDatMonth(getDate);
 
   return (
     <div>

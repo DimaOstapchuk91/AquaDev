@@ -1,0 +1,207 @@
+{
+  "language": "Language",
+  "welcomePage": {
+    "header": "Record daily water intake and track",
+    "name": "Water consumption tracker",
+    "tryTracker": "Try tracker",
+    "signIn": "Sign in"
+  },
+  "advantagesSection": {
+    "happyCustomers_one": "Our <span>{{allUsersCount}} happy</span><br/> customer",
+    "happyCustomers_other": "Our <span>{{allUsersCount}} happy</span><br/> customers",
+    "habitDrive": "Habit drive",
+    "viewStatistics": "View statistics",
+    "personalRateSettings": "Personal rate setting"
+  },
+  "signUp": {
+    "signUp": "Sign Up",
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "password": "Password",
+    "enterPassword": "Enter your password",
+    "repeatPassword": "Repeat password",
+    "hasAccount": "Do you have an account?",
+    "signIn": " Sign In"
+  },
+  "signUpValidation": {
+    "mustBeFilled": "Must be filled",
+    "passwordRequired": "Password is required",
+    "passwordConfirmation": "Password confirmation is required"
+  },
+  "signIn": {
+    "signIn": "Sign In",
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "password": "Password",
+    "enterPassword": "Enter your password",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up"
+  },
+  "waterDashboard": {
+    "dailyNorm": "My daily norm",
+    "litre": "L"
+  },
+  "userPanel": {
+    "greet": "Hello,",
+    "load": "Loading..."
+  },
+  "userBarPopover": {
+    "setting": "Setting",
+    "logout": "Logout"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+
+  "addWaterBtn": {
+    "addWater": "Add water"
+  },
+  "monthInfo": {
+    "month": "Month",
+    "statistics": "Statistics"
+  },
+  "chart": {
+    "ml": "ml",
+    "litre": "L"
+  },
+  "waterModal": {
+    "addWater": "Add water",
+    "editValue": "Edit the entered amount of water",
+    "chooseValue": "Choose a value:",
+    "correctData": "Correct entered data:"
+  },
+  "waterForm": {
+    "enterValue": "Enter the value of the water used:",
+    "recordingTime": "Recording time:",
+    "waterAmount": "Amount of water:",
+    "ml": "ml",
+    "saveBtn": "Save",
+    "cancelBtn": "Cancel"
+  },
+  "userSettingsModal": "Settings",
+  "userSettingsForm": {
+    "settings": "Setting",
+    "uploadPhoto": "Upload a photo",
+    "gender": "Your gender identity",
+    "woman": "Woman",
+    "man": "Man",
+    "name": "Your name",
+    "placeholderName": "Name",
+    "email": "Email",
+    "placeholderEmail": "Email",
+    "dailyNorma": "My daily norma",
+    "forWoman": "For woman:",
+    "forMan": "For man:",
+    "explanation": "V is the volume of the water norm in liters per day, M is your body weight, T is the time of active sports, or another type of activity commensurate in terms of loads (in the absence of these, you must set 0)",
+    "activeTime": "Active time in hours",
+    "weight": "Your weight in kilograms:",
+    "sportTime": "The time of active participation in sports:",
+    "waterRequired": "The required amount of water in liters per day:",
+    "drinkWater": "Write down how much water you will drink:",
+    "saveBtn": "Save",
+    "litre": "L"
+  },
+  "logOutModal": {
+    "logOut": "Log out",
+    "confirmation": "Do you really want to leave?",
+    "cancelBtn": "Cancel",
+    "logOutBtn": "Log out"
+  },
+  "deleteWaterModal": {
+    "delete": "Delete entry",
+    "confirmation": "Are you sure you want to delete the entry?",
+    "deleteBtn": "Delete",
+    "cancelBtn": "Cancel"
+  },
+  "chooseDate": "Today",
+  "waterItem": {
+    "ml": "ml",
+    "litre": "L"
+  },
+
+  "toast": {
+    "loggedInSuccess": "Successfully logged in",
+    "registeredSuccess": "Successfully registered",
+    "emailInUse": "Email in use",
+    "noUser": "No such user exists",
+    "invalidPwd": "Invalid password",
+    "bye": "Goodbye",
+    "userUpdated": "Your information was updated",
+    "noToken": "Token not found",
+    "waterAddedSuccess": "Water portion added successfully",
+    "invalidData": "Invalid data provided",
+    "serverError": "Server error. Please try again later",
+    "unexpectedError": "An unexpected error occurred",
+    "waterUpdated": "Water portion updated successfully",
+    "waterNotFound": "Water portion not found",
+    "unexpectedErrorUpdate": "An unexpected error occurred during update",
+    "waterDeleted": "Water portion deleted successfully",
+    "unexpectedErrorDeletion": "An unexpected error occurred during deletion"
+  },
+  "validation": {
+    "email": {
+      "invalid": "Invalid email format",
+      "min": "Minimum 3 characters",
+      "max": "Maximum 50 characters",
+      "required": "Must be filled"
+    },
+    "password": {
+      "required": "Password is required",
+      "min": "Minimum 3 characters",
+      "max": "Maximum 50 characters",
+      "letter": "Password must contain at least one letter",
+      "number": "The password must contain at least one number",
+      "match": "Passwords must match",
+      "confirmRequired": "Password confirmation is required"
+    },
+    "name": {
+      "min": "Minimum 2 characters",
+      "max": "Maximum 16 characters"
+    },
+    "activityTime": {
+      "typeError": "Activity time must be a number",
+      "min": "Activity time must be 0 or greater",
+      "max": "The time of action should be no more than 12"
+    },
+    "weight": {
+      "min": "Weight must be greater than 0",
+      "max": "The weight must be less than 200",
+      "typeError": "Weight must be a number"
+    },
+    "waterIntake": {
+      "min": "Water intake must be at least 0.5 liters (500 ml)",
+      "max": "Water intake cannot exceed 15 liters (15,000 ml)",
+      "typeError": "Water intake must be a number",
+      "test": "Water intake must have at most one decimal place"
+    },
+    "amount": {
+      "required": "Amount is required",
+      "positive": "Amount must be greater than 0",
+      "integer": "Amount must be an integer",
+      "min": "Amount must be at least 50 ml",
+      "max": "Amount cannot exceed 2000 ml"
+    },
+    "time": {
+      "required": "Time is required",
+      "format": "Invalid time format (hh:mm)"
+    }
+  },
+  "waterList": {
+    "letsDrinkWater": "Let's drink some water!",
+    "oopsNoWater": "Oops, you didn't drink water that day…"
+  },
+  "waterProgressBar": {
+    "litre": "L"
+  }
+}

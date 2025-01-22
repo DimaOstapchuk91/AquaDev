@@ -3,8 +3,10 @@ import { selectIsRefreshing, selectUser } from "../../redux/user/selectors";
 import { useSelector } from "react-redux";
 import s from "./UserPanel.module.css";
 import { Rings } from "react-loader-spinner";
+import { useTranslation } from "react-i18next";
 
 const UserPanel = () => {
+  const { t } = useTranslation();
   const { name, email, avatar } = useSelector(selectUser);
   const userName = name ? name : email;
   const userPhoto = avatar
@@ -27,7 +29,7 @@ const UserPanel = () => {
         />
       ) : (
         <h2 className={s.title}>
-          Hello, <span className={s.span}>{userName} !</span>
+          {t("userPanel.greet")} <span className={s.span}>{userName} !</span>
         </h2>
       )}
 
