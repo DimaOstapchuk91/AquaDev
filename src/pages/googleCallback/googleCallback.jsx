@@ -14,7 +14,6 @@ const GoogleCallback = () => {
     const accessToken = searchParams.get("accessToken");
 
     if (accessToken) {
-      console.log(accessToken);
       dispatch(setUser({ token: accessToken }));
 
       navigate("/tracker");

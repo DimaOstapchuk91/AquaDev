@@ -23,7 +23,6 @@ const nameValid = Yup.string()
     return value;
   })
   .test("is-null-or-valid", lazyT("validation.name.min"), (value) => {
-    console.log("Current value:", value);
     if (value === null) return true;
     return value.length >= 2;
   })
