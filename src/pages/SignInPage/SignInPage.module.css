@@ -6,18 +6,11 @@
   gap: 16px;
 }
 
-.signInWrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .rightSection {
   display: none;
   position: relative;
 }
 
-/* media 1158px */
 @media (min-width: 1440px) {
   .rightSection {
     display: block;
