@@ -16,16 +16,14 @@ const SignUpPage = () => {
   }, []);
 
   return (
-    <div className={styles.signUpWrap}>
-      <div className={'container'}>
-        <div className={styles.containerWapper}>
-          <SignUpForm />
-          {isVisible && (
-            <div className={styles.rightSection}>
-              <AdvantagesSection />
-            </div>
-          )}
-        </div>
+    <div className={'container'}>
+      <div className={styles.containerWapper}>
+        <SignUpForm />
+        {isVisible && (
+          <div className={styles.rightSection}>
+            <AdvantagesSection />
+          </div>
+        )}
       </div>
     </div>
   );

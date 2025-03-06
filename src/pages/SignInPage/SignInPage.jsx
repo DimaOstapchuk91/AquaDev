@@ -16,16 +16,14 @@ const SignInPage = () => {
     };
   }, []);
   return (
-    <div className={styles.signInWrap}>
-      <div className={'container'}>
-        <div className={styles.containerWapper}>
-          <SignInForm />
-          {isVisible && (
-            <div className={styles.rightSection}>
-              <AdvantagesSection />
-            </div>
-          )}
-        </div>
+    <div className={'container'}>
+      <div className={styles.containerWapper}>
+        <SignInForm />
+        {isVisible && (
+          <div className={styles.rightSection}>
+            <AdvantagesSection />
+          </div>
+        )}
       </div>
     </div>
   );
